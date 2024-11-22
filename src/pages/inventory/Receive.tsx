@@ -1,3 +1,3 @@
 export const Receive = () => {
-  return <div className="main">Receive</div>;
+  return <div>Receive</div>;
 };

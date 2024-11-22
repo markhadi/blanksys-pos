@@ -1,15 +1,19 @@
 import { Location as RouterLocation } from 'react-router-dom';
 
+export type UserRole = 'Administrator' | 'Cashier';
+
 export interface MenuItem {
   path: string;
   label: string;
   icon: string;
   isSubItem?: boolean;
+  roles?: UserRole[];
 }
 
 export interface MenuSection {
   title?: string;
   items: MenuItem[];
+  roles?: UserRole[];
 }
 
 export interface SidebarProps {
