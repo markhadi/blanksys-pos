@@ -1,0 +1,156 @@
+[
+  {
+    "id": 1,
+    "username": "admin001",
+    "fullName": "John Doe",
+    "role": "Administrator",
+    "password": "password123"
+  },
+  {
+    "id": 2,
+    "username": "cashier001",
+    "fullName": "Jane Smith",
+    "role": "Cashier",
+    "password": "cashierPass1"
+  },
+  {
+    "id": 3,
+    "username": "admin002",
+    "fullName": "Michael Johnson",
+    "role": "Administrator",
+    "password": "adminSecure2"
+  },
+  {
+    "id": 4,
+    "username": "cashier002",
+    "fullName": "Emily Davis",
+    "role": "Cashier",
+    "password": "cashierPass2"
+  },
+  {
+    "id": 5,
+    "username": "admin003",
+    "fullName": "William Brown",
+    "role": "Administrator",
+    "password": "securePass3"
+  },
+  {
+    "id": 6,
+    "username": "cashier003",
+    "fullName": "Sophia Martinez",
+    "role": "Cashier",
+    "password": "cashierSecure3"
+  },
+  {
+    "id": 7,
+    "username": "admin004",
+    "fullName": "James Anderson",
+    "role": "Administrator",
+    "password": "admin1234"
+  },
+  {
+    "id": 8,
+    "username": "cashier004",
+    "fullName": "Isabella Wilson",
+    "role": "Cashier",
+    "password": "passForCashier4"
+  },
+  {
+    "id": 9,
+    "username": "admin005",
+    "fullName": "Oliver Garcia",
+    "role": "Administrator",
+    "password": "adminOliver5"
+  },
+  {
+    "id": 10,
+    "username": "cashier005",
+    "fullName": "Mia Lopez",
+    "role": "Cashier",
+    "password": "cashierMia5"
+  },
+  {
+    "id": 11,
+    "username": "admin006",
+    "fullName": "Ethan Clark",
+    "role": "Administrator",
+    "password": "ethanPass6"
+  },
+  {
+    "id": 12,
+    "username": "cashier006",
+    "fullName": "Charlotte Lewis",
+    "role": "Cashier",
+    "password": "secureCharlotte6"
+  },
+  {
+    "id": 13,
+    "username": "admin007",
+    "fullName": "Aiden Hall",
+    "role": "Administrator",
+    "password": "adminAiden7"
+  },
+  {
+    "id": 14,
+    "username": "cashier007",
+    "fullName": "Amelia Allen",
+    "role": "Cashier",
+    "password": "cashierAmelia7"
+  },
+  {
+    "id": 15,
+    "username": "admin008",
+    "fullName": "Lucas Young",
+    "role": "Administrator",
+    "password": "lucasAdmin8"
+  },
+  {
+    "id": 16,
+    "username": "cashier008",
+    "fullName": "Harper King",
+    "role": "Cashier",
+    "password": "harperSecure8"
+  },
+  {
+    "id": 17,
+    "username": "admin009",
+    "fullName": "Benjamin Wright",
+    "role": "Administrator",
+    "password": "adminBen9"
+  },
+  {
+    "id": 18,
+    "username": "cashier009",
+    "fullName": "Lily Scott",
+    "role": "Cashier",
+    "password": "lilyCashier9"
+  },
+  {
+    "id": 19,
+    "username": "admin010",
+    "fullName": "Henry Baker",
+    "role": "Administrator",
+    "password": "henrySecure10"
+  },
+  {
+    "id": 20,
+    "username": "cashier010",
+    "fullName": "Ella Green",
+    "role": "Cashier",
+    "password": "ellaCashier10"
+  },
+  {
+    "id": 21,
+    "username": "admin",
+    "fullName": "Admin",
+    "role": "Administrator",
+    "password": "admin123"
+  },
+  {
+    "id": 22,
+    "username": "cashier",
+    "fullName": "Cashier",
+    "role": "Cashier",
+    "password": "cashier123"
+  }
+]
