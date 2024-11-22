@@ -53,7 +53,7 @@ export const router = createBrowserRouter([
       {
         path: ROUTES.CASHIER.ROOT,
         element: (
-          <ProtectedRoute allowedRoles={['Cashier']}>
+          <ProtectedRoute allowedRoles={['Cashier', 'Administrator']}>
             <Cashier />
           </ProtectedRoute>
         ),

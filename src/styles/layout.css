@@ -1,0 +1,51 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .container-layout {
+    @apply min-h-dvh grid;
+    grid-template-columns: var(--sidebar-width) 1fr;
+    grid-template-rows: var(--header-height) minmax(
+        calc(100dvh - var(--header-height)),
+        min-content
+      );
+    grid-auto-columns: 1fr;
+    grid-auto-flow: row;
+    grid-template-areas:
+      'header header'
+      'sidebar main';
+  }
+
+  .header {
+    grid-area: header;
+    @apply bg-primary fixed w-full;
+    height: var(--header-height);
+  }
+
+  .sidebar {
+    grid-area: sidebar;
+    @apply bg-white hidden md:block;
+    width: var(--sidebar-width);
+  }
+
+  .main {
+    grid-area: main;
+    @apply bg-secondary p-5 min-h-min h-full flex flex-col;
+  }
+}
+
+:root {
+  --header-height: 62px;
+  --sidebar-width: 241px;
+}
+
+@media (max-width: 639px) {
+  .container-layout {
+    grid-template-columns: 1fr;
+    grid-template-rows: var(--header-height) 1fr;
+    grid-template-areas:
+      'header'
+      'main';
+  }
+}
