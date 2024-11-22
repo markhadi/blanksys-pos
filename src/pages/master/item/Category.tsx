@@ -1,3 +1,3 @@
 export const Category = () => {
-  return <div>Category</div>;
+  return <div className="main">Category</div>;
 };

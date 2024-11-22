@@ -1,3 +1,3 @@
 export const MasterItem = () => {
-  return <div>MasterItem</div>;
+  return <div className="main">MasterItem</div>;
 };

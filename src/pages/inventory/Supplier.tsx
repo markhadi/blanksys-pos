@@ -1,3 +1,3 @@
 export const Supplier = () => {
-  return <div>Supplier</div>;
+  return <div className="main">Supplier</div>;
 };

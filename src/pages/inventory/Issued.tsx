@@ -1,3 +1,3 @@
 export const Issued = () => {
-  return <div>Issued</div>;
+  return <div className="main">Issued</div>;
 };

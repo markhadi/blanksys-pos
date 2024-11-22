@@ -1,3 +1,3 @@
 export const Units = () => {
-  return <div>Units</div>;
+  return <div className="main">Units</div>;
 };

@@ -1,3 +1,3 @@
 export const Brand = () => {
-  return <div>Brand</div>;
+  return <div className="main">Brand</div>;
 };
