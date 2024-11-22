@@ -6,10 +6,13 @@ import { authService } from '@/services/auth.service';
 import { useCallback } from 'react';
 import { useToast } from '@/hooks/use-toast';
 import { useNavigate } from 'react-router-dom';
+import { useUser } from '@/contexts/UserContext';
+import { ROUTES } from '@/constants/routes';
 
 export const Login = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
+  const { setUser } = useUser();
 
   const handleSubmit = useCallback(
     async (values: LoginFormType) => {
@@ -17,14 +20,17 @@ export const Login = () => {
         const response = await authService.login(values);
 
         if (response.success && response.user) {
+          setUser(response.user);
+
           toast({
             title: 'Success',
             description: response.message,
           });
 
-          localStorage.setItem('user', JSON.stringify(response.user));
           const redirectPath =
-            response.user.role === 'Administrator' ? '/admin' : '/cashier';
+            response.user.role === 'Administrator'
+              ? ROUTES.DASHBOARD
+              : ROUTES.CASHIER.ROOT;
           navigate(redirectPath);
         } else {
           toast({
@@ -41,7 +47,7 @@ export const Login = () => {
         });
       }
     },
-    [toast, navigate]
+    [toast, navigate, setUser]
   );
 
   return (
