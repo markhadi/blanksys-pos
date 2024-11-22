@@ -53,7 +53,7 @@ export const router = createBrowserRouter([
       {
         path: ROUTES.CASHIER.ROOT,
         element: (
-          <ProtectedRoute allowedRoles={['Cashier', 'Administrator']}>
+          <ProtectedRoute roles={['Cashier', 'Administrator']}>
             <Cashier />
           </ProtectedRoute>
         ),
@@ -61,7 +61,7 @@ export const router = createBrowserRouter([
       {
         path: ROUTES.CASHIER.TRANSACTION,
         element: (
-          <ProtectedRoute allowedRoles={['Cashier', 'Administrator']}>
+          <ProtectedRoute roles={['Cashier', 'Administrator']}>
             <Transaction />
           </ProtectedRoute>
         ),
@@ -70,7 +70,7 @@ export const router = createBrowserRouter([
       {
         path: ROUTES.MASTER.ITEM.ROOT,
         element: (
-          <ProtectedRoute allowedRoles={['Administrator']}>
+          <ProtectedRoute roles={['Administrator']}>
             <MasterItem />
           </ProtectedRoute>
         ),
@@ -78,7 +78,7 @@ export const router = createBrowserRouter([
       {
         path: ROUTES.MASTER.ITEM.CATEGORY,
         element: (
-          <ProtectedRoute allowedRoles={['Administrator']}>
+          <ProtectedRoute roles={['Administrator']}>
             <Category />
           </ProtectedRoute>
         ),
@@ -86,7 +86,7 @@ export const router = createBrowserRouter([
       {
         path: ROUTES.MASTER.ITEM.BRAND,
         element: (
-          <ProtectedRoute allowedRoles={['Administrator']}>
+          <ProtectedRoute roles={['Administrator']}>
             <Brand />
           </ProtectedRoute>
         ),
@@ -94,7 +94,7 @@ export const router = createBrowserRouter([
       {
         path: ROUTES.MASTER.ITEM.UNITS,
         element: (
-          <ProtectedRoute allowedRoles={['Administrator']}>
+          <ProtectedRoute roles={['Administrator']}>
             <Units />
           </ProtectedRoute>
         ),
@@ -102,7 +102,7 @@ export const router = createBrowserRouter([
       {
         path: ROUTES.MASTER.PRICE,
         element: (
-          <ProtectedRoute allowedRoles={['Administrator']}>
+          <ProtectedRoute roles={['Administrator']}>
             <MasterPrice />
           </ProtectedRoute>
         ),
@@ -111,7 +111,7 @@ export const router = createBrowserRouter([
       {
         path: ROUTES.INVENTORY.PURCHASE_ORDER,
         element: (
-          <ProtectedRoute allowedRoles={['Administrator']}>
+          <ProtectedRoute roles={['Administrator']}>
             <PurchaseOrder />
           </ProtectedRoute>
         ),
@@ -119,7 +119,7 @@ export const router = createBrowserRouter([
       {
         path: ROUTES.INVENTORY.SUPPLIER,
         element: (
-          <ProtectedRoute allowedRoles={['Administrator']}>
+          <ProtectedRoute roles={['Administrator']}>
             <Supplier />
           </ProtectedRoute>
         ),
@@ -127,7 +127,7 @@ export const router = createBrowserRouter([
       {
         path: ROUTES.INVENTORY.RECEIVE,
         element: (
-          <ProtectedRoute allowedRoles={['Administrator']}>
+          <ProtectedRoute roles={['Administrator']}>
             <Receive />
           </ProtectedRoute>
         ),
@@ -135,7 +135,7 @@ export const router = createBrowserRouter([
       {
         path: ROUTES.INVENTORY.ISSUED,
         element: (
-          <ProtectedRoute allowedRoles={['Administrator']}>
+          <ProtectedRoute roles={['Administrator']}>
             <Issued />
           </ProtectedRoute>
         ),
@@ -144,7 +144,7 @@ export const router = createBrowserRouter([
       {
         path: ROUTES.SETTINGS.USER_MANAGER,
         element: (
-          <ProtectedRoute allowedRoles={['Administrator']}>
+          <ProtectedRoute roles={['Administrator']}>
             <UserManager />
           </ProtectedRoute>
         ),
