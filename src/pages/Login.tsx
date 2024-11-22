@@ -7,7 +7,7 @@ import { useCallback } from 'react';
 import { useToast } from '@/hooks/use-toast';
 import { useNavigate } from 'react-router-dom';
 
-const Login = () => {
+export const Login = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
 
@@ -51,5 +51,3 @@ const Login = () => {
     </div>
   );
 };
-
-export default Login;
