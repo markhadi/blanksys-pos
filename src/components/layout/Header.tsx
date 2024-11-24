@@ -11,8 +11,8 @@ export const Header = ({ isSidebarOpen, onToggleSidebar }: HeaderProps) => {
   useScrollLock(isSidebarOpen);
 
   return (
-    <header className="header flex items-center px-5 sm:px-12 bg-[#1E293B] z-50">
-      <Link to="/dashboard" className="flex-shrink-0 hidden sm:block">
+    <header className="header flex items-center px-5 md:px-12 bg-[#1E293B] z-50">
+      <Link to="/dashboard" className="flex-shrink-0 hidden md:block">
         <img src={logo} alt="logo header" className="h-[49px]" />
       </Link>
 

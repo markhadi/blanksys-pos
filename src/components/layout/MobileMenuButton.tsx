@@ -9,7 +9,7 @@ export const MobileMenuButton = ({
 }: MobileMenuButtonProps) => (
   <button
     onClick={onClick}
-    className="flex flex-col w-5 h-5 justify-between items-center sm:hidden"
+    className="flex flex-col w-5 h-5 justify-between items-center md:hidden"
     aria-label={isOpen ? 'Close menu' : 'Open menu'}
     aria-expanded={isOpen}
   >

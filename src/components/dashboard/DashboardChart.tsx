@@ -69,9 +69,6 @@ const ChartHeader = ({
         </CardTitle>
         <div className="flex gap-2">
           <Select value={year} onValueChange={onYearChange}>
-            <SelectTrigger className="w-[100px]">
-              <SelectValue placeholder="Year" />
-            </SelectTrigger>
             <SelectContent>
               {years.map((y) => (
                 <SelectItem key={y} value={y.toString()}>
