@@ -31,7 +31,7 @@
 
   .main {
     grid-area: main;
-    @apply bg-secondary p-5 min-h-min h-full flex flex-col;
+    @apply bg-[#FAFAFA] p-5 min-h-min h-full flex flex-col;
   }
 }
 
