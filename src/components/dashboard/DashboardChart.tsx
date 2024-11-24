@@ -137,6 +137,12 @@ const BaseChart = ({
               tickLine={false}
               axisLine={false}
               tickMargin={8}
+              tickFormatter={(value) => {
+                if (xAxisKey === 'month') {
+                  return getMonthName(value);
+                }
+                return value;
+              }}
             />
             <YAxis
               tickFormatter={(value) => formatNumber(value)}

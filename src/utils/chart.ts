@@ -9,6 +9,30 @@ export const transformChartData = (data: SalesData[]): ChartDataPoint[] => {
   }));
 };
 
-export const getMonthName = (month: number): string => {
-  return new Date(2000, month).toLocaleString('en-US', { month: 'long' });
+export const getMonthName = (month: number | string): string => {
+  const months = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
+  ];
+
+  if (typeof month === 'string' && isNaN(parseInt(month))) {
+    return month.slice(0, 3);
+  }
+
+  const monthIndex = typeof month === 'string' ? parseInt(month) : month;
+  if (isNaN(monthIndex) || monthIndex < 0 || monthIndex > 11) {
+    return '';
+  }
+
+  return months[monthIndex];
 };
