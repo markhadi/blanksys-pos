@@ -80,18 +80,6 @@ export interface ChartResponse {
   data: SalesData[];
 }
 
-export interface DashboardFilter {
-  year: string;
-  tab: DashboardTab;
-}
-
-export interface ChartFilter {
-  year: string;
-  month?: number;
-  type: ChartType;
-  dataType: DataType;
-}
-
 export interface ChartProps {
   title: string;
   data: ChartDataPoint[];
@@ -103,9 +91,19 @@ export interface ChartProps {
   onMonthChange?: (month: number) => void;
 }
 
-export interface ChartComponentProps {
+export interface BaseChartProps extends ChartProps {
+  availableYears: number[];
+  availableMonths?: number[];
+  showMonthSelector?: boolean;
+}
+
+export interface ChartErrorProps {
+  message: string;
+}
+
+export interface DashboardChartProps {
   year: string;
   month?: number;
-  onYearChange: (year: string) => void;
+  onYearChange?: (year: string) => void;
   onMonthChange?: (month: number) => void;
 }

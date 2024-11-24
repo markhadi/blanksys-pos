@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { DashboardCardGroup } from './DashboardCardGroup';
+import { DashboardCardGroup } from '@/components/dashboard/DashboardCardGroup';
 import {
   ChartGeneral,
   ChartDailyReceiveSpending,

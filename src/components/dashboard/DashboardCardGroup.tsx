@@ -1,5 +1,5 @@
-import { DashboardCard } from './DashboardCard';
-import { DashboardCardSkeleton } from './DashboardCardSkeleton';
+import { DashboardCard } from '@/components/dashboard/DashboardCard';
+import { DashboardCardSkeleton } from '@/components/dashboard/DashboardCardSkeleton';
 import { useDashboardCards } from '@/hooks/useDashboardCards';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { AlertCircle } from 'lucide-react';
