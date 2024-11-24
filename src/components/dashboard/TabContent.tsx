@@ -7,9 +7,15 @@ interface TabContentProps {
 }
 
 export const TabContent = ({ tab, year }: TabContentProps) => {
+  const titles: Record<DashboardTab, string> = {
+    general: 'General',
+    inventory: 'Inventory',
+    cashier: 'Cashier',
+  };
+
   return (
     <div className="mt-6">
-      <DashboardCardGroup variant={tab} title={tab} year={year} />
+      <DashboardCardGroup variant={tab} title={titles[tab]} year={year} />
     </div>
   );
 };

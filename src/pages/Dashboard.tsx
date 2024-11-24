@@ -20,12 +20,16 @@ export const Dashboard = () => {
   const isAdmin = hasRole(['Administrator']);
 
   useEffect(() => {
-    const years = dashboardService.getAvailableYears();
-    setAvailableYears(years);
+    const initializeDashboard = () => {
+      const years = dashboardService.getAvailableYears();
+      setAvailableYears(years);
 
-    if (years.length > 0 && !selectedYear) {
-      setSelectedYear(years[0].toString());
-    }
+      if (years.length > 0 && !selectedYear) {
+        setSelectedYear(years[0].toString());
+      }
+    };
+
+    initializeDashboard();
   }, []);
 
   const handleTabChange = (value: string) => {
@@ -33,7 +37,7 @@ export const Dashboard = () => {
   };
 
   return (
-    <div>
+    <div className="p-6">
       <Tabs
         value={selectedTab}
         onValueChange={handleTabChange}

@@ -2,9 +2,14 @@ import {
   DashboardResponse,
   DashboardCardData,
   CardData,
-  TrendDirection,
   MetricData,
 } from '@/types/dashboard';
+import { CARD_TITLES } from '@/constants/dashboard';
+import {
+  createMetricCard,
+  createCountCard,
+  isTrendDirection,
+} from '@/utils/dashboard';
 import dashboardData from '@/data/dashboard-card.json';
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -14,10 +19,6 @@ const createResponse = (data: CardData[]): DashboardResponse => ({
   message: 'Data retrieved successfully',
   data,
 });
-
-const isTrendDirection = (trend: string): trend is TrendDirection => {
-  return trend === 'up' || trend === 'down';
-};
 
 const transformData = (rawData: any): DashboardCardData => {
   const transformMetric = (metric: any): MetricData => ({
@@ -44,164 +45,67 @@ const transformData = (rawData: any): DashboardCardData => {
 
 const transformGeneralCards = (data: DashboardCardData): CardData[] => {
   return [
-    {
-      title: "Today's Gross Profit",
-      value: data.todayGrossProfit.value,
-      trend: {
-        value: Math.abs(data.todayGrossProfit.percentageChange),
-        isUp: data.todayGrossProfit.trend === 'up',
-        text: `${
-          data.todayGrossProfit.trend === 'up' ? 'Up' : 'Down'
-        } from yesterday`,
-      },
-      type: 'primary',
-    },
-    {
-      title: "Today's Net Profit",
-      value: data.todayNetProfit.value,
-      trend: {
-        value: Math.abs(data.todayNetProfit.percentageChange),
-        isUp: data.todayNetProfit.trend === 'up',
-        text: `${
-          data.todayNetProfit.trend === 'up' ? 'Up' : 'Down'
-        } from yesterday`,
-      },
-      type: 'success',
-    },
-    {
-      title: "Today's Item Receipt",
-      value: data.todayItemReceipt.value,
-      trend: {
-        value: Math.abs(data.todayItemReceipt.percentageChange),
-        isUp: data.todayItemReceipt.trend === 'up',
-        text: `${
-          data.todayItemReceipt.trend === 'up' ? 'Up' : 'Down'
-        } from yesterday`,
-      },
-      type: 'info',
-    },
-    {
-      title: "Today's Estimation Loss",
-      value: data.todayEstimationLoss.value,
-      trend: {
-        value: Math.abs(data.todayEstimationLoss.percentageChange),
-        isUp: data.todayEstimationLoss.trend === 'up',
-        text: `${
-          data.todayEstimationLoss.trend === 'up' ? 'Up' : 'Down'
-        } from yesterday`,
-      },
-      type: 'danger',
-    },
+    createMetricCard(
+      CARD_TITLES.TODAY_GROSS_PROFIT,
+      data.todayGrossProfit,
+      'primary'
+    ),
+    createMetricCard(
+      CARD_TITLES.TODAY_NET_PROFIT,
+      data.todayNetProfit,
+      'success'
+    ),
+    createMetricCard(
+      CARD_TITLES.TODAY_ITEM_RECEIPT,
+      data.todayItemReceipt,
+      'info'
+    ),
+    createMetricCard(
+      CARD_TITLES.TODAY_ESTIMATION_LOSS,
+      data.todayEstimationLoss,
+      'danger'
+    ),
   ];
 };
 
 const transformInventoryCards = (data: DashboardCardData): CardData[] => {
   return [
-    {
-      title: 'Items',
-      value: data.items.total,
-      trend: {
-        value: data.items.newAdded,
-        isUp: true,
-        text: 'New items added',
-      },
-      type: 'primary',
-    },
-    {
-      title: 'Prices',
-      value: data.prices.total,
-      trend: {
-        value: data.prices.newAdded,
-        isUp: true,
-        text: 'New prices added',
-      },
-      type: 'success',
-    },
-    {
-      title: 'Brands',
-      value: data.brands.total,
-      trend: {
-        value: data.brands.newAdded,
-        isUp: true,
-        text: 'New brands added',
-      },
-      type: 'info',
-    },
-    {
-      title: 'Categories',
-      value: data.categories.total,
-      trend: {
-        value: data.categories.newAdded,
-        isUp: true,
-        text: 'New categories added',
-      },
-      type: 'danger',
-    },
-    {
-      title: 'Received Spending',
-      value: data.receivedSpending.value,
-      trend: {
-        value: Math.abs(data.receivedSpending.percentageChange),
-        isUp: data.receivedSpending.trend === 'up',
-        text: `${
-          data.receivedSpending.trend === 'up' ? 'Up' : 'Down'
-        } from yesterday`,
-      },
-      type: 'warning',
-    },
+    createCountCard(CARD_TITLES.ITEMS, data.items, 'primary'),
+    createCountCard(CARD_TITLES.PRICES, data.prices, 'success'),
+    createCountCard(CARD_TITLES.BRANDS, data.brands, 'info'),
+    createCountCard(CARD_TITLES.CATEGORIES, data.categories, 'danger'),
+    createMetricCard(
+      CARD_TITLES.RECEIVED_SPENDING,
+      data.receivedSpending,
+      'warning'
+    ),
   ];
 };
 
 const transformCashierCards = (data: DashboardCardData): CardData[] => {
   return [
-    {
-      title: "Today's Gross Profit",
-      value: data.todayGrossProfit.value,
-      trend: {
-        value: Math.abs(data.todayGrossProfit.percentageChange),
-        isUp: data.todayGrossProfit.trend === 'up',
-        text: `${
-          data.todayGrossProfit.trend === 'up' ? 'Up' : 'Down'
-        } from yesterday`,
-      },
-      type: 'primary',
-    },
-    {
-      title: "Today's Net Profit",
-      value: data.todayNetProfit.value,
-      trend: {
-        value: Math.abs(data.todayNetProfit.percentageChange),
-        isUp: data.todayNetProfit.trend === 'up',
-        text: `${
-          data.todayNetProfit.trend === 'up' ? 'Up' : 'Down'
-        } from yesterday`,
-      },
-      type: 'success',
-    },
-    {
-      title: 'Yearly Gross Profit',
-      value: data.yearlyGrossProfit.value,
-      trend: {
-        value: Math.abs(data.yearlyGrossProfit.percentageChange),
-        isUp: data.yearlyGrossProfit.trend === 'up',
-        text: `${
-          data.yearlyGrossProfit.trend === 'up' ? 'Up' : 'Down'
-        } from last year`,
-      },
-      type: 'warning',
-    },
-    {
-      title: 'Yearly Net Profit',
-      value: data.yearlyNetProfit.value,
-      trend: {
-        value: Math.abs(data.yearlyNetProfit.percentageChange),
-        isUp: data.yearlyNetProfit.trend === 'up',
-        text: `${
-          data.yearlyNetProfit.trend === 'up' ? 'Up' : 'Down'
-        } from last year`,
-      },
-      type: 'info',
-    },
+    createMetricCard(
+      CARD_TITLES.TODAY_GROSS_PROFIT,
+      data.todayGrossProfit,
+      'primary'
+    ),
+    createMetricCard(
+      CARD_TITLES.TODAY_NET_PROFIT,
+      data.todayNetProfit,
+      'success'
+    ),
+    createMetricCard(
+      CARD_TITLES.YEARLY_GROSS_PROFIT,
+      data.yearlyGrossProfit,
+      'warning',
+      'last year'
+    ),
+    createMetricCard(
+      CARD_TITLES.YEARLY_NET_PROFIT,
+      data.yearlyNetProfit,
+      'info',
+      'last year'
+    ),
   ];
 };
 

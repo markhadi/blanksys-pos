@@ -9,6 +9,17 @@ interface DashboardCardsState {
   error: Error | null;
 }
 
+const getCardsByTab = async (tab: DashboardTab, year: string) => {
+  switch (tab) {
+    case 'general':
+      return await dashboardService.getGeneralCards(year);
+    case 'inventory':
+      return await dashboardService.getInventoryCards(year);
+    case 'cashier':
+      return await dashboardService.getCashierCards(year);
+  }
+};
+
 export const useDashboardCards = (tab: DashboardTab, year: string) => {
   const [state, setState] = useState<DashboardCardsState>({
     data: null,
@@ -21,19 +32,7 @@ export const useDashboardCards = (tab: DashboardTab, year: string) => {
     const fetchCards = async () => {
       try {
         setState((prev) => ({ ...prev, isLoading: true }));
-
-        let response;
-        switch (tab) {
-          case 'general':
-            response = await dashboardService.getGeneralCards(year);
-            break;
-          case 'inventory':
-            response = await dashboardService.getInventoryCards(year);
-            break;
-          case 'cashier':
-            response = await dashboardService.getCashierCards(year);
-            break;
-        }
+        const response = await getCardsByTab(tab, year);
 
         if (response.success) {
           setState({ data: response.data, isLoading: false, error: null });
@@ -56,7 +55,9 @@ export const useDashboardCards = (tab: DashboardTab, year: string) => {
       }
     };
 
-    fetchCards();
+    if (year) {
+      fetchCards();
+    }
   }, [tab, year, toast]);
 
   return state;

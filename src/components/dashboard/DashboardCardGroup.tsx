@@ -3,9 +3,10 @@ import { DashboardCardSkeleton } from './DashboardCardSkeleton';
 import { useDashboardCards } from '@/hooks/useDashboardCards';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { AlertCircle } from 'lucide-react';
+import { DashboardTab } from '@/types/dashboard';
 
 interface DashboardCardGroupProps {
-  variant: 'general' | 'inventory' | 'cashier';
+  variant: DashboardTab;
   title: string;
   year: string;
 }
@@ -28,11 +29,13 @@ export const DashboardCardGroup = ({
     );
   }
 
+  const cardCount = variant === 'inventory' ? 5 : 4;
+
   return (
     <section className="space-y-5">
       <div className="flex flex-wrap gap-7">
         {isLoading
-          ? Array(4)
+          ? Array(cardCount)
               .fill(0)
               .map((_, index) => <DashboardCardSkeleton key={index} />)
           : data?.map((cardData, index) => (

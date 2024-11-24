@@ -1,6 +1,6 @@
 import { Icon } from '@iconify/react';
 import { CardData } from '@/types/dashboard';
-import { formatNumber } from '@/lib/utils';
+import { formatMetricValue } from '@/utils/formatters';
 import { BOX_ICONS } from '@/constants/dashboard';
 
 interface DashboardCardProps {
@@ -10,17 +10,6 @@ interface DashboardCardProps {
 export const DashboardCard = ({ data }: DashboardCardProps) => {
   const { title, value, trend, type } = data;
 
-  const formatValue = () => {
-    if (
-      title.toLowerCase().includes('profit') ||
-      title.toLowerCase().includes('receipt') ||
-      title.toLowerCase().includes('loss')
-    ) {
-      return `$ ${formatNumber(value)}`;
-    }
-    return formatNumber(value);
-  };
-
   return (
     <div className="flex flex-grow flex-col gap-1 sm:gap-[34px] px-5 py-[15px] bg-white rounded-[16px] shadow-md min-w-[300px]">
       <div className="h-[72px] flex justify-between items-center">
@@ -29,7 +18,7 @@ export const DashboardCard = ({ data }: DashboardCardProps) => {
             {title}
           </span>
           <h1 className="text-[20px] sm:text-[28px] text-[#202224] font-bold leading-[38px] tracking-[1px]">
-            {formatValue()}
+            {formatMetricValue(title, value)}
           </h1>
         </div>
         <img

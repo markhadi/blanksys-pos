@@ -1,6 +1,7 @@
 export type CardType = 'primary' | 'success' | 'info' | 'danger' | 'warning';
 export type DashboardTab = 'general' | 'inventory' | 'cashier';
 export type TrendDirection = 'up' | 'down';
+export type TimeFrame = 'yesterday' | 'last year';
 
 // Card display types
 export interface CardTrend {
