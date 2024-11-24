@@ -6,7 +6,7 @@ import {
   ChartTooltipContent,
 } from '@/components/ui/chart';
 import { CHART_CONFIG } from '@/constants/dashboard';
-import { formatNumber } from '@/lib/utils';
+import { formatters } from '@/utils/formatters';
 import { getMonthName } from '@/utils/chart';
 import { BaseChartProps } from '@/types/dashboard';
 import { MonthSelector } from '@/components/dashboard/MonthSelector';
@@ -66,7 +66,7 @@ export const BaseChart = ({
               }
             />
             <YAxis
-              tickFormatter={formatNumber}
+              tickFormatter={formatters.number}
               axisLine={false}
               tickLine={false}
               tickMargin={8}
