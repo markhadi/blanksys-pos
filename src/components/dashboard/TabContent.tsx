@@ -6,6 +6,9 @@ import {
   ChartYearlyReceiveSpending,
   ChartYearlySellingCashier,
 } from '@/components/dashboard/DashboardChart';
+import { TableLatestTransactions } from '@/components/dashboard/TableLatestTransactions';
+import { TablePopularProducts } from '@/components/dashboard/TablePopularProducts';
+import { TableStockReceiptOrIssue } from '@/components/dashboard/TableStockReceiptOrIssue';
 import { DashboardTab } from '@/types/dashboard';
 import { TAB_TITLES } from '@/constants/dashboard';
 import { chartService } from '@/services/chart.service';
@@ -59,6 +62,11 @@ export const TabContent = ({ tab, year }: TabContentProps) => {
               onYearChange={setSelectedYear}
               onMonthChange={setCurrentMonth}
             />
+            <div className="grid grid-cols-1 gap-5 2xl:grid-cols-3">
+              <TableLatestTransactions />
+              <TablePopularProducts />
+              <TableStockReceiptOrIssue />
+            </div>
           </div>
         );
       case 'inventory':

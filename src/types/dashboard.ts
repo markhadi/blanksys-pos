@@ -107,3 +107,33 @@ export interface DashboardChartProps {
   onYearChange?: (year: string) => void;
   onMonthChange?: (month: number) => void;
 }
+
+export interface TableCardProps {
+  title: string;
+  children: React.ReactNode;
+}
+
+export interface Transaction {
+  id: string;
+  timestamp: string;
+  amount: string;
+  status: 'complete' | 'cancel';
+}
+
+export interface PopularProduct {
+  id: string;
+  name: string;
+  image: string;
+  stock: number;
+  unit: string;
+}
+
+export interface StockTransaction {
+  id: string;
+  name: string;
+  image: string;
+  timestamp: string;
+  quantity: number;
+  unit: string;
+  type: 'Receipt' | 'Issued';
+}

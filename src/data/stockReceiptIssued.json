@@ -1,0 +1,182 @@
+[
+  {
+    "stockId": "S2131321",
+    "itemName": "Photocopy Machine X230",
+    "type": "Receipt",
+    "quantity": 5,
+    "units": "pcs",
+    "timestamp": "2024-11-24T10:30:00Z",
+    "imageUrl": "https://dummyimage.com/100x100/008000/ffffff&text=Stock+1"
+  },
+  {
+    "stockId": "S2131322",
+    "itemName": "Laptop Asus X243",
+    "type": "Issued",
+    "quantity": 2,
+    "units": "pcs",
+    "timestamp": "2024-11-24T09:15:00Z",
+    "imageUrl": "https://dummyimage.com/100x100/ff8000/ffffff&text=Stock+2"
+  },
+  {
+    "stockId": "S2131323",
+    "itemName": "iPhone 16 Pro X",
+    "type": "Receipt",
+    "quantity": 8,
+    "units": "pcs",
+    "timestamp": "2024-11-24T08:40:00Z",
+    "imageUrl": "https://dummyimage.com/100x100/008000/ffffff&text=Stock+3"
+  },
+  {
+    "stockId": "S2131324",
+    "itemName": "Samsung Galaxy Note 25",
+    "type": "Issued",
+    "quantity": 3,
+    "units": "pcs",
+    "timestamp": "2024-11-24T07:20:00Z",
+    "imageUrl": "https://dummyimage.com/100x100/ff8000/ffffff&text=Stock+4"
+  },
+  {
+    "stockId": "S2131325",
+    "itemName": "HP Deskjet 2770 Printer",
+    "type": "Receipt",
+    "quantity": 6,
+    "units": "pcs",
+    "timestamp": "2024-11-23T14:30:00Z",
+    "imageUrl": "https://dummyimage.com/100x100/008000/ffffff&text=Stock+5"
+  },
+  {
+    "stockId": "S2131326",
+    "itemName": "MacBook Pro 2024",
+    "type": "Issued",
+    "quantity": 1,
+    "units": "pcs",
+    "timestamp": "2024-11-23T12:10:00Z",
+    "imageUrl": "https://dummyimage.com/100x100/ff8000/ffffff&text=Stock+6"
+  },
+  {
+    "stockId": "S2131327",
+    "itemName": "Canon EOS R5 Camera",
+    "type": "Receipt",
+    "quantity": 7,
+    "units": "pcs",
+    "timestamp": "2024-11-23T10:20:00Z",
+    "imageUrl": "https://dummyimage.com/100x100/008000/ffffff&text=Stock+7"
+  },
+  {
+    "stockId": "S2131328",
+    "itemName": "Dell Inspiron 15 Laptop",
+    "type": "Issued",
+    "quantity": 4,
+    "units": "pcs",
+    "timestamp": "2024-11-22T16:45:00Z",
+    "imageUrl": "https://dummyimage.com/100x100/ff8000/ffffff&text=Stock+8"
+  },
+  {
+    "stockId": "S2131329",
+    "itemName": "Logitech MX Master 4 Mouse",
+    "type": "Receipt",
+    "quantity": 10,
+    "units": "pcs",
+    "timestamp": "2024-11-22T14:00:00Z",
+    "imageUrl": "https://dummyimage.com/100x100/008000/ffffff&text=Stock+9"
+  },
+  {
+    "stockId": "S2131330",
+    "itemName": "Asus TUF Gaming Laptop",
+    "type": "Issued",
+    "quantity": 3,
+    "units": "pcs",
+    "timestamp": "2024-11-21T12:20:00Z",
+    "imageUrl": "https://dummyimage.com/100x100/ff8000/ffffff&text=Stock+10"
+  },
+  {
+    "stockId": "S2131331",
+    "itemName": "Lenovo ThinkPad X1 Carbon",
+    "type": "Receipt",
+    "quantity": 5,
+    "units": "pcs",
+    "timestamp": "2024-11-21T10:30:00Z",
+    "imageUrl": "https://dummyimage.com/100x100/008000/ffffff&text=Stock+11"
+  },
+  {
+    "stockId": "S2131332",
+    "itemName": "Samsung Galaxy Watch 6",
+    "type": "Issued",
+    "quantity": 6,
+    "units": "pcs",
+    "timestamp": "2024-11-20T18:45:00Z",
+    "imageUrl": "https://dummyimage.com/100x100/ff8000/ffffff&text=Stock+12"
+  },
+  {
+    "stockId": "S2131333",
+    "itemName": "Sony WH-1000XM5 Headphones",
+    "type": "Receipt",
+    "quantity": 9,
+    "units": "pcs",
+    "timestamp": "2024-11-20T15:20:00Z",
+    "imageUrl": "https://dummyimage.com/100x100/008000/ffffff&text=Stock+13"
+  },
+  {
+    "stockId": "S2131334",
+    "itemName": "Google Pixel 8 Pro",
+    "type": "Issued",
+    "quantity": 2,
+    "units": "pcs",
+    "timestamp": "2024-11-19T14:10:00Z",
+    "imageUrl": "https://dummyimage.com/100x100/ff8000/ffffff&text=Stock+14"
+  },
+  {
+    "stockId": "S2131335",
+    "itemName": "Microsoft Surface Pro 9",
+    "type": "Receipt",
+    "quantity": 11,
+    "units": "pcs",
+    "timestamp": "2024-11-19T12:15:00Z",
+    "imageUrl": "https://dummyimage.com/100x100/008000/ffffff&text=Stock+15"
+  },
+  {
+    "stockId": "S2131336",
+    "itemName": "Razer Blade 17 Gaming Laptop",
+    "type": "Issued",
+    "quantity": 1,
+    "units": "pcs",
+    "timestamp": "2024-11-18T17:45:00Z",
+    "imageUrl": "https://dummyimage.com/100x100/ff8000/ffffff&text=Stock+16"
+  },
+  {
+    "stockId": "S2131337",
+    "itemName": "Apple AirPods Pro 3",
+    "type": "Receipt",
+    "quantity": 8,
+    "units": "pcs",
+    "timestamp": "2024-11-18T15:30:00Z",
+    "imageUrl": "https://dummyimage.com/100x100/008000/ffffff&text=Stock+17"
+  },
+  {
+    "stockId": "S2131338",
+    "itemName": "LG OLED TV 65 Inch",
+    "type": "Issued",
+    "quantity": 2,
+    "units": "pcs",
+    "timestamp": "2024-11-17T12:45:00Z",
+    "imageUrl": "https://dummyimage.com/100x100/ff8000/ffffff&text=Stock+18"
+  },
+  {
+    "stockId": "S2131339",
+    "itemName": "Bose Soundbar 900",
+    "type": "Receipt",
+    "quantity": 4,
+    "units": "pcs",
+    "timestamp": "2024-11-17T10:20:00Z",
+    "imageUrl": "https://dummyimage.com/100x100/008000/ffffff&text=Stock+19"
+  },
+  {
+    "stockId": "S2131340",
+    "itemName": "Dyson V15 Vacuum Cleaner",
+    "type": "Issued",
+    "quantity": 2,
+    "units": "pcs",
+    "timestamp": "2024-11-16T09:00:00Z",
+    "imageUrl": "https://dummyimage.com/100x100/ff8000/ffffff&text=Stock+20"
+  }
+]

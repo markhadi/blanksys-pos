@@ -1,0 +1,162 @@
+[
+  {
+    "productId": "P1001",
+    "name": "Apple iPhone 15 Pro",
+    "category": "Smartphone",
+    "unitsSold": 500,
+    "units": "pcs",
+    "imageUrl": "https://dummyimage.com/100x100/0000ff/ffffff&text=Product+1"
+  },
+  {
+    "productId": "P1002",
+    "name": "Samsung Galaxy S23 Ultra",
+    "category": "Smartphone",
+    "unitsSold": 450,
+    "units": "pcs",
+    "imageUrl": "https://dummyimage.com/100x100/008000/ffffff&text=Product+2"
+  },
+  {
+    "productId": "P1003",
+    "name": "Sony WH-1000XM5",
+    "category": "Headphones",
+    "unitsSold": 350,
+    "units": "pcs",
+    "imageUrl": "https://dummyimage.com/100x100/ff8000/ffffff&text=Product+3"
+  },
+  {
+    "productId": "P1004",
+    "name": "Dell XPS 15",
+    "category": "Laptop",
+    "unitsSold": 300,
+    "units": "pcs",
+    "imageUrl": "https://dummyimage.com/100x100/0000ff/ffffff&text=Product+4"
+  },
+  {
+    "productId": "P1005",
+    "name": "Logitech MX Master 4",
+    "category": "Accessories",
+    "unitsSold": 270,
+    "units": "pcs",
+    "imageUrl": "https://dummyimage.com/100x100/ff8000/ffffff&text=Product+5"
+  },
+  {
+    "productId": "P1006",
+    "name": "Apple MacBook Pro 16\"",
+    "category": "Laptop",
+    "unitsSold": 250,
+    "units": "pcs",
+    "imageUrl": "https://dummyimage.com/100x100/0000ff/ffffff&text=Product+6"
+  },
+  {
+    "productId": "P1007",
+    "name": "Samsung QLED TV 55\"",
+    "category": "Television",
+    "unitsSold": 220,
+    "units": "pcs",
+    "imageUrl": "https://dummyimage.com/100x100/008000/ffffff&text=Product+7"
+  },
+  {
+    "productId": "P1008",
+    "name": "Bose Soundbar 700",
+    "category": "Audio",
+    "unitsSold": 200,
+    "units": "pcs",
+    "imageUrl": "https://dummyimage.com/100x100/ff8000/ffffff&text=Product+8"
+  },
+  {
+    "productId": "P1009",
+    "name": "Google Pixel 8",
+    "category": "Smartphone",
+    "unitsSold": 180,
+    "units": "pcs",
+    "imageUrl": "https://dummyimage.com/100x100/0000ff/ffffff&text=Product+9"
+  },
+  {
+    "productId": "P1010",
+    "name": "Canon EOS R6 Camera",
+    "category": "Camera",
+    "unitsSold": 150,
+    "units": "pcs",
+    "imageUrl": "https://dummyimage.com/100x100/008000/ffffff&text=Product+10"
+  },
+  {
+    "productId": "P1011",
+    "name": "LG UltraFine Monitor 27\"",
+    "category": "Monitor",
+    "unitsSold": 140,
+    "units": "pcs",
+    "imageUrl": "https://dummyimage.com/100x100/ff8000/ffffff&text=Product+11"
+  },
+  {
+    "productId": "P1012",
+    "name": "Razer DeathAdder V3",
+    "category": "Accessories",
+    "unitsSold": 130,
+    "units": "pcs",
+    "imageUrl": "https://dummyimage.com/100x100/0000ff/ffffff&text=Product+12"
+  },
+  {
+    "productId": "P1013",
+    "name": "Microsoft Surface Laptop 5",
+    "category": "Laptop",
+    "unitsSold": 120,
+    "units": "pcs",
+    "imageUrl": "https://dummyimage.com/100x100/008000/ffffff&text=Product+13"
+  },
+  {
+    "productId": "P1014",
+    "name": "Sony Bravia 4K OLED TV",
+    "category": "Television",
+    "unitsSold": 110,
+    "units": "pcs",
+    "imageUrl": "https://dummyimage.com/100x100/ff8000/ffffff&text=Product+14"
+  },
+  {
+    "productId": "P1015",
+    "name": "Dyson Air Purifier",
+    "category": "Home Appliance",
+    "unitsSold": 100,
+    "units": "pcs",
+    "imageUrl": "https://dummyimage.com/100x100/0000ff/ffffff&text=Product+15"
+  },
+  {
+    "productId": "P1016",
+    "name": "Fitbit Charge 6",
+    "category": "Wearables",
+    "unitsSold": 90,
+    "units": "pcs",
+    "imageUrl": "https://dummyimage.com/100x100/008000/ffffff&text=Product+16"
+  },
+  {
+    "productId": "P1017",
+    "name": "Amazon Echo Dot 5th Gen",
+    "category": "Smart Home",
+    "unitsSold": 80,
+    "units": "pcs",
+    "imageUrl": "https://dummyimage.com/100x100/ff8000/ffffff&text=Product+17"
+  },
+  {
+    "productId": "P1018",
+    "name": "Nespresso Vertuo Plus",
+    "category": "Home Appliance",
+    "unitsSold": 70,
+    "units": "pcs",
+    "imageUrl": "https://dummyimage.com/100x100/0000ff/ffffff&text=Product+18"
+  },
+  {
+    "productId": "P1019",
+    "name": "Apple Watch Series 9",
+    "category": "Wearables",
+    "unitsSold": 60,
+    "units": "pcs",
+    "imageUrl": "https://dummyimage.com/100x100/008000/ffffff&text=Product+19"
+  },
+  {
+    "productId": "P1020",
+    "name": "Xiaomi Mi Band 8",
+    "category": "Wearables",
+    "unitsSold": 50,
+    "units": "pcs",
+    "imageUrl": "https://dummyimage.com/100x100/ff8000/ffffff&text=Product+20"
+  }
+]
