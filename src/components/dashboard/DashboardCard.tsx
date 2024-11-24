@@ -10,6 +10,17 @@ interface DashboardCardProps {
 export const DashboardCard = ({ data }: DashboardCardProps) => {
   const { title, value, trend, type } = data;
 
+  const formatValue = () => {
+    if (
+      title.toLowerCase().includes('profit') ||
+      title.toLowerCase().includes('receipt') ||
+      title.toLowerCase().includes('loss')
+    ) {
+      return `$ ${formatNumber(value)}`;
+    }
+    return formatNumber(value);
+  };
+
   return (
     <div className="flex flex-grow flex-col gap-1 sm:gap-[34px] px-5 py-[15px] bg-white rounded-[16px] shadow-md min-w-[300px]">
       <div className="h-[72px] flex justify-between items-center">
@@ -18,12 +29,7 @@ export const DashboardCard = ({ data }: DashboardCardProps) => {
             {title}
           </span>
           <h1 className="text-[20px] sm:text-[28px] text-[#202224] font-bold leading-[38px] tracking-[1px]">
-            {title === 'Brand' ||
-            title === 'Category' ||
-            title === 'Price' ||
-            title === 'Item'
-              ? `${value}`
-              : `$ ${formatNumber(value)}`}
+            {formatValue()}
           </h1>
         </div>
         <img

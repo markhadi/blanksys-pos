@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import {
   Select,
@@ -10,17 +10,23 @@ import {
 import { TabContent } from '@/components/dashboard/TabContent';
 import { DashboardTab } from '@/types/dashboard';
 import { useAuth } from '@/hooks/useAuth';
+import { dashboardService } from '@/services/dashboard.service';
 
 export const Dashboard = () => {
   const [selectedTab, setSelectedTab] = useState<DashboardTab>('general');
-  const [selectedYear, setSelectedYear] = useState(
-    new Date().getFullYear().toString()
-  );
+  const [availableYears, setAvailableYears] = useState<number[]>([]);
+  const [selectedYear, setSelectedYear] = useState<string>('');
   const { hasRole } = useAuth();
   const isAdmin = hasRole(['Administrator']);
 
-  const currentYear = new Date().getFullYear();
-  const years = Array.from({ length: 5 }, (_, i) => currentYear - i);
+  useEffect(() => {
+    const years = dashboardService.getAvailableYears();
+    setAvailableYears(years);
+
+    if (years.length > 0 && !selectedYear) {
+      setSelectedYear(years[0].toString());
+    }
+  }, []);
 
   const handleTabChange = (value: string) => {
     setSelectedTab(value as DashboardTab);
@@ -48,12 +54,16 @@ export const Dashboard = () => {
             </TabsTrigger>
           </TabsList>
 
-          <Select value={selectedYear} onValueChange={setSelectedYear}>
+          <Select
+            value={selectedYear}
+            onValueChange={setSelectedYear}
+            disabled={availableYears.length === 0}
+          >
             <SelectTrigger className="min-w-max w-full lg:w-[180px] focus:outline-none focus:ring-0 focus:ring-offset-0">
               <SelectValue placeholder="Select year" />
             </SelectTrigger>
             <SelectContent>
-              {years.map((year) => (
+              {availableYears.map((year) => (
                 <SelectItem key={year} value={year.toString()}>
                   {year}
                 </SelectItem>

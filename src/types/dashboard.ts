@@ -1,6 +1,8 @@
 export type CardType = 'primary' | 'success' | 'info' | 'danger' | 'warning';
 export type DashboardTab = 'general' | 'inventory' | 'cashier';
+export type TrendDirection = 'up' | 'down';
 
+// Card display types
 export interface CardTrend {
   value: number;
   isUp: boolean;
@@ -12,6 +14,33 @@ export interface CardData {
   value: number;
   trend: CardTrend;
   type: CardType;
+}
+
+// Raw data types
+export interface DashboardCardData {
+  date: string;
+  todayGrossProfit: MetricData;
+  todayNetProfit: MetricData;
+  todayItemReceipt: MetricData;
+  todayEstimationLoss: MetricData;
+  items: CountData;
+  prices: CountData;
+  brands: CountData;
+  categories: CountData;
+  receivedSpending: MetricData;
+  yearlyGrossProfit: MetricData;
+  yearlyNetProfit: MetricData;
+}
+
+export interface MetricData {
+  value: number;
+  percentageChange: number;
+  trend: TrendDirection;
+}
+
+export interface CountData {
+  total: number;
+  newAdded: number;
 }
 
 export interface DashboardResponse {
