@@ -4,7 +4,12 @@ import {
   ChartType,
   DataType,
 } from '@/types/dashboard';
-import chartData from '@/data/dashboard-chart.json';
+
+// Import data langsung dari file JSON
+import salesYearly from '@/data/salesYearly.json';
+import salesDaily from '@/data/salesDaily.json';
+import receiveSpendingYearly from '@/data/receiveSpendingYearly.json';
+import receiveSpendingDaily from '@/data/receiveSpendingDaily.json';
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -20,21 +25,37 @@ const formatDate = (date: string) => {
   });
 };
 
-const filterDataByYear = (data: SalesData[], year: string): SalesData[] => {
-  return data.filter((item) => {
-    if (item.year) {
+interface YearlyData {
+  year: number;
+  month: string;
+  sales?: number;
+  spend?: number;
+}
+
+interface DailyData {
+  date: string;
+  sales?: number;
+  spend?: number;
+}
+
+const filterDataByYear = (
+  data: (YearlyData | DailyData)[],
+  year: string
+): (YearlyData | DailyData)[] => {
+  return data.filter((item): item is YearlyData | DailyData => {
+    if ('year' in item) {
       return item.year === parseInt(year);
     }
-    if (item.date) {
+    if ('date' in item && item.date) {
       return new Date(item.date).getFullYear() === parseInt(year);
     }
     return false;
   });
 };
 
-const filterDataByMonth = (data: SalesData[], month: number): SalesData[] => {
-  return data.filter((item) => {
-    if (item.date) {
+const filterDataByMonth = (data: DailyData[], month: number): DailyData[] => {
+  return data.filter((item): item is DailyData => {
+    if ('date' in item && item.date) {
       return new Date(item.date).getMonth() === month;
     }
     return false;
@@ -55,28 +76,22 @@ export const chartService = {
 
       if (type === 'yearly') {
         const yearlyData =
-          dataType === 'sales'
-            ? chartData.salesYearly
-            : chartData.receiveSpendingYearly;
-
-        filteredData = filterDataByYear(yearlyData, year);
+          dataType === 'sales' ? salesYearly : receiveSpendingYearly;
+        filteredData = filterDataByYear(yearlyData, year) as SalesData[];
       } else {
         if (typeof month !== 'number') {
           throw new Error('Month is required for daily data');
         }
 
         const dailyData =
-          dataType === 'sales'
-            ? chartData.salesDaily
-            : chartData.receiveSpendingDaily;
+          dataType === 'sales' ? salesDaily : receiveSpendingDaily;
+        const yearFiltered = filterDataByYear(dailyData, year) as DailyData[];
+        const monthFiltered = filterDataByMonth(yearFiltered, month);
 
-        filteredData = filterDataByYear(dailyData, year);
-        filteredData = filterDataByMonth(filteredData, month);
-
-        filteredData = filteredData.map((data) => ({
+        filteredData = monthFiltered.map((data) => ({
           ...data,
-          day: data.date ? formatDate(data.date) : undefined,
-        }));
+          day: formatDate(data.date),
+        })) as SalesData[];
       }
 
       return createResponse(filteredData);
@@ -88,15 +103,15 @@ export const chartService = {
 
   getAvailableYears: (): number[] => {
     const years = new Set([
-      ...chartData.salesYearly.map((item) => item.year),
-      ...chartData.salesDaily.map((item) => new Date(item.date).getFullYear()),
+      ...salesYearly.map((item) => item.year),
+      ...salesDaily.map((item) => new Date(item.date).getFullYear()),
     ]);
-    return Array.from(years).sort((a, b) => b - a); // descending order
+    return Array.from(years).sort((a, b) => b - a);
   },
 
   getAvailableMonths: (year: string): number[] => {
     const months = new Set(
-      chartData.salesDaily
+      salesDaily
         .filter((item) => new Date(item.date).getFullYear() === parseInt(year))
         .map((item) => new Date(item.date).getMonth())
     );
