@@ -121,14 +121,14 @@ const BaseChart = ({
         onYearChange={onYearChange}
         onMonthChange={onMonthChange}
       />
-      <CardContent className="p-0 md:pr-12 md:pl-3">
+      <CardContent className="p-0">
         <ChartContainer className="max-h-[300px] w-full" config={CHART_CONFIG}>
           <AreaChart
             accessibilityLayer
             data={data}
             margin={{
-              left: 12,
-              right: 12,
+              left: 48,
+              right: 48,
             }}
           >
             <CartesianGrid vertical={false} strokeDasharray="3 3" />

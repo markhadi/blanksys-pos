@@ -3,7 +3,7 @@ import { LoginDesktopView } from '@/components/auth/LoginDesktopView';
 import { LoginMobileView } from '@/components/auth/LoginMobileView';
 import { LoginFormType } from '@/types/auth';
 import { authService } from '@/services/auth.service';
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useToast } from '@/hooks/use-toast';
 import { useNavigate } from 'react-router-dom';
 import { useUser } from '@/contexts/UserContext';
@@ -12,7 +12,15 @@ import { ROUTES } from '@/constants/routes';
 export const Login = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
-  const { setUser } = useUser();
+  const { user, setUser } = useUser();
+
+  useEffect(() => {
+    if (user) {
+      const redirectPath =
+        user.role === 'Administrator' ? ROUTES.DASHBOARD : ROUTES.CASHIER.ROOT;
+      navigate(redirectPath, { replace: true });
+    }
+  }, [user, navigate]);
 
   const handleSubmit = useCallback(
     async (values: LoginFormType) => {
@@ -49,6 +57,10 @@ export const Login = () => {
     },
     [toast, navigate, setUser]
   );
+
+  if (user) {
+    return null;
+  }
 
   return (
     <div className="login-container">
