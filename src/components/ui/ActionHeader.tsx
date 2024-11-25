@@ -19,7 +19,7 @@ export const ActionHeader = ({
   searchProps,
 }: ActionHeaderProps) => {
   return (
-    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:p-3">
+    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
       <Search {...searchProps} />
       {actionButton && (
         <Button onClick={actionButton.onClick} className="add-new-button">

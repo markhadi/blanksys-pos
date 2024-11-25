@@ -1,0 +1,82 @@
+[
+  {
+    "id": 1,
+    "categoryName": "Minuman"
+  },
+  {
+    "id": 2,
+    "categoryName": "Makanan Ringan"
+  },
+  {
+    "id": 3,
+    "categoryName": "Makanan Instan"
+  },
+  {
+    "id": 4,
+    "categoryName": "Perawatan Pribadi"
+  },
+  {
+    "id": 5,
+    "categoryName": "Kebutuhan Bayi"
+  },
+  {
+    "id": 6,
+    "categoryName": "Alat Tulis"
+  },
+  {
+    "id": 7,
+    "categoryName": "Bahan Pokok"
+  },
+  {
+    "id": 8,
+    "categoryName": "Perlengkapan Rumah Tangga"
+  },
+  {
+    "id": 9,
+    "categoryName": "Obat-Obatan"
+  },
+  {
+    "id": 10,
+    "categoryName": "Elektronik Kecil"
+  },
+  {
+    "id": 11,
+    "categoryName": "Camilan"
+  },
+  {
+    "id": 12,
+    "categoryName": "Produk Susu"
+  },
+  {
+    "id": 13,
+    "categoryName": "Minyak Goreng"
+  },
+  {
+    "id": 14,
+    "categoryName": "Pembersih Rumah"
+  },
+  {
+    "id": 15,
+    "categoryName": "Bumbu Dapur"
+  },
+  {
+    "id": 16,
+    "categoryName": "Frozen Food"
+  },
+  {
+    "id": 17,
+    "categoryName": "Roti & Kue"
+  },
+  {
+    "id": 18,
+    "categoryName": "Buah & Sayur"
+  },
+  {
+    "id": 19,
+    "categoryName": "Produk Promo"
+  },
+  {
+    "id": 20,
+    "categoryName": "Lainnya"
+  }
+]
