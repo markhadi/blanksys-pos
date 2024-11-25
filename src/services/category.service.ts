@@ -1,6 +1,6 @@
 import categoryData from '@/data/category.json';
 import { Category, CategorySearchParams } from '@/types/category';
-import { CreateFormData } from '@/schema/category';
+import { CreateFormData, UpdateFormData } from '@/schema/category';
 
 export const CategoryService = {
   fetchCategories: async ({
@@ -42,5 +42,25 @@ export const CategoryService = {
 
     categoryData.push(newCategory);
     return newCategory;
+  },
+
+  updateCategory: async (
+    id: number,
+    data: UpdateFormData
+  ): Promise<Category> => {
+    await new Promise((resolve) => setTimeout(resolve, 500));
+
+    const index = categoryData.findIndex((category) => category.id === id);
+    if (index === -1) {
+      throw new Error('Category not found');
+    }
+
+    const updatedCategory: Category = {
+      ...categoryData[index],
+      ...data,
+    };
+
+    categoryData[index] = updatedCategory;
+    return updatedCategory;
   },
 };

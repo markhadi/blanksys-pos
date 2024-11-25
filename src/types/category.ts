@@ -6,10 +6,6 @@ export interface Category {
   categoryName: string;
 }
 
-export interface CategoryFormData {
-  categoryName: string;
-}
-
 export interface CategoryTableProps {
   data: Category[];
   isLoading?: boolean;
@@ -31,7 +27,7 @@ export interface CategoriesFormDialogProps {
   open: boolean;
   onClose: () => void;
   onSubmit: (data: CreateFormData | UpdateFormData) => void;
-  category?: CategoryFormData;
+  category?: Category;
   mode: 'add' | 'edit';
   isLoading?: boolean;
 }

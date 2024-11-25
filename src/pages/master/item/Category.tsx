@@ -4,7 +4,7 @@ import { useCategories } from '@/hooks/useCategories';
 import { useState } from 'react';
 import { SortingState } from '@tanstack/react-table';
 import { FormCategory } from '@/components/category/FormCategory';
-import { CategoryFormData, Category as CategoryType } from '@/types/category';
+import { Category as CategoryType } from '@/types/category';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { CategoryService } from '@/services/category.service';
 import { CreateFormData, UpdateFormData } from '@/schema/category';
@@ -18,7 +18,7 @@ export const Category = () => {
   const [formDialog, setFormDialog] = useState({
     open: false,
     mode: 'add' as 'add' | 'edit',
-    category: undefined as CategoryFormData | undefined,
+    category: undefined as CategoryType | undefined,
   });
 
   const { data: categories = [], isLoading } = useCategories({
@@ -55,6 +55,27 @@ export const Category = () => {
     },
   });
 
+  const updateMutation = useMutation({
+    mutationFn: ({ id, data }: { id: number; data: UpdateFormData }) =>
+      CategoryService.updateCategory(id, data),
+    onSuccess: (updatedCategory) => {
+      queryClient.invalidateQueries({ queryKey: ['categories'] });
+      setFormDialog({ ...formDialog, open: false });
+      toast({
+        title: 'Success',
+        description: `Category "${updatedCategory.categoryName}" has been updated`,
+      });
+    },
+    onError: (error) => {
+      console.log(error);
+      toast({
+        variant: 'destructive',
+        title: 'Error',
+        description: 'Failed to update category. Please try again.',
+      });
+    },
+  });
+
   const handleSearch = () => {
     setSearchQuery(searchValue);
   };
@@ -70,6 +91,11 @@ export const Category = () => {
   const handleSubmit = async (data: CreateFormData | UpdateFormData) => {
     if (formDialog.mode === 'add') {
       createMutation.mutate(data as CreateFormData);
+    } else if (formDialog.category?.id) {
+      updateMutation.mutate({
+        id: formDialog.category.id,
+        data: data as UpdateFormData,
+      });
     }
   };
 
@@ -102,7 +128,7 @@ export const Category = () => {
         category={formDialog.category}
         onClose={() => setFormDialog({ ...formDialog, open: false })}
         onSubmit={handleSubmit}
-        isLoading={createMutation.isPending}
+        isLoading={createMutation.isPending || updateMutation.isPending}
       />
     </div>
   );
