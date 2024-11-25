@@ -33,11 +33,6 @@ export const BaseChart = ({
             {title}
           </CardTitle>
           <div className="flex gap-2">
-            <YearSelector
-              years={availableYears}
-              selectedYear={year}
-              onYearChange={onYearChange}
-            />
             {showMonthSelector && onMonthChange && month !== undefined && (
               <MonthSelector
                 months={availableMonths}
@@ -45,6 +40,11 @@ export const BaseChart = ({
                 onMonthChange={onMonthChange}
               />
             )}
+            <YearSelector
+              years={availableYears}
+              selectedYear={year}
+              onYearChange={onYearChange}
+            />
           </div>
         </div>
       </CardHeader>
