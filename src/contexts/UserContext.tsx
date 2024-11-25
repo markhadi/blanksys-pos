@@ -6,18 +6,15 @@ import {
   useCallback,
   useEffect,
 } from 'react';
-
-interface User {
-  id: number;
-  username: string;
-  fullName: string;
-  role: 'Administrator' | 'Cashier';
-}
+import { User, UserRole } from '@/types/auth';
+import { authService } from '@/services/auth.service';
 
 interface UserContextType {
-  user: User | null;
-  setUser: (user: User | null) => void;
-  logout: () => void;
+  user: Omit<User, 'password'> | null;
+  setUser: (user: Omit<User, 'password'> | null) => void;
+  logout: () => Promise<void>;
+  isAuthenticated: boolean;
+  hasRole: (roles?: UserRole[]) => boolean;
 }
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
@@ -35,7 +32,7 @@ interface UserProviderProps {
 }
 
 export const UserProvider = ({ children }: UserProviderProps) => {
-  const [user, setUser] = useState<User | null>(() => {
+  const [user, setUser] = useState<Omit<User, 'password'> | null>(() => {
     try {
       const storedUser = localStorage.getItem('user');
       return storedUser ? JSON.parse(storedUser) : null;
@@ -53,13 +50,31 @@ export const UserProvider = ({ children }: UserProviderProps) => {
     }
   }, [user]);
 
-  const logout = useCallback(() => {
+  const logout = useCallback(async () => {
+    await authService.logout();
     localStorage.removeItem('user');
     setUser(null);
   }, []);
 
+  const hasRole = useCallback(
+    (allowedRoles?: UserRole[]) => {
+      if (!allowedRoles || allowedRoles.length === 0) return true;
+      if (!user) return false;
+      return allowedRoles.includes(user.role);
+    },
+    [user]
+  );
+
   return (
-    <UserContext.Provider value={{ user, setUser, logout }}>
+    <UserContext.Provider
+      value={{
+        user,
+        setUser,
+        logout,
+        isAuthenticated: !!user,
+        hasRole,
+      }}
+    >
       {children}
     </UserContext.Provider>
   );
