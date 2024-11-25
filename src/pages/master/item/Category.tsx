@@ -9,6 +9,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { CategoryService } from '@/services/category.service';
 import { CreateFormData, UpdateFormData } from '@/schema/category';
 import { useToast } from '@/hooks/use-toast';
+import { DeleteConfirmationDialog } from '@/components/ui/DeleteConfirmationDialog';
 
 export const Category = () => {
   const [searchValue, setSearchValue] = useState('');
@@ -18,6 +19,11 @@ export const Category = () => {
   const [formDialog, setFormDialog] = useState({
     open: false,
     mode: 'add' as 'add' | 'edit',
+    category: undefined as CategoryType | undefined,
+  });
+
+  const [deleteDialog, setDeleteDialog] = useState({
+    open: false,
     category: undefined as CategoryType | undefined,
   });
 
@@ -76,6 +82,26 @@ export const Category = () => {
     },
   });
 
+  const deleteMutation = useMutation({
+    mutationFn: (id: number) => CategoryService.deleteCategory(id),
+    onSuccess: (deletedCategory) => {
+      queryClient.invalidateQueries({ queryKey: ['categories'] });
+      setDeleteDialog({ open: false, category: undefined });
+      toast({
+        title: 'Success',
+        description: `Category "${deletedCategory.categoryName}" has been deleted`,
+      });
+    },
+    onError: (error) => {
+      console.log(error);
+      toast({
+        variant: 'destructive',
+        title: 'Error',
+        description: 'Failed to delete category. Please try again.',
+      });
+    },
+  });
+
   const handleSearch = () => {
     setSearchQuery(searchValue);
   };
@@ -86,6 +112,16 @@ export const Category = () => {
 
   const handleEdit = (category: CategoryType) => {
     setFormDialog({ open: true, mode: 'edit', category });
+  };
+
+  const handleDelete = (category: CategoryType) => {
+    setDeleteDialog({ open: true, category });
+  };
+
+  const handleConfirmDelete = () => {
+    if (deleteDialog.category?.id) {
+      deleteMutation.mutate(deleteDialog.category.id);
+    }
   };
 
   const handleSubmit = async (data: CreateFormData | UpdateFormData) => {
@@ -117,7 +153,7 @@ export const Category = () => {
         data={categories}
         isLoading={isLoading}
         onEdit={handleEdit}
-        onDelete={() => {}}
+        onDelete={handleDelete}
         sorting={sorting}
         onSortingChange={setSorting}
       />
@@ -129,6 +165,14 @@ export const Category = () => {
         onClose={() => setFormDialog({ ...formDialog, open: false })}
         onSubmit={handleSubmit}
         isLoading={createMutation.isPending || updateMutation.isPending}
+      />
+
+      <DeleteConfirmationDialog
+        open={deleteDialog.open}
+        onOpenChange={() => setDeleteDialog({ ...deleteDialog, open: false })}
+        onConfirm={handleConfirmDelete}
+        itemName={deleteDialog.category?.categoryName || ''}
+        isLoading={deleteMutation.isPending}
       />
     </div>
   );

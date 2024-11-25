@@ -63,4 +63,17 @@ export const CategoryService = {
     categoryData[index] = updatedCategory;
     return updatedCategory;
   },
+
+  deleteCategory: async (id: number): Promise<Category> => {
+    await new Promise((resolve) => setTimeout(resolve, 500));
+
+    const index = categoryData.findIndex((category) => category.id === id);
+    if (index === -1) {
+      throw new Error('Category not found');
+    }
+
+    const deletedCategory = categoryData[index];
+    categoryData.splice(index, 1);
+    return deletedCategory;
+  },
 };

@@ -62,7 +62,7 @@ export const TableCategory = ({
       >
         <div className="w-full min-w-max bg-white text-left text-slate-700">
           <div className="font-bold font-inter text-[16px] tracking-[-0.01em] leading-[1.5em] text-[#0F172A] border-b border-[#CBD5E1] z-10 sticky top-0 w-full bg-white h-[54px]">
-            <div className="w-full min-w- min-h-12 text-left flex gap-5 items-center">
+            <div className="w-full min-w-96 min-h-12 text-left flex gap-5 items-center">
               {table.getHeaderGroups().map((headerGroup) =>
                 headerGroup.headers.map((header) => (
                   <div

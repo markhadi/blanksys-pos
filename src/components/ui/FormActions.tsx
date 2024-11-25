@@ -31,7 +31,11 @@ export const FormActions = ({
       >
         Cancel
       </Button>
-      <Button type="submit" disabled={isLoading} className="w-full">
+      <Button
+        type="submit"
+        disabled={isLoading}
+        className="w-full flex items-center justify-center"
+      >
         {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
         {getButtonText()}
       </Button>
