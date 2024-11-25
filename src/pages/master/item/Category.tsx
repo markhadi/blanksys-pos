@@ -5,6 +5,10 @@ import { useState } from 'react';
 import { SortingState } from '@tanstack/react-table';
 import { FormCategory } from '@/components/category/FormCategory';
 import { CategoryFormData, Category as CategoryType } from '@/types/category';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { CategoryService } from '@/services/category.service';
+import { CreateFormData, UpdateFormData } from '@/schema/category';
+import { useToast } from '@/hooks/use-toast';
 
 export const Category = () => {
   const [searchValue, setSearchValue] = useState('');
@@ -28,6 +32,29 @@ export const Category = () => {
         : undefined,
   });
 
+  const { toast } = useToast();
+  const queryClient = useQueryClient();
+
+  const createMutation = useMutation({
+    mutationFn: CategoryService.createCategory,
+    onSuccess: (newCategory) => {
+      queryClient.invalidateQueries({ queryKey: ['categories'] });
+      setFormDialog({ ...formDialog, open: false });
+      toast({
+        title: 'Success',
+        description: `Category "${newCategory.categoryName}" has been created`,
+      });
+    },
+    onError: (error) => {
+      console.log(error);
+      toast({
+        variant: 'destructive',
+        title: 'Error',
+        description: 'Failed to create category. Please try again.',
+      });
+    },
+  });
+
   const handleSearch = () => {
     setSearchQuery(searchValue);
   };
@@ -38,6 +65,12 @@ export const Category = () => {
 
   const handleEdit = (category: CategoryType) => {
     setFormDialog({ open: true, mode: 'edit', category });
+  };
+
+  const handleSubmit = async (data: CreateFormData | UpdateFormData) => {
+    if (formDialog.mode === 'add') {
+      createMutation.mutate(data as CreateFormData);
+    }
   };
 
   return (
@@ -68,7 +101,8 @@ export const Category = () => {
         open={formDialog.open}
         category={formDialog.category}
         onClose={() => setFormDialog({ ...formDialog, open: false })}
-        onSubmit={() => {}}
+        onSubmit={handleSubmit}
+        isLoading={createMutation.isPending}
       />
     </div>
   );

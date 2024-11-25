@@ -19,7 +19,7 @@ export const FormFields = ({ form }: FormFieldsProps) => {
       name="categoryName"
       render={({ field }) => (
         <FormItem>
-          <FormLabel className="font-medium font-inter text-[16px] leading-[1.5em]">
+          <FormLabel className="font-medium font-inter text-black text-[16px] leading-[1.5em]">
             Category Name
           </FormLabel>
           <FormControl>

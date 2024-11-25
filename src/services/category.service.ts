@@ -1,5 +1,6 @@
 import categoryData from '@/data/category.json';
 import { Category, CategorySearchParams } from '@/types/category';
+import { CreateFormData } from '@/schema/category';
 
 export const CategoryService = {
   fetchCategories: async ({
@@ -29,5 +30,17 @@ export const CategoryService = {
     }
 
     return categories;
+  },
+
+  createCategory: async (data: CreateFormData): Promise<Category> => {
+    await new Promise((resolve) => setTimeout(resolve, 500));
+
+    const newCategory: Category = {
+      id: Math.max(...categoryData.map((c) => c.id)) + 1,
+      categoryName: data.categoryName,
+    };
+
+    categoryData.push(newCategory);
+    return newCategory;
   },
 };

@@ -66,7 +66,7 @@ export const FormCategory = ({
     <Dialog open={open} onOpenChange={handleClose}>
       <DialogContent className="gap-10 w-full max-w-[878px] lg:!rounded-[15px]">
         <DialogHeader>
-          <DialogTitle className="font-bold font-inter text-[20px] leading-[1.5em]">
+          <DialogTitle className="font-bold font-inter text-black text-[20px] leading-[1.5em]">
             {mode === 'add' ? 'Add New Category' : 'Edit Category'}
           </DialogTitle>
         </DialogHeader>
