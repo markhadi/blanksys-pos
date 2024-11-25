@@ -1,4 +1,4 @@
-import { Search } from '@/components/ui/search';
+import { ActionHeader } from '@/components/ui/ActionHeader';
 import { useState } from 'react';
 
 export const UserManager = () => {
@@ -12,7 +12,10 @@ export const UserManager = () => {
 
   return (
     <div>
-      <Search value={value} onChange={onChange} onSearch={onSearch} />
+      <ActionHeader
+        searchProps={{ value, onChange, onSearch }}
+        actionButton={{ label: 'Add New', onClick: () => {} }}
+      />
     </div>
   );
 };
