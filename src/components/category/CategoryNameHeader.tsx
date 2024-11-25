@@ -1,10 +1,16 @@
+import { Category } from '@/types/category';
 import { Icon } from '@iconify/react';
+import { Column } from '@tanstack/react-table';
 
-export const CategoryNameHeader = () => (
+export const CategoryNameHeader = ({
+  column,
+}: {
+  column: Column<Category>;
+}) => (
   <button
     className="min-w-[110px] flex-shrink-0 flex-grow flex items-center gap-2"
     onClick={() => {
-      console.log('sort');
+      column.toggleSorting();
     }}
   >
     <span>CATEGORY NAME</span>

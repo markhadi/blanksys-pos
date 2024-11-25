@@ -1,16 +1,33 @@
 import categoryData from '@/data/category.json';
-import { Category } from '@/types/category';
+import { Category, CategorySearchParams } from '@/types/category';
 
 export const CategoryService = {
-  fetchCategories: async (): Promise<Category[]> => {
+  fetchCategories: async ({
+    search,
+    sorting,
+  }: CategorySearchParams = {}): Promise<Category[]> => {
     await new Promise((resolve) => setTimeout(resolve, 500));
-    return categoryData as Category[];
-  },
 
-  searchCategories: async (query: string): Promise<Category[]> => {
-    const categories = await CategoryService.fetchCategories();
-    return categories.filter((category) =>
-      category.categoryName.toLowerCase().includes(query.toLowerCase())
-    );
+    let categories = [...categoryData] as Category[];
+
+    if (search?.trim()) {
+      const normalizedSearch = search.toLowerCase().trim();
+      categories = categories.filter((category) =>
+        category.categoryName.toLowerCase().includes(normalizedSearch)
+      );
+    }
+
+    if (sorting) {
+      const { field, order } = sorting;
+      categories.sort((a, b) => {
+        const aValue = String(a[field as keyof Category]);
+        const bValue = String(b[field as keyof Category]);
+        return order === 'asc'
+          ? aValue.localeCompare(bValue)
+          : bValue.localeCompare(aValue);
+      });
+    }
+
+    return categories;
   },
 };

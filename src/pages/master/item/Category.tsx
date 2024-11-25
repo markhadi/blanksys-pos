@@ -1,17 +1,23 @@
 import { TableCategory } from '@/components/category/Table';
 import { ActionHeader } from '@/components/ui/ActionHeader';
 import { useCategories } from '@/hooks/useCategories';
-import { useState, useMemo } from 'react';
+import { useState } from 'react';
+import { SortingState } from '@tanstack/react-table';
 
 export const Category = () => {
   const [searchValue, setSearchValue] = useState('');
-  const { data: categories = [], isLoading } = useCategories();
+  const [sorting, setSorting] = useState<SortingState>([]);
 
-  const filteredCategories = useMemo(() => {
-    return categories.filter((category) =>
-      category.categoryName.toLowerCase().includes(searchValue.toLowerCase())
-    );
-  }, [categories, searchValue]);
+  const { data: categories = [], isLoading } = useCategories({
+    search: searchValue,
+    sorting:
+      sorting.length > 0
+        ? {
+            field: sorting[0].id,
+            order: sorting[0].desc ? 'desc' : 'asc',
+          }
+        : undefined,
+  });
 
   const handleSearch = () => {
     console.log('Searching for:', searchValue);
@@ -29,10 +35,12 @@ export const Category = () => {
       />
 
       <TableCategory
-        data={filteredCategories}
+        data={categories}
         isLoading={isLoading}
         onEdit={() => {}}
         onDelete={() => {}}
+        sorting={sorting}
+        onSortingChange={setSorting}
       />
     </div>
   );

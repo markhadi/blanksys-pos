@@ -11,7 +11,7 @@ export const createColumns = (
   {
     id: 'categoryName',
     accessorKey: 'categoryName',
-    header: () => <CategoryNameHeader />,
+    header: ({ column }) => <CategoryNameHeader column={column} />,
     cell: ({ getValue }) => (
       <span className="min-w-[110px] flex-shrink-0 flex-grow">
         {getValue() as string}
