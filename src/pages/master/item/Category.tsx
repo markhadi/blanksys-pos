@@ -6,10 +6,11 @@ import { SortingState } from '@tanstack/react-table';
 
 export const Category = () => {
   const [searchValue, setSearchValue] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
   const [sorting, setSorting] = useState<SortingState>([]);
 
   const { data: categories = [], isLoading } = useCategories({
-    search: searchValue,
+    search: searchQuery,
     sorting:
       sorting.length > 0
         ? {
@@ -20,7 +21,7 @@ export const Category = () => {
   });
 
   const handleSearch = () => {
-    console.log('Searching for:', searchValue);
+    setSearchQuery(searchValue);
   };
 
   return (
