@@ -1,5 +1,6 @@
 import { BrandSearchParams, BrandType } from '@/types/brand';
 import brandData from '@/data/brand.json';
+import { CreateFormData } from '@/schema/brand';
 
 export const BrandService = {
   fetchBrands: async ({ search, sorting }: BrandSearchParams = {}): Promise<
@@ -28,5 +29,17 @@ export const BrandService = {
     }
 
     return brands;
+  },
+
+  createBrand: async (data: CreateFormData): Promise<BrandType> => {
+    await new Promise((resolve) => setTimeout(resolve, 500));
+
+    const newBrand: BrandType = {
+      id: Math.max(...brandData.map((b) => b.id)) + 1,
+      brandName: data.brandName,
+    };
+
+    brandData.push(newBrand);
+    return newBrand;
   },
 };

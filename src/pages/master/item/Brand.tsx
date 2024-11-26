@@ -3,6 +3,8 @@ import { TableBrand } from '@/components/brand/Table';
 import { ActionHeader } from '@/components/ui/ActionHeader';
 import { useBrands } from '@/hooks/brand/useBrand';
 import { useBrandDialogs } from '@/hooks/brand/useDialogs';
+import { useBrandMutations } from '@/hooks/brand/useMutations';
+import { CreateFormData, UpdateFormData } from '@/schema/brand';
 import { SortingState } from '@tanstack/react-table';
 import { useState } from 'react';
 
@@ -28,6 +30,14 @@ export const Brand = () => {
 
   const { formDialog, openCreateDialog, openEditDialog, closeFormDialog } =
     useBrandDialogs();
+
+  const { createMutation } = useBrandMutations();
+
+  const handleSubmit = async (data: CreateFormData | UpdateFormData) => {
+    if (formDialog.mode === 'add') {
+      createMutation.mutate(data as CreateFormData);
+    }
+  };
 
   return (
     <div className="flex-grow">
@@ -55,9 +65,10 @@ export const Brand = () => {
       <FormBrand
         open={formDialog.open}
         onClose={closeFormDialog}
-        onSubmit={() => {}}
+        onSubmit={handleSubmit}
         brand={formDialog.brand}
         mode={formDialog.mode}
+        isLoading={createMutation.isPending}
       />
     </div>
   );
