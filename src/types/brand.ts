@@ -1,3 +1,4 @@
+import { CreateFormData, UpdateFormData } from '@/schema/brand';
 import { SortingState } from '@tanstack/react-table';
 
 export interface BrandType {
@@ -20,4 +21,13 @@ export interface BrandSearchParams {
     field: string;
     order: 'asc' | 'desc';
   };
+}
+
+export interface BrandsFormDialogProps {
+  open: boolean;
+  onClose: () => void;
+  onSubmit: (data: CreateFormData | UpdateFormData) => void;
+  brand?: BrandType;
+  mode: 'add' | 'edit';
+  isLoading?: boolean;
 }

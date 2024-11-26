@@ -1,6 +1,8 @@
+import { FormBrand } from '@/components/brand/FormBrand';
 import { TableBrand } from '@/components/brand/Table';
 import { ActionHeader } from '@/components/ui/ActionHeader';
 import { useBrands } from '@/hooks/brand/useBrand';
+import { useBrandDialogs } from '@/hooks/brand/useDialogs';
 import { SortingState } from '@tanstack/react-table';
 import { useState } from 'react';
 
@@ -24,6 +26,9 @@ export const Brand = () => {
     setSearchQuery(searchValue);
   };
 
+  const { formDialog, openCreateDialog, openEditDialog, closeFormDialog } =
+    useBrandDialogs();
+
   return (
     <div className="flex-grow">
       <ActionHeader
@@ -34,17 +39,25 @@ export const Brand = () => {
         }}
         actionButton={{
           label: 'Add New',
-          onClick: () => {},
+          onClick: openCreateDialog,
         }}
       />
 
       <TableBrand
         data={brands}
         isLoading={isLoading}
-        onEdit={() => {}}
+        onEdit={openEditDialog}
         onDelete={() => {}}
         sorting={sorting}
         onSortingChange={setSorting}
+      />
+
+      <FormBrand
+        open={formDialog.open}
+        onClose={closeFormDialog}
+        onSubmit={() => {}}
+        brand={formDialog.brand}
+        mode={formDialog.mode}
       />
     </div>
   );
