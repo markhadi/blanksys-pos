@@ -1,0 +1,82 @@
+[
+  {
+    "id": 1,
+    "brandName": "Indomie"
+  },
+  {
+    "id": 2,
+    "brandName": "Aqua"
+  },
+  {
+    "id": 3,
+    "brandName": "Sprite"
+  },
+  {
+    "id": 4,
+    "brandName": "Sedaap"
+  },
+  {
+    "id": 5,
+    "brandName": "Teh Botol Sosro"
+  },
+  {
+    "id": 6,
+    "brandName": "Lifebuoy"
+  },
+  {
+    "id": 7,
+    "brandName": "Dettol"
+  },
+  {
+    "id": 8,
+    "brandName": "MamyPoko"
+  },
+  {
+    "id": 9,
+    "brandName": "Frisian Flag"
+  },
+  {
+    "id": 10,
+    "brandName": "Tango"
+  },
+  {
+    "id": 11,
+    "brandName": "Samsung"
+  },
+  {
+    "id": 12,
+    "brandName": "Panasonic"
+  },
+  {
+    "id": 13,
+    "brandName": "So Klin"
+  },
+  {
+    "id": 14,
+    "brandName": "Sunlight"
+  },
+  {
+    "id": 15,
+    "brandName": "Bango"
+  },
+  {
+    "id": 16,
+    "brandName": "Kecap ABC"
+  },
+  {
+    "id": 17,
+    "brandName": "Nugget So Good"
+  },
+  {
+    "id": 18,
+    "brandName": "Garuda"
+  },
+  {
+    "id": 19,
+    "brandName": "Oreo"
+  },
+  {
+    "id": 20,
+    "brandName": "Milo"
+  }
+]
