@@ -31,11 +31,13 @@ export const Brand = () => {
   const { formDialog, openCreateDialog, openEditDialog, closeFormDialog } =
     useBrandDialogs();
 
-  const { createMutation } = useBrandMutations();
+  const { createMutation, updateMutation } = useBrandMutations();
 
   const handleSubmit = async (data: CreateFormData | UpdateFormData) => {
     if (formDialog.mode === 'add') {
       createMutation.mutate(data as CreateFormData);
+    } else if (formDialog.brand?.id) {
+      updateMutation.mutate({ id: formDialog.brand.id, data });
     }
   };
 
@@ -68,7 +70,7 @@ export const Brand = () => {
         onSubmit={handleSubmit}
         brand={formDialog.brand}
         mode={formDialog.mode}
-        isLoading={createMutation.isPending}
+        isLoading={createMutation.isPending || updateMutation.isPending}
       />
     </div>
   );

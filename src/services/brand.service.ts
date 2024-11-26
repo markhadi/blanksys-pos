@@ -1,6 +1,6 @@
 import { BrandSearchParams, BrandType } from '@/types/brand';
 import brandData from '@/data/brand.json';
-import { CreateFormData } from '@/schema/brand';
+import { CreateFormData, UpdateFormData } from '@/schema/brand';
 
 export const BrandService = {
   fetchBrands: async ({ search, sorting }: BrandSearchParams = {}): Promise<
@@ -41,5 +41,22 @@ export const BrandService = {
 
     brandData.push(newBrand);
     return newBrand;
+  },
+
+  updateBrand: async (id: number, data: UpdateFormData): Promise<BrandType> => {
+    await new Promise((resolve) => setTimeout(resolve, 500));
+
+    const index = brandData.findIndex((brand) => brand.id === id);
+    if (index === -1) {
+      throw new Error('Brand not found');
+    }
+
+    const updatedBrand: BrandType = {
+      ...brandData[index],
+      ...data,
+    };
+
+    brandData[index] = updatedBrand;
+    return updatedBrand;
   },
 };
