@@ -1,31 +1,31 @@
-import { TableCategory } from '@/components/category/Table';
-import { ActionHeader } from '@/components/ui/ActionHeader';
-import { useCategories } from '@/hooks/useCategories';
 import { useState } from 'react';
 import { SortingState } from '@tanstack/react-table';
-import { FormCategory } from '@/components/category/FormCategory';
-import { Category as CategoryType } from '@/types/category';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { CategoryService } from '@/services/category.service';
 import { CreateFormData, UpdateFormData } from '@/schema/category';
-import { useToast } from '@/hooks/use-toast';
+import { TableCategory } from '@/components/category/Table';
+import { FormCategory } from '@/components/category/FormCategory';
+import { ActionHeader } from '@/components/ui/ActionHeader';
 import { DeleteConfirmationDialog } from '@/components/ui/DeleteConfirmationDialog';
+import { useCategoryMutations } from '@/hooks/category/useMutations';
+import { useCategoryDialogs } from '@/hooks/category/useDialogs';
+import { useCategories } from '@/hooks/category/useCategories';
 
 export const Category = () => {
   const [searchValue, setSearchValue] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
   const [sorting, setSorting] = useState<SortingState>([]);
 
-  const [formDialog, setFormDialog] = useState({
-    open: false,
-    mode: 'add' as 'add' | 'edit',
-    category: undefined as CategoryType | undefined,
-  });
+  const {
+    formDialog,
+    deleteDialog,
+    openCreateDialog,
+    openEditDialog,
+    openDeleteDialog,
+    closeFormDialog,
+    closeDeleteDialog,
+  } = useCategoryDialogs();
 
-  const [deleteDialog, setDeleteDialog] = useState({
-    open: false,
-    category: undefined as CategoryType | undefined,
-  });
+  const { createMutation, updateMutation, deleteMutation } =
+    useCategoryMutations();
 
   const { data: categories = [], isLoading } = useCategories({
     search: searchQuery,
@@ -38,89 +38,14 @@ export const Category = () => {
         : undefined,
   });
 
-  const { toast } = useToast();
-  const queryClient = useQueryClient();
-
-  const createMutation = useMutation({
-    mutationFn: CategoryService.createCategory,
-    onSuccess: (newCategory) => {
-      queryClient.invalidateQueries({ queryKey: ['categories'] });
-      setFormDialog({ ...formDialog, open: false });
-      toast({
-        title: 'Success',
-        description: `Category "${newCategory.categoryName}" has been created`,
-      });
-    },
-    onError: (error) => {
-      console.log(error);
-      toast({
-        variant: 'destructive',
-        title: 'Error',
-        description: 'Failed to create category. Please try again.',
-      });
-    },
-  });
-
-  const updateMutation = useMutation({
-    mutationFn: ({ id, data }: { id: number; data: UpdateFormData }) =>
-      CategoryService.updateCategory(id, data),
-    onSuccess: (updatedCategory) => {
-      queryClient.invalidateQueries({ queryKey: ['categories'] });
-      setFormDialog({ ...formDialog, open: false });
-      toast({
-        title: 'Success',
-        description: `Category "${updatedCategory.categoryName}" has been updated`,
-      });
-    },
-    onError: (error) => {
-      console.log(error);
-      toast({
-        variant: 'destructive',
-        title: 'Error',
-        description: 'Failed to update category. Please try again.',
-      });
-    },
-  });
-
-  const deleteMutation = useMutation({
-    mutationFn: (id: number) => CategoryService.deleteCategory(id),
-    onSuccess: (deletedCategory) => {
-      queryClient.invalidateQueries({ queryKey: ['categories'] });
-      setDeleteDialog({ open: false, category: undefined });
-      toast({
-        title: 'Success',
-        description: `Category "${deletedCategory.categoryName}" has been deleted`,
-      });
-    },
-    onError: (error) => {
-      console.log(error);
-      toast({
-        variant: 'destructive',
-        title: 'Error',
-        description: 'Failed to delete category. Please try again.',
-      });
-    },
-  });
-
   const handleSearch = () => {
     setSearchQuery(searchValue);
-  };
-
-  const handleCreate = () => {
-    setFormDialog({ open: true, mode: 'add', category: undefined });
-  };
-
-  const handleEdit = (category: CategoryType) => {
-    setFormDialog({ open: true, mode: 'edit', category });
-  };
-
-  const handleDelete = (category: CategoryType) => {
-    setDeleteDialog({ open: true, category });
   };
 
   const handleConfirmDelete = () => {
     if (deleteDialog.category?.id) {
       deleteMutation.mutate(deleteDialog.category.id);
+      closeDeleteDialog();
     }
   };
 
@@ -145,15 +70,15 @@ export const Category = () => {
         }}
         actionButton={{
           label: 'Add New',
-          onClick: handleCreate,
+          onClick: openCreateDialog,
         }}
       />
 
       <TableCategory
         data={categories}
         isLoading={isLoading}
-        onEdit={handleEdit}
-        onDelete={handleDelete}
+        onEdit={openEditDialog}
+        onDelete={openDeleteDialog}
         sorting={sorting}
         onSortingChange={setSorting}
       />
@@ -162,14 +87,14 @@ export const Category = () => {
         mode={formDialog.mode}
         open={formDialog.open}
         category={formDialog.category}
-        onClose={() => setFormDialog({ ...formDialog, open: false })}
+        onClose={closeFormDialog}
         onSubmit={handleSubmit}
         isLoading={createMutation.isPending || updateMutation.isPending}
       />
 
       <DeleteConfirmationDialog
         open={deleteDialog.open}
-        onOpenChange={() => setDeleteDialog({ ...deleteDialog, open: false })}
+        onOpenChange={closeDeleteDialog}
         onConfirm={handleConfirmDelete}
         itemName={deleteDialog.category?.categoryName || ''}
         isLoading={deleteMutation.isPending}
