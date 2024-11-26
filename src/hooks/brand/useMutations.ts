@@ -44,9 +44,28 @@ export const useBrandMutations = () => {
       });
     },
   });
+  const deleteMutation = useMutation({
+    mutationFn: (id: number) => BrandService.deleteBrand(id),
+    onSuccess: (deletedBrand) => {
+      queryClient.invalidateQueries({ queryKey: ['brands'] });
+      toast({
+        title: 'Success',
+        description: `Brand "${deletedBrand.brandName}" has been deleted`,
+      });
+    },
+    onError: (error) => {
+      console.log(error);
+      toast({
+        variant: 'destructive',
+        title: 'Error',
+        description: 'Failed to delete brand. Please try again.',
+      });
+    },
+  });
 
   return {
     createMutation,
     updateMutation,
+    deleteMutation,
   };
 };

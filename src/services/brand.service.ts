@@ -59,4 +59,17 @@ export const BrandService = {
     brandData[index] = updatedBrand;
     return updatedBrand;
   },
+
+  deleteBrand: async (id: number): Promise<BrandType> => {
+    await new Promise((resolve) => setTimeout(resolve, 500));
+
+    const index = brandData.findIndex((brand) => brand.id === id);
+    if (index === -1) {
+      throw new Error('Brand not found');
+    }
+
+    const deletedBrand = brandData[index];
+    brandData.splice(index, 1);
+    return deletedBrand;
+  },
 };

@@ -1,6 +1,7 @@
 import { FormBrand } from '@/components/brand/FormBrand';
 import { TableBrand } from '@/components/brand/Table';
 import { ActionHeader } from '@/components/ui/ActionHeader';
+import { DeleteConfirmationDialog } from '@/components/ui/DeleteConfirmationDialog';
 import { useBrands } from '@/hooks/brand/useBrand';
 import { useBrandDialogs } from '@/hooks/brand/useDialogs';
 import { useBrandMutations } from '@/hooks/brand/useMutations';
@@ -28,16 +29,31 @@ export const Brand = () => {
     setSearchQuery(searchValue);
   };
 
-  const { formDialog, openCreateDialog, openEditDialog, closeFormDialog } =
-    useBrandDialogs();
+  const {
+    formDialog,
+    openCreateDialog,
+    openEditDialog,
+    closeFormDialog,
+    deleteDialog,
+    openDeleteDialog,
+    closeDeleteDialog,
+  } = useBrandDialogs();
 
-  const { createMutation, updateMutation } = useBrandMutations();
+  const { createMutation, updateMutation, deleteMutation } =
+    useBrandMutations();
 
   const handleSubmit = async (data: CreateFormData | UpdateFormData) => {
     if (formDialog.mode === 'add') {
       createMutation.mutate(data as CreateFormData);
     } else if (formDialog.brand?.id) {
       updateMutation.mutate({ id: formDialog.brand.id, data });
+    }
+  };
+
+  const handleConfirmDelete = () => {
+    if (deleteDialog.brand?.id) {
+      deleteMutation.mutate(deleteDialog.brand.id);
+      closeDeleteDialog();
     }
   };
 
@@ -59,7 +75,7 @@ export const Brand = () => {
         data={brands}
         isLoading={isLoading}
         onEdit={openEditDialog}
-        onDelete={() => {}}
+        onDelete={openDeleteDialog}
         sorting={sorting}
         onSortingChange={setSorting}
       />
@@ -71,6 +87,14 @@ export const Brand = () => {
         brand={formDialog.brand}
         mode={formDialog.mode}
         isLoading={createMutation.isPending || updateMutation.isPending}
+      />
+
+      <DeleteConfirmationDialog
+        open={deleteDialog.open}
+        onOpenChange={closeDeleteDialog}
+        onConfirm={handleConfirmDelete}
+        itemName={deleteDialog.brand?.brandName || ''}
+        isLoading={deleteMutation.isPending}
       />
     </div>
   );

@@ -18,10 +18,30 @@ export const useBrandDialogs = () => {
       setFormDialog((prev) => ({ ...prev, open: false }));
     }, 300);
   };
+  const openDeleteDialog = (brand: BrandType) => {
+    setDeleteDialog({ open: true, brand });
+  };
+  const [deleteDialog, setDeleteDialog] = useState({
+    open: false,
+    brand: undefined as BrandType | undefined,
+  });
+  const closeDeleteDialog = () => {
+    setTimeout(() => {
+      setDeleteDialog((prev) => ({
+        ...prev,
+        open: false,
+        brand: undefined,
+      }));
+    }, 300);
+  };
+
   return {
     formDialog,
     openCreateDialog,
     openEditDialog,
     closeFormDialog,
+    deleteDialog,
+    openDeleteDialog,
+    closeDeleteDialog,
   };
 };
