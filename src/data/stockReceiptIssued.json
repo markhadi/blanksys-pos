@@ -1,7 +1,7 @@
 [
   {
     "stockId": "S2131321",
-    "itemName": "Photocopy Machine X230",
+    "itemName": "Sari Buah Marjan",
     "type": "Receipt",
     "quantity": 5,
     "units": "pcs",
@@ -10,7 +10,7 @@
   },
   {
     "stockId": "S2131322",
-    "itemName": "Laptop Asus X243",
+    "itemName": "Panasonic Baterai AAA",
     "type": "Issued",
     "quantity": 2,
     "units": "pcs",
@@ -19,7 +19,7 @@
   },
   {
     "stockId": "S2131323",
-    "itemName": "iPhone 16 Pro X",
+    "itemName": "Kaleng Ikan ABC 425g",
     "type": "Receipt",
     "quantity": 8,
     "units": "pcs",
@@ -28,7 +28,7 @@
   },
   {
     "stockId": "S2131324",
-    "itemName": "Samsung Galaxy Note 25",
+    "itemName": "Milo Sachet 35g",
     "type": "Issued",
     "quantity": 3,
     "units": "pcs",
@@ -37,7 +37,7 @@
   },
   {
     "stockId": "S2131325",
-    "itemName": "HP Deskjet 2770 Printer",
+    "itemName": "Garuda Kacang Kulit 500g",
     "type": "Receipt",
     "quantity": 6,
     "units": "pcs",
@@ -46,7 +46,7 @@
   },
   {
     "stockId": "S2131326",
-    "itemName": "MacBook Pro 2024",
+    "itemName": "Nugget Ayam So Good 500g",
     "type": "Issued",
     "quantity": 1,
     "units": "pcs",
@@ -55,7 +55,7 @@
   },
   {
     "stockId": "S2131327",
-    "itemName": "Canon EOS R5 Camera",
+    "itemName": "So Klin Liquid 1.8L",
     "type": "Receipt",
     "quantity": 7,
     "units": "pcs",
@@ -64,7 +64,7 @@
   },
   {
     "stockId": "S2131328",
-    "itemName": "Dell Inspiron 15 Laptop",
+    "itemName": "Oreo Sandwich Coklat",
     "type": "Issued",
     "quantity": 4,
     "units": "pcs",
@@ -73,7 +73,7 @@
   },
   {
     "stockId": "S2131329",
-    "itemName": "Logitech MX Master 4 Mouse",
+    "itemName": "Roti Tawar Sari Roti",
     "type": "Receipt",
     "quantity": 10,
     "units": "pcs",
@@ -82,7 +82,7 @@
   },
   {
     "stockId": "S2131330",
-    "itemName": "Asus TUF Gaming Laptop",
+    "itemName": "Sunlight Jeruk Nipis 800ml",
     "type": "Issued",
     "quantity": 3,
     "units": "pcs",
@@ -91,7 +91,7 @@
   },
   {
     "stockId": "S2131331",
-    "itemName": "Lenovo ThinkPad X1 Carbon",
+    "itemName": "Samsung Charger Original",
     "type": "Receipt",
     "quantity": 5,
     "units": "pcs",
@@ -100,7 +100,7 @@
   },
   {
     "stockId": "S2131332",
-    "itemName": "Samsung Galaxy Watch 6",
+    "itemName": "Bango Kecap Manis 220ml",
     "type": "Issued",
     "quantity": 6,
     "units": "pcs",
@@ -109,7 +109,7 @@
   },
   {
     "stockId": "S2131333",
-    "itemName": "Sony WH-1000XM5 Headphones",
+    "itemName": "Frisian Flag Susu Kental Manis",
     "type": "Receipt",
     "quantity": 9,
     "units": "pcs",
@@ -118,7 +118,7 @@
   },
   {
     "stockId": "S2131334",
-    "itemName": "Google Pixel 8 Pro",
+    "itemName": "MamyPoko Pants M34",
     "type": "Issued",
     "quantity": 2,
     "units": "pcs",
@@ -127,7 +127,7 @@
   },
   {
     "stockId": "S2131335",
-    "itemName": "Microsoft Surface Pro 9",
+    "itemName": "Lifebuoy Sabun Cair 250ml",
     "type": "Receipt",
     "quantity": 11,
     "units": "pcs",
@@ -136,7 +136,7 @@
   },
   {
     "stockId": "S2131336",
-    "itemName": "Razer Blade 17 Gaming Laptop",
+    "itemName": "Teh Botol Sosro 250ml",
     "type": "Issued",
     "quantity": 1,
     "units": "pcs",
@@ -145,7 +145,7 @@
   },
   {
     "stockId": "S2131337",
-    "itemName": "Apple AirPods Pro 3",
+    "itemName": "Tango Wafer Coklat",
     "type": "Receipt",
     "quantity": 8,
     "units": "pcs",
@@ -154,7 +154,7 @@
   },
   {
     "stockId": "S2131338",
-    "itemName": "LG OLED TV 65 Inch",
+    "itemName": "Sprite 1L",
     "type": "Issued",
     "quantity": 2,
     "units": "pcs",
@@ -163,7 +163,7 @@
   },
   {
     "stockId": "S2131339",
-    "itemName": "Bose Soundbar 900",
+    "itemName": "Aqua 600ml",
     "type": "Receipt",
     "quantity": 4,
     "units": "pcs",
@@ -172,7 +172,7 @@
   },
   {
     "stockId": "S2131340",
-    "itemName": "Dyson V15 Vacuum Cleaner",
+    "itemName": "Indomie Goreng",
     "type": "Issued",
     "quantity": 2,
     "units": "pcs",

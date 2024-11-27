@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "unitName": "Lusin",
+    "qty": 12
+  },
+  {
+    "id": 2,
+    "unitName": "Kodi",
+    "qty": 20
+  },
+  {
+    "id": 3,
+    "unitName": "Rim",
+    "qty": 500
+  },
+  {
+    "id": 4,
+    "unitName": "Pack",
+    "qty": 10
+  },
+  {
+    "id": 5,
+    "unitName": "Dus",
+    "qty": 24
+  },
+  {
+    "id": 6,
+    "unitName": "Tray",
+    "qty": 30
+  },
+  {
+    "id": 7,
+    "unitName": "Karung",
+    "qty": 25
+  }
+]

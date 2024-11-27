@@ -1,160 +1,160 @@
 [
   {
     "productId": "P1001",
-    "name": "Apple iPhone 15 Pro",
-    "category": "Smartphone",
+    "name": "Indomie Goreng",
+    "category": "Makanan Instan",
     "unitsSold": 500,
     "units": "pcs",
     "imageUrl": "https://dummyimage.com/100x100/0000ff/ffffff&text=Product+1"
   },
   {
     "productId": "P1002",
-    "name": "Samsung Galaxy S23 Ultra",
-    "category": "Smartphone",
+    "name": "Aqua 600ml",
+    "category": "Minuman",
     "unitsSold": 450,
     "units": "pcs",
     "imageUrl": "https://dummyimage.com/100x100/008000/ffffff&text=Product+2"
   },
   {
     "productId": "P1003",
-    "name": "Sony WH-1000XM5",
-    "category": "Headphones",
+    "name": "Sprite 1L",
+    "category": "Minuman",
     "unitsSold": 350,
     "units": "pcs",
     "imageUrl": "https://dummyimage.com/100x100/ff8000/ffffff&text=Product+3"
   },
   {
     "productId": "P1004",
-    "name": "Dell XPS 15",
-    "category": "Laptop",
+    "name": "Tango Wafer Coklat",
+    "category": "Makanan Ringan",
     "unitsSold": 300,
     "units": "pcs",
     "imageUrl": "https://dummyimage.com/100x100/0000ff/ffffff&text=Product+4"
   },
   {
     "productId": "P1005",
-    "name": "Logitech MX Master 4",
-    "category": "Accessories",
+    "name": "Teh Botol Sosro 250ml",
+    "category": "Minuman",
     "unitsSold": 270,
     "units": "pcs",
     "imageUrl": "https://dummyimage.com/100x100/ff8000/ffffff&text=Product+5"
   },
   {
     "productId": "P1006",
-    "name": "Apple MacBook Pro 16\"",
-    "category": "Laptop",
+    "name": "Lifebuoy Sabun Cair 250ml",
+    "category": "Perawatan Pribadi",
     "unitsSold": 250,
     "units": "pcs",
     "imageUrl": "https://dummyimage.com/100x100/0000ff/ffffff&text=Product+6"
   },
   {
     "productId": "P1007",
-    "name": "Samsung QLED TV 55\"",
-    "category": "Television",
+    "name": "MamyPoko Pants M34",
+    "category": "Kebutuhan Bayi",
     "unitsSold": 220,
     "units": "pcs",
     "imageUrl": "https://dummyimage.com/100x100/008000/ffffff&text=Product+7"
   },
   {
     "productId": "P1008",
-    "name": "Bose Soundbar 700",
-    "category": "Audio",
+    "name": "Frisian Flag Susu Kental Manis",
+    "category": "Produk Susu",
     "unitsSold": 200,
     "units": "pcs",
     "imageUrl": "https://dummyimage.com/100x100/ff8000/ffffff&text=Product+8"
   },
   {
     "productId": "P1009",
-    "name": "Google Pixel 8",
-    "category": "Smartphone",
+    "name": "Bango Kecap Manis 220ml",
+    "category": "Bumbu Dapur",
     "unitsSold": 180,
     "units": "pcs",
     "imageUrl": "https://dummyimage.com/100x100/0000ff/ffffff&text=Product+9"
   },
   {
     "productId": "P1010",
-    "name": "Canon EOS R6 Camera",
-    "category": "Camera",
+    "name": "Samsung Charger Original",
+    "category": "Elektronik Kecil",
     "unitsSold": 150,
     "units": "pcs",
     "imageUrl": "https://dummyimage.com/100x100/008000/ffffff&text=Product+10"
   },
   {
     "productId": "P1011",
-    "name": "LG UltraFine Monitor 27\"",
-    "category": "Monitor",
+    "name": "Sunlight Jeruk Nipis 800ml",
+    "category": "Pembersih Rumah",
     "unitsSold": 140,
     "units": "pcs",
     "imageUrl": "https://dummyimage.com/100x100/ff8000/ffffff&text=Product+11"
   },
   {
     "productId": "P1012",
-    "name": "Razer DeathAdder V3",
-    "category": "Accessories",
+    "name": "Roti Tawar Sari Roti",
+    "category": "Roti & Kue",
     "unitsSold": 130,
     "units": "pcs",
     "imageUrl": "https://dummyimage.com/100x100/0000ff/ffffff&text=Product+12"
   },
   {
     "productId": "P1013",
-    "name": "Microsoft Surface Laptop 5",
-    "category": "Laptop",
+    "name": "Oreo Sandwich Coklat",
+    "category": "Camilan",
     "unitsSold": 120,
     "units": "pcs",
     "imageUrl": "https://dummyimage.com/100x100/008000/ffffff&text=Product+13"
   },
   {
     "productId": "P1014",
-    "name": "Sony Bravia 4K OLED TV",
-    "category": "Television",
+    "name": "So Klin Liquid 1.8L",
+    "category": "Pembersih Rumah",
     "unitsSold": 110,
     "units": "pcs",
     "imageUrl": "https://dummyimage.com/100x100/ff8000/ffffff&text=Product+14"
   },
   {
     "productId": "P1015",
-    "name": "Dyson Air Purifier",
-    "category": "Home Appliance",
+    "name": "Nugget Ayam So Good 500g",
+    "category": "Frozen Food",
     "unitsSold": 100,
     "units": "pcs",
     "imageUrl": "https://dummyimage.com/100x100/0000ff/ffffff&text=Product+15"
   },
   {
     "productId": "P1016",
-    "name": "Fitbit Charge 6",
-    "category": "Wearables",
+    "name": "Garuda Kacang Kulit 500g",
+    "category": "Makanan Ringan",
     "unitsSold": 90,
     "units": "pcs",
     "imageUrl": "https://dummyimage.com/100x100/008000/ffffff&text=Product+16"
   },
   {
     "productId": "P1017",
-    "name": "Amazon Echo Dot 5th Gen",
-    "category": "Smart Home",
+    "name": "Milo Sachet 35g",
+    "category": "Minuman",
     "unitsSold": 80,
     "units": "pcs",
     "imageUrl": "https://dummyimage.com/100x100/ff8000/ffffff&text=Product+17"
   },
   {
     "productId": "P1018",
-    "name": "Nespresso Vertuo Plus",
-    "category": "Home Appliance",
+    "name": "Kaleng Ikan ABC 425g",
+    "category": "Bahan Pokok",
     "unitsSold": 70,
     "units": "pcs",
     "imageUrl": "https://dummyimage.com/100x100/0000ff/ffffff&text=Product+18"
   },
   {
     "productId": "P1019",
-    "name": "Apple Watch Series 9",
-    "category": "Wearables",
+    "name": "Panasonic Baterai AAA",
+    "category": "Elektronik Kecil",
     "unitsSold": 60,
     "units": "pcs",
     "imageUrl": "https://dummyimage.com/100x100/008000/ffffff&text=Product+19"
   },
   {
     "productId": "P1020",
-    "name": "Xiaomi Mi Band 8",
-    "category": "Wearables",
+    "name": "Sari Buah Marjan",
+    "category": "Minuman",
     "unitsSold": 50,
     "units": "pcs",
     "imageUrl": "https://dummyimage.com/100x100/ff8000/ffffff&text=Product+20"
