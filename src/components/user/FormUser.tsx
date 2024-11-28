@@ -23,6 +23,7 @@ const DEFAULT_CREATE_VALUES = {
   fullName: '',
   role: 'Administrator' as const,
   password: '',
+  confirmPassword: '',
 };
 
 export const FormUser = ({
@@ -43,6 +44,7 @@ export const FormUser = ({
             fullName: user?.fullName,
             role: user?.role,
             password: user?.password,
+            confirmPassword: user?.password,
           },
   });
 
@@ -56,6 +58,7 @@ export const FormUser = ({
             fullName: user.fullName,
             role: user.role,
             password: user.password,
+            confirmPassword: user.password,
           }
         : DEFAULT_CREATE_VALUES;
 

@@ -1,13 +1,21 @@
 import { z } from 'zod';
 
-export const createUserSchema = z.object({
-  username: z.string().min(3, 'Username must be at least 3 characters'),
-  fullName: z.string().min(3, 'Full name must be at least 3 characters'),
-  role: z.enum(['Administrator', 'Cashier'], {
-    required_error: 'Please select a role',
-  }),
-  password: z.string().min(6, 'Password must be at least 6 characters'),
-});
+export const createUserSchema = z
+  .object({
+    username: z.string().min(3, 'Username must be at least 3 characters'),
+    fullName: z.string().min(3, 'Full name must be at least 3 characters'),
+    role: z.enum(['Administrator', 'Cashier'], {
+      required_error: 'Please select a role',
+    }),
+    password: z.string().min(6, 'Password must be at least 6 characters'),
+    confirmPassword: z
+      .string()
+      .min(6, 'Password must be at least 6 characters'),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: 'Passwords do not match',
+    path: ['confirmPassword'],
+  });
 
 export const updateUserSchema = createUserSchema;
 
