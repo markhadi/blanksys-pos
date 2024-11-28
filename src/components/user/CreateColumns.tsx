@@ -36,6 +36,10 @@ export const createColumns = (
         {getValue() as string}
       </span>
     ),
+    filterFn: (row, id, filterValue: string[]) => {
+      if (!filterValue?.length) return true;
+      return filterValue.includes(row.getValue(id));
+    },
   },
   {
     id: 'action',

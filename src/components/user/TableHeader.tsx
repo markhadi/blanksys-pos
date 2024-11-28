@@ -1,6 +1,7 @@
 import { UserType } from '@/types/user';
 import { Icon } from '@iconify/react';
 import { Column } from '@tanstack/react-table';
+import { RoleFilterPopover } from './RoleFilterPopover';
 
 export const UsernameHeader = ({ column }: { column: Column<UserType> }) => (
   <button
@@ -23,11 +24,7 @@ export const FullNameHeader = ({ column }: { column: Column<UserType> }) => (
 );
 
 export const RoleHeader = ({ column }: { column: Column<UserType> }) => (
-  <button
-    className="min-w-[150px] flex-shrink-0 flex items-center gap-2"
-    onClick={() => column.toggleSorting()}
-  >
-    <span>ROLE</span>
-    <Icon icon="solar:sort-vertical-linear" className="w-4 h-4" />
-  </button>
+  <div className="min-w-[150px] flex-shrink-0 flex items-center gap-2">
+    <RoleFilterPopover column={column} />
+  </div>
 );

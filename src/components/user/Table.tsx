@@ -5,6 +5,7 @@ import {
   getSortedRowModel,
   OnChangeFn,
   SortingState,
+  getFilteredRowModel,
 } from '@tanstack/react-table';
 import { useVirtualizer } from '@tanstack/react-virtual';
 import { UserTableProps } from '@/types/user';
@@ -42,6 +43,7 @@ export const TableUser = ({
     manualSorting: true,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
   });
 
   const { rows } = table.getRowModel();
