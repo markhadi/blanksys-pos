@@ -3,9 +3,25 @@ import userData from '@/data/user.json';
 import { CreateFormData, UpdateFormData } from '@/schema/user';
 
 export const UserService = {
-  fetchUsers: async ({ search, sorting }: UserSearchParams = {}): Promise<
-    UserType[]
-  > => {
+  getRoles: async (search?: string): Promise<string[]> => {
+    await new Promise((resolve) => setTimeout(resolve, 500));
+
+    let roles = Array.from(new Set(userData.map((user) => user.role))).sort();
+
+    if (search?.trim()) {
+      const normalizedSearch = search.toLowerCase().trim();
+      roles = roles.filter((role) =>
+        role.toLowerCase().includes(normalizedSearch)
+      );
+    }
+
+    return roles;
+  },
+  fetchUsers: async ({
+    search,
+    roles,
+    sorting,
+  }: UserSearchParams = {}): Promise<UserType[]> => {
     await new Promise((resolve) => setTimeout(resolve, 500));
 
     let users = [...userData] as UserType[];
@@ -17,6 +33,10 @@ export const UserService = {
           user.username.toLowerCase().includes(normalizedSearch) ||
           user.fullName.toLowerCase().includes(normalizedSearch)
       );
+    }
+
+    if (roles?.length) {
+      users = users.filter((user) => roles.includes(user.role));
     }
 
     if (sorting) {

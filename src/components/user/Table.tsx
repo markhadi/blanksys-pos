@@ -23,12 +23,13 @@ export const TableUser = ({
   onDelete,
   sorting = [],
   onSortingChange,
+  onRoleFilter,
 }: UserTableProps) => {
   const parentRef = useRef<HTMLDivElement>(null);
 
   const columns = useMemo(
-    () => createColumns(onEdit, onDelete),
-    [onEdit, onDelete]
+    () => createColumns(onEdit, onDelete, onRoleFilter),
+    [onEdit, onDelete, onRoleFilter]
   );
 
   const validData = useMemo(() => (Array.isArray(data) ? data : []), [data]);

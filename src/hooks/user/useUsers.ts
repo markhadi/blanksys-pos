@@ -8,3 +8,10 @@ export const useUsers = (params: UserSearchParams = {}) => {
     queryFn: () => UserService.fetchUsers(params),
   });
 };
+
+export const useRoles = (search: string) => {
+  return useQuery({
+    queryKey: ['roles', search],
+    queryFn: () => UserService.getRoles(search),
+  });
+};

@@ -10,22 +10,26 @@ import { Column } from '@tanstack/react-table';
 import { UserType } from '@/types/user';
 import { useState } from 'react';
 import { Checkbox } from '@/components/ui/checkbox';
+import { useRoles } from '@/hooks/user/useUsers';
 
 interface RoleFilterProps {
   column: Column<UserType>;
+  onRoleFilter: (roles: string[]) => void;
 }
 
-const ROLES = ['Administrator', 'Cashier'];
-
-export const RoleFilterPopover = ({ column }: RoleFilterProps) => {
+export const RoleFilterPopover = ({
+  column,
+  onRoleFilter,
+}: RoleFilterProps) => {
   const [search, setSearch] = useState('');
+  const { data: roles = [] } = useRoles(search);
   const [open, setOpen] = useState(false);
   const [tempSelectedRoles, setTempSelectedRoles] = useState<string[]>([]);
   const [tempSortDir, setTempSortDir] = useState<boolean | undefined>(
     undefined
   );
 
-  const filteredRoles = ROLES.filter((role) =>
+  const filteredRoles = roles.filter((role) =>
     role.toLowerCase().includes(search.toLowerCase())
   );
 
@@ -69,6 +73,7 @@ export const RoleFilterPopover = ({ column }: RoleFilterProps) => {
     column.setFilterValue(
       tempSelectedRoles.length ? tempSelectedRoles : undefined
     );
+    onRoleFilter(tempSelectedRoles);
     setOpen(false);
   };
 
@@ -91,7 +96,7 @@ export const RoleFilterPopover = ({ column }: RoleFilterProps) => {
           </Button>
         </div>
       </PopoverTrigger>
-      <PopoverContent className="w-60 p-4">
+      <PopoverContent align="end" className="w-96 p-4">
         <div className="space-y-4">
           <div className="space-y-2">
             <Button

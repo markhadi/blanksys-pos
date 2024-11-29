@@ -16,10 +16,12 @@ export interface UserTableProps {
   onDelete: (user: UserType) => void;
   sorting: SortingState;
   onSortingChange: (sorting: SortingState) => void;
+  onRoleFilter: (roles: string[]) => void;
 }
 
 export interface UserSearchParams {
   search?: string;
+  roles?: string[];
   sorting?: {
     field: string;
     order: 'asc' | 'desc';

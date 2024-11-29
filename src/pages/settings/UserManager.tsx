@@ -13,9 +13,11 @@ export const UserManager = () => {
   const [searchValue, setSearchValue] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
   const [sorting, setSorting] = useState<SortingState>([]);
+  const [selectedRoles, setSelectedRoles] = useState<string[]>([]);
 
   const { data: users = [], isLoading } = useUsers({
     search: searchQuery,
+    roles: selectedRoles,
     sorting:
       sorting.length > 0
         ? {
@@ -27,6 +29,10 @@ export const UserManager = () => {
 
   const handleSearch = () => {
     setSearchQuery(searchValue);
+  };
+
+  const handleRoleFilter = (roles: string[]) => {
+    setSelectedRoles(roles);
   };
 
   const {
@@ -77,6 +83,7 @@ export const UserManager = () => {
         onDelete={openDeleteDialog}
         sorting={sorting}
         onSortingChange={setSorting}
+        onRoleFilter={handleRoleFilter}
       />
 
       <FormUser

@@ -23,8 +23,14 @@ export const FullNameHeader = ({ column }: { column: Column<UserType> }) => (
   </button>
 );
 
-export const RoleHeader = ({ column }: { column: Column<UserType> }) => (
+export const RoleHeader = ({
+  column,
+  onRoleFilter,
+}: {
+  column: Column<UserType>;
+  onRoleFilter: (roles: string[]) => void;
+}) => (
   <div className="min-w-[150px] flex-shrink-0 flex items-center gap-2">
-    <RoleFilterPopover column={column} />
+    <RoleFilterPopover column={column} onRoleFilter={onRoleFilter} />
   </div>
 );

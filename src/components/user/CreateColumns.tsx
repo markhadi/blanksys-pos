@@ -5,7 +5,8 @@ import { RowAction } from '@/components/ui/RowAction';
 
 export const createColumns = (
   onEdit: (user: UserType) => void,
-  onDelete: (user: UserType) => void
+  onDelete: (user: UserType) => void,
+  onRoleFilter: (roles: string[]) => void
 ): ColumnDef<UserType>[] => [
   {
     id: 'username',
@@ -30,7 +31,9 @@ export const createColumns = (
   {
     id: 'role',
     accessorKey: 'role',
-    header: ({ column }) => <RoleHeader column={column} />,
+    header: ({ column }) => (
+      <RoleHeader column={column} onRoleFilter={onRoleFilter} />
+    ),
     cell: ({ getValue }) => (
       <span className="min-w-[150px] flex-shrink-0">
         {getValue() as string}
