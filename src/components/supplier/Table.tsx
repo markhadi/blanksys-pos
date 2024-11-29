@@ -12,7 +12,7 @@ import { TableCard } from '@/components/ui/TableCard';
 import { TableSkeleton } from '@/components/ui/TableSkeleton';
 import { EmptyState } from '@/components/ui/TableEmptyState';
 import { SupplierTableProps } from '@/types/supplier';
-import { tableColumns } from '@/components/supplier/TableColumns';
+import { TableColumns } from '@/components/supplier/TableColumns';
 import { TableConfig } from '@/config/Table';
 
 export const TableSupplier = ({
@@ -26,7 +26,7 @@ export const TableSupplier = ({
   const parentRef = useRef<HTMLDivElement>(null);
 
   const columns = useMemo(
-    () => tableColumns(onEdit, onDelete),
+    () => TableColumns(onEdit, onDelete),
     [onEdit, onDelete]
   );
 

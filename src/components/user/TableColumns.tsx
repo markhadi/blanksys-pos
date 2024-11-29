@@ -1,9 +1,13 @@
 import { UserType } from '@/types/user';
 import { ColumnDef } from '@tanstack/react-table';
-import { FullNameHeader, RoleHeader, UsernameHeader } from './TableHeader';
+import {
+  FullNameHeader,
+  RoleHeader,
+  UsernameHeader,
+} from '@/components/user/TableHeader';
 import { RowAction } from '@/components/ui/RowAction';
 
-export const createColumns = (
+export const TableColumns = (
   onEdit: (user: UserType) => void,
   onDelete: (user: UserType) => void,
   onRoleFilter: (roles: string[]) => void

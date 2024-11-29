@@ -13,7 +13,7 @@ import { TableCard } from '@/components/ui/TableCard';
 import { TableSkeleton } from '@/components/ui/TableSkeleton';
 import { EmptyState } from '@/components/ui/TableEmptyState';
 import { TableConfig } from '@/config/Table';
-import { createColumns } from '@/components/brand/CreateColumns';
+import { TableColumns } from '@/components/brand/TableColumns';
 
 export const TableBrand = ({
   data,
@@ -26,7 +26,7 @@ export const TableBrand = ({
   const parentRef = useRef<HTMLDivElement>(null);
 
   const columns = useMemo(
-    () => createColumns(onEdit, onDelete),
+    () => TableColumns(onEdit, onDelete),
     [onEdit, onDelete]
   );
 

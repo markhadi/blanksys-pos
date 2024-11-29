@@ -14,7 +14,7 @@ import { TableCard } from '@/components/ui/TableCard';
 import { TableSkeleton } from '@/components/ui/TableSkeleton';
 import { EmptyState } from '@/components/ui/TableEmptyState';
 import { TableConfig } from '@/config/Table';
-import { createColumns } from '@/components/user/CreateColumns';
+import { TableColumns } from '@/components/user/TableColumns';
 
 export const TableUser = ({
   data,
@@ -28,7 +28,7 @@ export const TableUser = ({
   const parentRef = useRef<HTMLDivElement>(null);
 
   const columns = useMemo(
-    () => createColumns(onEdit, onDelete, onRoleFilter),
+    () => TableColumns(onEdit, onDelete, onRoleFilter),
     [onEdit, onDelete, onRoleFilter]
   );
 

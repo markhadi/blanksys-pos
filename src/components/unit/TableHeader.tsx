@@ -4,7 +4,7 @@ import { Column } from '@tanstack/react-table';
 
 export const UnitNameHeader = ({ column }: { column: Column<UnitType> }) => (
   <button
-    className="min-w-[130px] flex-shrink-0 flex items-center gap-2"
+    className="min-w-[130px] flex-shrink-0 flex items-center gap-2 justify-between w-full"
     onClick={() => {
       column.toggleSorting();
     }}
@@ -16,7 +16,7 @@ export const UnitNameHeader = ({ column }: { column: Column<UnitType> }) => (
 
 export const QtyHeader = ({ column }: { column: Column<UnitType> }) => (
   <button
-    className="min-w-[110px] flex-shrink-0 flex-grow flex items-center gap-2"
+    className="min-w-[110px] flex-shrink-0 flex-grow flex items-center gap-2 justify-between w-full"
     onClick={() => {
       column.toggleSorting();
     }}

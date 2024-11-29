@@ -3,7 +3,7 @@ import { ColumnDef } from '@tanstack/react-table';
 import { QtyHeader, UnitNameHeader } from '@/components/unit/TableHeader';
 import { RowAction } from '@/components/ui/RowAction';
 
-export const createColumns = (
+export const TableColumns = (
   onEdit: (unit: UnitType) => void,
   onDelete: (unit: UnitType) => void
 ): ColumnDef<UnitType>[] => [

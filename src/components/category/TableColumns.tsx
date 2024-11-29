@@ -1,16 +1,16 @@
-import { BrandType } from '@/types/brand';
+import { Category } from '@/types/category';
 import { ColumnDef } from '@tanstack/react-table';
-import { BrandNameHeader } from '@/components/brand/BrandNameHeader';
+import { CategoryNameHeader } from '@/components/category/TableHeader';
 import { RowAction } from '@/components/ui/RowAction';
 
-export const createColumns = (
-  onEdit: (brand: BrandType) => void,
-  onDelete: (brand: BrandType) => void
-): ColumnDef<BrandType>[] => [
+export const TableColumns = (
+  onEdit: (category: Category) => void,
+  onDelete: (category: Category) => void
+): ColumnDef<Category>[] => [
   {
-    id: 'brandName',
-    accessorKey: 'brandName',
-    header: ({ column }) => <BrandNameHeader column={column} />,
+    id: 'categoryName',
+    accessorKey: 'categoryName',
+    header: ({ column }) => <CategoryNameHeader column={column} />,
     cell: ({ getValue }) => (
       <span className="min-w-[110px] flex-shrink-0 flex-grow">
         {getValue() as string}

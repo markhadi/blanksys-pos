@@ -13,7 +13,7 @@ import { TableCard } from '@/components/ui/TableCard';
 import { TableSkeleton } from '@/components/ui/TableSkeleton';
 import { EmptyState } from '@/components/ui/TableEmptyState';
 import { TableConfig } from '@/config/Table';
-import { createColumns } from '@/components/category/CreateColumns';
+import { TableColumns } from '@/components/category/TableColumns';
 
 export const TableCategory = ({
   data,
@@ -26,7 +26,7 @@ export const TableCategory = ({
   const parentRef = useRef<HTMLDivElement>(null);
 
   const columns = useMemo(
-    () => createColumns(onEdit, onDelete),
+    () => TableColumns(onEdit, onDelete),
     [onEdit, onDelete]
   );
 

@@ -7,7 +7,7 @@ import {
   SupplierNameHeader,
 } from '@/components/supplier/TableHeader';
 
-export const tableColumns = (
+export const TableColumns = (
   onEdit: (user: SupplierType) => void,
   onDelete: (user: SupplierType) => void
 ): ColumnDef<SupplierType>[] => [

@@ -1,12 +1,12 @@
 import { UserType } from '@/types/user';
 import { Icon } from '@iconify/react';
 import { Column } from '@tanstack/react-table';
-import { FilterPopover } from '../ui/FilterPopover';
+import { FilterPopover } from '@/components/ui/FilterPopover';
 import { useRoles } from '@/hooks/user/useUsers';
 
 export const UsernameHeader = ({ column }: { column: Column<UserType> }) => (
   <button
-    className="min-w-60 xl:min-w-[500px] flex-shrink-0 flex items-center gap-2"
+    className="min-w-60 xl:min-w-[500px] flex-shrink-0 flex items-center gap-2 justify-between w-full"
     onClick={() => column.toggleSorting()}
   >
     <span>USERNAME</span>
@@ -16,7 +16,7 @@ export const UsernameHeader = ({ column }: { column: Column<UserType> }) => (
 
 export const FullNameHeader = ({ column }: { column: Column<UserType> }) => (
   <button
-    className="min-w-60 xl:min-w-[500px] flex-shrink-0 flex items-center gap-2"
+    className="min-w-60 xl:min-w-[500px] flex-shrink-0 flex items-center gap-2 justify-between w-full"
     onClick={() => column.toggleSorting()}
   >
     <span>FULL NAME</span>

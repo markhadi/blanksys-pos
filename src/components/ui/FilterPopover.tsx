@@ -80,9 +80,9 @@ export const FilterPopover = <T,>({
   return (
     <Popover open={open} onOpenChange={handleOpenChange}>
       <PopoverTrigger asChild>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 justify-between w-full cursor-pointer">
           <span>{title}</span>
-          <Button variant="ghost" className="flex items-center gap-2">
+          <Button className="flex items-center gap-2 bg-transparent hover:bg-transparent text-[#0F172A] p-0">
             <Icon icon="solar:filter-linear" className="w-4 h-4" />
             {selectedValues.length > 0 && (
               <span className="bg-primary text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">

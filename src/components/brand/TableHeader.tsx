@@ -4,7 +4,7 @@ import { Column } from '@tanstack/react-table';
 
 export const BrandNameHeader = ({ column }: { column: Column<BrandType> }) => (
   <button
-    className="min-w-[110px] flex-shrink-0 flex-grow flex items-center gap-2"
+    className="min-w-[110px] flex-shrink-0 flex-grow flex items-center gap-2 justify-between w-full"
     onClick={() => {
       column.toggleSorting();
     }}
