@@ -1,0 +1,92 @@
+[
+  {
+    "id": 1,
+    "supplierName": "PT. Sumber Maju Sejahtera",
+    "contact": "+62 812 3456 7890",
+    "address": "Jl. Jendral Sudirman No. 10, Jakarta Pusat, DKI Jakarta"
+  },
+  {
+    "id": 2,
+    "supplierName": "CV. Bintang Terang",
+    "contact": "+62 811 2233 4455",
+    "address": "Jl. Imam Bonjol No. 22, Surabaya, Jawa Timur"
+  },
+  {
+    "id": 3,
+    "supplierName": "UD. Harapan Jaya",
+    "contact": "+62 812 9876 5432",
+    "address": "Jl. Gatot Subroto No. 45, Medan, Sumatera Utara"
+  },
+  {
+    "id": 4,
+    "supplierName": "PT. Mega Kencana",
+    "contact": "+62 813 5566 7788",
+    "address": "Jl. Merdeka No. 18, Bandung, Jawa Barat"
+  },
+  {
+    "id": 5,
+    "supplierName": "CV. Surya Abadi",
+    "contact": "+62 811 9988 7766",
+    "address": "Jl. Diponegoro No. 34, Semarang, Jawa Tengah"
+  },
+  {
+    "id": 6,
+    "supplierName": "PT. Nusantara Supply",
+    "contact": "+62 812 3456 1122",
+    "address": "Jl. MH Thamrin No. 88, Jakarta Selatan, DKI Jakarta"
+  },
+  {
+    "id": 7,
+    "supplierName": "UD. Sinar Utama",
+    "contact": "+62 813 2233 4455",
+    "address": "Jl. Pahlawan No. 99, Makassar, Sulawesi Selatan"
+  },
+  {
+    "id": 8,
+    "supplierName": "PT. Global Indo Supply",
+    "contact": "+62 811 3344 5566",
+    "address": "Jl. Hasanuddin No. 12, Yogyakarta, DIY"
+  },
+  {
+    "id": 9,
+    "supplierName": "CV. Mandiri Sejahtera",
+    "contact": "+62 812 5566 7788",
+    "address": "Jl. Pemuda No. 54, Malang, Jawa Timur"
+  },
+  {
+    "id": 10,
+    "supplierName": "PT. Prima Karya",
+    "contact": "+62 811 6677 8899",
+    "address": "Jl. Ahmad Yani No. 77, Denpasar, Bali"
+  },
+  {
+    "id": 11,
+    "supplierName": "PT. Karya Sentosa",
+    "contact": "+62 812 7788 8899",
+    "address": "Jl. Sudirman No. 50, Palembang, Sumatera Selatan"
+  },
+  {
+    "id": 12,
+    "supplierName": "CV. Sahabat Sukses",
+    "contact": "+62 811 1122 3344",
+    "address": "Jl. Veteran No. 23, Balikpapan, Kalimantan Timur"
+  },
+  {
+    "id": 13,
+    "supplierName": "UD. Barokah",
+    "contact": "+62 812 9988 7766",
+    "address": "Jl. Cokroaminoto No. 65, Solo, Jawa Tengah"
+  },
+  {
+    "id": 14,
+    "supplierName": "PT. Asia Pasifik Supply",
+    "contact": "+62 813 4455 6677",
+    "address": "Jl. Gajah Mada No. 14, Pontianak, Kalimantan Barat"
+  },
+  {
+    "id": 15,
+    "supplierName": "CV. Cahaya Timur",
+    "contact": "+62 811 8899 5566",
+    "address": "Jl. Letjen S. Parman No. 36, Banjarmasin, Kalimantan Selatan"
+  }
+]
