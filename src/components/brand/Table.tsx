@@ -12,7 +12,7 @@ import { useMemo, useRef } from 'react';
 import { TableCard } from '@/components/ui/TableCard';
 import { TableSkeleton } from '@/components/ui/TableSkeleton';
 import { EmptyState } from '@/components/ui/TableEmptyState';
-import { TableConfig } from '@/components/brand/TableConfig';
+import { TableConfig } from '@/config/Table';
 import { createColumns } from '@/components/brand/CreateColumns';
 
 export const TableBrand = ({

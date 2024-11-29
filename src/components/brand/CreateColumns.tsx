@@ -1,6 +1,5 @@
 import { BrandType } from '@/types/brand';
 import { ColumnDef } from '@tanstack/react-table';
-import { TableConfig } from '@/components/brand/TableConfig';
 import { BrandNameHeader } from '@/components/brand/BrandNameHeader';
 import { RowAction } from '@/components/ui/RowAction';
 
@@ -17,7 +16,6 @@ export const createColumns = (
         {getValue() as string}
       </span>
     ),
-    minSize: TableConfig.MIN_COLUMN_WIDTH,
   },
   {
     id: 'action',
@@ -31,6 +29,5 @@ export const createColumns = (
         />
       </div>
     ),
-    size: TableConfig.ACTION_COLUMN_WIDTH,
   },
 ];
