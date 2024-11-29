@@ -5,75 +5,71 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
+import { Checkbox } from '@/components/ui/checkbox';
 import { Icon } from '@iconify/react';
 import { Column } from '@tanstack/react-table';
-import { UserType } from '@/types/user';
 import { useState } from 'react';
-import { Checkbox } from '@/components/ui/checkbox';
-import { useRoles } from '@/hooks/user/useUsers';
 
-interface RoleFilterProps {
-  column: Column<UserType>;
-  onRoleFilter: (roles: string[]) => void;
+interface FilterPopover<T> {
+  column: Column<T>;
+  title: string;
+  options: string[];
+  onFIlter: (value: string[]) => void;
 }
 
-export const RoleFilterPopover = ({
+export const FilterPopover = <T,>({
   column,
-  onRoleFilter,
-}: RoleFilterProps) => {
+  title,
+  options,
+  onFIlter,
+}: FilterPopover<T>) => {
   const [search, setSearch] = useState('');
-  const { data: roles = [] } = useRoles(search);
   const [open, setOpen] = useState(false);
-  const [tempSelectedRoles, setTempSelectedRoles] = useState<string[]>([]);
+  const [tempSelectedValues, setTempSelectedValues] = useState<string[]>([]);
   const [tempSortDir, setTempSortDir] = useState<boolean | undefined>(
     undefined
   );
 
-  const filteredRoles = roles.filter((role) =>
-    role.toLowerCase().includes(search.toLowerCase())
+  const filteredOptions = options.filter((option) =>
+    option.toLowerCase().includes(search.toLowerCase())
   );
 
-  const selectedRoles = (column.getFilterValue() as string[]) || [];
-
+  const selectedValues = (column.getFilterValue() as string[]) || [];
   const currentSortDir = column.getIsSorted();
-  const isSortedDesc = currentSortDir === 'desc';
-  const isSortedAsc = currentSortDir === 'asc';
 
   const handleOpenChange = (isOpen: boolean) => {
     if (isOpen) {
-      setTempSelectedRoles(selectedRoles);
+      setTempSelectedValues(selectedValues);
       setTempSortDir(undefined);
-      if (isSortedAsc) {
+      if (currentSortDir === 'asc') {
         setTempSortDir(false);
-      } else if (isSortedDesc) {
+      } else if (currentSortDir === 'desc') {
         setTempSortDir(true);
       }
     }
     setOpen(isOpen);
   };
 
-  const handleRoleToggle = (role: string) => {
-    setTempSelectedRoles((prev) =>
-      prev.includes(role) ? prev.filter((r) => r !== role) : [...prev, role]
+  const handleValueToggle = (value: string) => {
+    setTempSelectedValues((prev) =>
+      prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value]
     );
   };
 
   const handleSelectAll = () => {
-    setTempSelectedRoles(filteredRoles);
+    setTempSelectedValues(filteredOptions);
   };
 
   const handleClear = () => {
-    setTempSelectedRoles([]);
+    setTempSelectedValues([]);
   };
 
   const handleSet = () => {
     if (tempSortDir !== undefined) {
       column.toggleSorting(tempSortDir);
     }
-    column.setFilterValue(
-      tempSelectedRoles.length ? tempSelectedRoles : undefined
-    );
-    onRoleFilter(tempSelectedRoles);
+    onFIlter(tempSelectedValues);
+    column.setFilterValue(tempSelectedValues);
     setOpen(false);
   };
 
@@ -85,12 +81,12 @@ export const RoleFilterPopover = ({
     <Popover open={open} onOpenChange={handleOpenChange}>
       <PopoverTrigger asChild>
         <div className="flex items-center gap-2">
-          <span>ROLE</span>
+          <span>{title}</span>
           <Button variant="ghost" className="flex items-center gap-2">
             <Icon icon="solar:filter-linear" className="w-4 h-4" />
-            {selectedRoles.length > 0 && (
+            {selectedValues.length > 0 && (
               <span className="bg-primary text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
-                {selectedRoles.length}
+                {selectedValues.length}
               </span>
             )}
           </Button>
@@ -115,7 +111,9 @@ export const RoleFilterPopover = ({
                 />
                 <span>Sort A to Z</span>
               </div>
-              <Icon icon="solar:check-circle-bold" className="w-4 h-4" />
+              {tempSortDir === false && (
+                <Icon icon="solar:check-circle-bold" className="w-4 h-4" />
+              )}
             </Button>
 
             <Button
@@ -134,7 +132,9 @@ export const RoleFilterPopover = ({
                 />
                 <span>Sort Z to A</span>
               </div>
-              <Icon icon="solar:check-circle-bold" className="w-4 h-4" />
+              {tempSortDir === true && (
+                <Icon icon="solar:check-circle-bold" className="w-4 h-4" />
+              )}
             </Button>
           </div>
           <div className="space-y-2">
@@ -163,16 +163,16 @@ export const RoleFilterPopover = ({
               </Button>
             </div>
             <div className="space-y-2">
-              {filteredRoles.map((role) => (
-                <div key={role} className="flex items-center gap-2">
+              {filteredOptions.map((option) => (
+                <div key={option} className="flex items-center gap-2">
                   <Checkbox
-                    id={role}
-                    checked={tempSelectedRoles.includes(role)}
-                    onCheckedChange={() => handleRoleToggle(role)}
+                    id={option}
+                    checked={tempSelectedValues.includes(option)}
+                    onCheckedChange={() => handleValueToggle(option)}
                     className="rounded-full"
                   />
-                  <label htmlFor={role} className="text-sm">
-                    {role}
+                  <label htmlFor={option} className="text-sm">
+                    {option}
                   </label>
                 </div>
               ))}

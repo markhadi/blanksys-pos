@@ -1,7 +1,8 @@
 import { UserType } from '@/types/user';
 import { Icon } from '@iconify/react';
 import { Column } from '@tanstack/react-table';
-import { RoleFilterPopover } from './RoleFilterPopover';
+import { FilterPopover } from '../ui/FilterPopover';
+import { useRoles } from '@/hooks/user/useUsers';
 
 export const UsernameHeader = ({ column }: { column: Column<UserType> }) => (
   <button
@@ -29,8 +30,17 @@ export const RoleHeader = ({
 }: {
   column: Column<UserType>;
   onRoleFilter: (roles: string[]) => void;
-}) => (
-  <div className="min-w-[150px] flex-shrink-0 flex items-center gap-2">
-    <RoleFilterPopover column={column} onRoleFilter={onRoleFilter} />
-  </div>
-);
+}) => {
+  const { data: roles = [] } = useRoles('');
+
+  return (
+    <div className="min-w-[150px] flex-shrink-0 flex items-center gap-2">
+      <FilterPopover
+        title="ROLE"
+        column={column}
+        options={roles}
+        onFIlter={onRoleFilter}
+      />
+    </div>
+  );
+};
