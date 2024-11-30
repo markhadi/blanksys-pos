@@ -96,7 +96,7 @@ export const FormFields = ({ form, onGenerateId }: FormFieldsProps) => {
         )}
       />
 
-      <div className="grid grid-cols-2 gap-5">
+      <div className="grid grid-cols-2 gap-10">
         <FormField
           control={form.control}
           name="category"
@@ -173,7 +173,7 @@ export const FormFields = ({ form, onGenerateId }: FormFieldsProps) => {
         />
       </div>
 
-      <div className="grid grid-cols-2 gap-5">
+      <div className="grid grid-cols-2 gap-10">
         <FormField
           control={form.control}
           name="capitalPrice"
