@@ -21,6 +21,10 @@ import { useBrands } from '@/hooks/brand/useBrand';
 import { useUnits } from '@/hooks/unit/useUnit';
 import { CreateMasterItemFormData } from '@/schema/master-item';
 import { Icon } from '@iconify/react';
+import { useState } from 'react';
+import { FormCategory } from '@/components/category/FormCategory';
+import { FormBrand } from '@/components/brand/FormBrand';
+import { FormUnit } from '@/components/unit/FormUnit';
 
 interface FormFieldsProps {
   form: UseFormReturn<CreateMasterItemFormData>;
@@ -28,6 +32,10 @@ interface FormFieldsProps {
 }
 
 export const FormFields = ({ form, onGenerateId }: FormFieldsProps) => {
+  const [categoryDialog, setCategoryDialog] = useState({ open: false });
+  const [brandDialog, setBrandDialog] = useState({ open: false });
+  const [unitDialog, setUnitDialog] = useState({ open: false });
+
   const { data: categories = [] } = useCategories({});
   const { data: brands = [] } = useBrands({});
   const { data: units = [] } = useUnits({});
@@ -116,6 +124,7 @@ export const FormFields = ({ form, onGenerateId }: FormFieldsProps) => {
                     <Button
                       type="button"
                       className="w-full font-medium font-inter text-[16px] leading-[1.5em] text-[#94A3B8] bg-transparent hover:bg-transparent items-center gap-2 justify-start"
+                      onClick={() => setCategoryDialog({ open: true })}
                     >
                       <Icon icon="solar:add-circle-outline" />
                       <span>Add New Category</span>
@@ -155,6 +164,7 @@ export const FormFields = ({ form, onGenerateId }: FormFieldsProps) => {
                     <Button
                       type="button"
                       className="w-full font-medium font-inter text-[16px] leading-[1.5em] text-[#94A3B8] bg-transparent hover:bg-transparent items-center gap-2 justify-start"
+                      onClick={() => setBrandDialog({ open: true })}
                     >
                       <Icon icon="solar:add-circle-outline" />
                       <span>Add New Brand</span>
@@ -221,6 +231,7 @@ export const FormFields = ({ form, onGenerateId }: FormFieldsProps) => {
                     <Button
                       type="button"
                       className="w-full font-medium font-inter text-[16px] leading-[1.5em] text-[#94A3B8] bg-transparent hover:bg-transparent items-center gap-2 justify-start"
+                      onClick={() => setUnitDialog({ open: true })}
                     >
                       <Icon icon="solar:add-circle-outline" />
                       <span>Add New Unit</span>
@@ -238,6 +249,36 @@ export const FormFields = ({ form, onGenerateId }: FormFieldsProps) => {
           )}
         />
       </div>
+
+      <FormCategory
+        open={categoryDialog.open}
+        onClose={() => setCategoryDialog({ open: false })}
+        mode="add"
+        onSubmit={(data) => {
+          console.log(data);
+          setCategoryDialog({ open: false });
+        }}
+      />
+
+      <FormBrand
+        open={brandDialog.open}
+        onClose={() => setBrandDialog({ open: false })}
+        mode="add"
+        onSubmit={(data) => {
+          console.log(data);
+          setBrandDialog({ open: false });
+        }}
+      />
+
+      <FormUnit
+        open={unitDialog.open}
+        onClose={() => setUnitDialog({ open: false })}
+        mode="add"
+        onSubmit={(data) => {
+          console.log(data);
+          setUnitDialog({ open: false });
+        }}
+      />
     </>
   );
 };

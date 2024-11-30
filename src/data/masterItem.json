@@ -6,7 +6,8 @@
     "brand": "Indomie",
     "capitalPrice": 1.5,
     "stock": 24,
-    "stockUnit": "pcs"
+    "stockUnit": "pcs",
+    "image": "https://via.placeholder.com/150"
   },
   {
     "id": "ITEM-2411301149",
@@ -15,7 +16,8 @@
     "brand": "Aqua",
     "capitalPrice": 0.2,
     "stock": 500,
-    "stockUnit": "pcs"
+    "stockUnit": "pcs",
+    "image": "https://via.placeholder.com/150"
   },
   {
     "id": "ITEM-2411301150",
@@ -24,7 +26,8 @@
     "brand": "Sprite",
     "capitalPrice": 0.9,
     "stock": 48,
-    "stockUnit": "pcs"
+    "stockUnit": "pcs",
+    "image": "https://via.placeholder.com/150"
   },
   {
     "id": "ITEM-2411301151",
@@ -33,7 +36,8 @@
     "brand": "Tango",
     "capitalPrice": 0.35,
     "stock": 120,
-    "stockUnit": "pcs"
+    "stockUnit": "pcs",
+    "image": "https://via.placeholder.com/150"
   },
   {
     "id": "ITEM-2411301152",
@@ -42,7 +46,8 @@
     "brand": "Teh Botol Sosro",
     "capitalPrice": 0.4,
     "stock": 200,
-    "stockUnit": "pcs"
+    "stockUnit": "pcs",
+    "image": "https://via.placeholder.com/150"
   },
   {
     "id": "ITEM-2411301153",
@@ -51,7 +56,8 @@
     "brand": "Lifebuoy",
     "capitalPrice": 1.5,
     "stock": 50,
-    "stockUnit": "pcs"
+    "stockUnit": "pcs",
+    "image": "https://via.placeholder.com/150"
   },
   {
     "id": "ITEM-2411301154",
@@ -60,7 +66,8 @@
     "brand": "MamyPoko",
     "capitalPrice": 15,
     "stock": 30,
-    "stockUnit": "pcs"
+    "stockUnit": "pcs",
+    "image": "https://via.placeholder.com/150"
   },
   {
     "id": "ITEM-2411301155",
@@ -69,7 +76,8 @@
     "brand": "Frisian Flag",
     "capitalPrice": 0.8,
     "stock": 100,
-    "stockUnit": "pcs"
+    "stockUnit": "pcs",
+    "image": "https://via.placeholder.com/150"
   },
   {
     "id": "ITEM-2411301156",
@@ -78,7 +86,8 @@
     "brand": "Bango",
     "capitalPrice": 1.2,
     "stock": 60,
-    "stockUnit": "pcs"
+    "stockUnit": "pcs",
+    "image": "https://via.placeholder.com/150"
   },
   {
     "id": "ITEM-2411301156",
@@ -87,7 +96,8 @@
     "brand": "Samsung",
     "capitalPrice": 7.5,
     "stock": 30,
-    "stockUnit": "pcs"
+    "stockUnit": "pcs",
+    "image": "https://via.placeholder.com/150"
   },
   {
     "id": "ITEM-2411301157",
@@ -96,7 +106,8 @@
     "brand": "Sunlight",
     "capitalPrice": 1.6,
     "stock": 70,
-    "stockUnit": "pcs"
+    "stockUnit": "pcs",
+    "image": "https://via.placeholder.com/150"
   },
   {
     "id": "ITEM-2411301158",
@@ -105,7 +116,8 @@
     "brand": "Sari Roti",
     "capitalPrice": 1.2,
     "stock": 50,
-    "stockUnit": "pcs"
+    "stockUnit": "pcs",
+    "image": "https://via.placeholder.com/150"
   },
   {
     "id": "ITEM-2411301159",
@@ -114,7 +126,8 @@
     "brand": "Oreo",
     "capitalPrice": 0.6,
     "stock": 120,
-    "stockUnit": "pcs"
+    "stockUnit": "pcs",
+    "image": "https://via.placeholder.com/150"
   },
   {
     "id": "ITEM-2412010000",
@@ -123,7 +136,8 @@
     "brand": "So Klin",
     "capitalPrice": 2.8,
     "stock": 25,
-    "stockUnit": "pcs"
+    "stockUnit": "pcs",
+    "image": "https://via.placeholder.com/150"
   },
   {
     "id": "ITEM-2412010001",
@@ -132,7 +146,8 @@
     "brand": "So Good",
     "capitalPrice": 3.5,
     "stock": 20,
-    "stockUnit": "pcs"
+    "stockUnit": "pcs",
+    "image": "https://via.placeholder.com/150"
   },
   {
     "id": "ITEM-2412010002",
@@ -141,7 +156,8 @@
     "brand": "Garuda",
     "capitalPrice": 1.5,
     "stock": 40,
-    "stockUnit": "pcs"
+    "stockUnit": "pcs",
+    "image": "https://via.placeholder.com/150"
   },
   {
     "id": "ITEM-2412010003",
@@ -150,7 +166,8 @@
     "brand": "Milo",
     "capitalPrice": 0.1,
     "stock": 400,
-    "stockUnit": "pcs"
+    "stockUnit": "pcs",
+    "image": "https://via.placeholder.com/150"
   },
   {
     "id": "ITEM-2412010004",
@@ -159,7 +176,8 @@
     "brand": "ABC",
     "capitalPrice": 1.8,
     "stock": 50,
-    "stockUnit": "pcs"
+    "stockUnit": "pcs",
+    "image": "https://via.placeholder.com/150"
   },
   {
     "id": "ITEM-2412010005",
@@ -168,7 +186,8 @@
     "brand": "Panasonic",
     "capitalPrice": 1.2,
     "stock": 80,
-    "stockUnit": "pcs"
+    "stockUnit": "pcs",
+    "image": "https://via.placeholder.com/150"
   },
   {
     "id": "ITEM-2412010006",
@@ -177,6 +196,7 @@
     "brand": "Marjan",
     "capitalPrice": 2.3,
     "stock": 30,
-    "stockUnit": "pcs"
+    "stockUnit": "pcs",
+    "image": "https://via.placeholder.com/150"
   }
 ]
