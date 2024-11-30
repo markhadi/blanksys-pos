@@ -33,5 +33,10 @@
     "id": 7,
     "unitName": "Karung",
     "qty": 25
+  },
+  {
+    "id": 8,
+    "unitName": "Pcs",
+    "qty": 1
   }
 ]

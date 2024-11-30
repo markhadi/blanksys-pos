@@ -1,6 +1,8 @@
+import { FormMasterItem } from '@/components/master-item/FormMasterItem';
 import { TableMasterItem } from '@/components/master-item/Table';
 import { ActionHeader } from '@/components/ui/ActionHeader';
 import { useMasterItems } from '@/hooks/master-item/useMasterItems';
+import { CreateMasterItemFormData } from '@/schema/master-item';
 import { SortingState } from '@tanstack/react-table';
 import { useState } from 'react';
 
@@ -10,6 +12,11 @@ export const MasterItem = () => {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
+  const [formDialog, setFormDialog] = useState({
+    open: false,
+    mode: 'add' as 'add' | 'edit',
+    masterItem: undefined,
+  });
 
   const { data: masterItems = [], isLoading } = useMasterItems({
     search: searchQuery,
@@ -36,6 +43,11 @@ export const MasterItem = () => {
     setSelectedBrands(brands);
   };
 
+  const handleSubmit = (data: CreateMasterItemFormData) => {
+    console.log(data);
+    setFormDialog((prev) => ({ ...prev, open: false }));
+  };
+
   return (
     <div className="flex-grow">
       <ActionHeader
@@ -46,7 +58,8 @@ export const MasterItem = () => {
         }}
         actionButton={{
           label: 'Add New',
-          onClick: () => {},
+          onClick: () =>
+            setFormDialog({ open: true, mode: 'add', masterItem: undefined }),
         }}
       />
 
@@ -60,6 +73,15 @@ export const MasterItem = () => {
         onSortingChange={setSorting}
         onCategoryFilter={handleCategoryFilter}
         onBrandFilter={handleBrandFilter}
+      />
+
+      <FormMasterItem
+        open={formDialog.open}
+        onClose={() => setFormDialog((prev) => ({ ...prev, open: false }))}
+        onSubmit={handleSubmit}
+        masterItem={formDialog.masterItem}
+        mode={formDialog.mode}
+        isLoading={false}
       />
     </div>
   );

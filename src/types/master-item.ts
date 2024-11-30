@@ -1,12 +1,18 @@
+import {
+  CreateMasterItemFormData,
+  UpdateMasterItemFormData,
+} from '@/schema/master-item';
 import { SortingState } from '@tanstack/react-table';
 
 export interface MasterItem {
-  id: number;
+  id: string;
   itemName: string;
   category: string;
   brand: string;
   capitalPrice: number;
   stock: number;
+  stockUnit: string;
+  image?: string;
 }
 
 export interface MasterItemTableProps {
@@ -29,4 +35,13 @@ export interface MasterItemSearchParams {
   };
   categories?: string[];
   brands?: string[];
+}
+
+export interface MasterItemFormProps {
+  open: boolean;
+  onClose: () => void;
+  onSubmit: (data: CreateMasterItemFormData | UpdateMasterItemFormData) => void;
+  masterItem?: MasterItem;
+  mode: 'add' | 'edit';
+  isLoading?: boolean;
 }
