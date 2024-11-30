@@ -1,0 +1,162 @@
+[
+  {
+    "id": 2411301148,
+    "itemName": "Indomie Goreng",
+    "category": "Makanan Instan",
+    "brand": "Indomie",
+    "capitalPrice": 1.5,
+    "stock": 24
+  },
+  {
+    "id": 2411301149,
+    "itemName": "Aqua 600ml",
+    "category": "Minuman",
+    "brand": "Aqua",
+    "capitalPrice": 0.2,
+    "stock": 500
+  },
+  {
+    "id": 2411301150,
+    "itemName": "Sprite 1L",
+    "category": "Minuman",
+    "brand": "Sprite",
+    "capitalPrice": 0.9,
+    "stock": 48
+  },
+  {
+    "id": 2411301151,
+    "itemName": "Tango Wafer Coklat",
+    "category": "Makanan Ringan",
+    "brand": "Tango",
+    "capitalPrice": 0.35,
+    "stock": 120
+  },
+  {
+    "id": 2411301152,
+    "itemName": "Teh Botol Sosro 250ml",
+    "category": "Minuman",
+    "brand": "Teh Botol Sosro",
+    "capitalPrice": 0.4,
+    "stock": 200
+  },
+  {
+    "id": 2411301153,
+    "itemName": "Lifebuoy Sabun Cair 250ml",
+    "category": "Perawatan Pribadi",
+    "brand": "Lifebuoy",
+    "capitalPrice": 1.5,
+    "stock": 50
+  },
+  {
+    "id": 2411301154,
+    "itemName": "MamyPoko Pants M34",
+    "category": "Kebutuhan Bayi",
+    "brand": "MamyPoko",
+    "capitalPrice": 15,
+    "stock": 30
+  },
+  {
+    "id": 2411301155,
+    "itemName": "Frisian Flag Susu Kental Manis",
+    "category": "Produk Susu",
+    "brand": "Frisian Flag",
+    "capitalPrice": 0.8,
+    "stock": 100
+  },
+  {
+    "id": 2411301156,
+    "itemName": "Bango Kecap Manis 220ml",
+    "category": "Bumbu Dapur",
+    "brand": "Bango",
+    "capitalPrice": 1.2,
+    "stock": 60
+  },
+  {
+    "id": 2411301156,
+    "itemName": "Samsung Charger Original",
+    "category": "Elektronik Kecil",
+    "brand": "Samsung",
+    "capitalPrice": 7.5,
+    "stock": 30
+  },
+  {
+    "id": 2411301157,
+    "itemName": "Sunlight Jeruk Nipis 800ml",
+    "category": "Pembersih Rumah",
+    "brand": "Sunlight",
+    "capitalPrice": 1.6,
+    "stock": 70
+  },
+  {
+    "id": 2411301158,
+    "itemName": "Roti Tawar Sari Roti",
+    "category": "Roti & Kue",
+    "brand": "Sari Roti",
+    "capitalPrice": 1.2,
+    "stock": 50
+  },
+  {
+    "id": 2411301159,
+    "itemName": "Oreo Sandwich Coklat",
+    "category": "Camilan",
+    "brand": "Oreo",
+    "capitalPrice": 0.6,
+    "stock": 120
+  },
+  {
+    "id": 2412010000,
+    "itemName": "So Klin Liquid 1.8L",
+    "category": "Pembersih Rumah",
+    "brand": "So Klin",
+    "capitalPrice": 2.8,
+    "stock": 25
+  },
+  {
+    "id": 2412010001,
+    "itemName": "Nugget Ayam So Good 500g",
+    "category": "Frozen Food",
+    "brand": "So Good",
+    "capitalPrice": 3.5,
+    "stock": 20
+  },
+  {
+    "id": 2412010002,
+    "itemName": "Garuda Kacang Kulit 500g",
+    "category": "Makanan Ringan",
+    "brand": "Garuda",
+    "capitalPrice": 1.5,
+    "stock": 40
+  },
+  {
+    "id": 2412010003,
+    "itemName": "Milo Sachet 35g",
+    "category": "Minuman",
+    "brand": "Milo",
+    "capitalPrice": 0.1,
+    "stock": 400
+  },
+  {
+    "id": 2412010004,
+    "itemName": "Kaleng Ikan ABC 425g",
+    "category": "Bahan Pokok",
+    "brand": "ABC",
+    "capitalPrice": 1.8,
+    "stock": 50
+  },
+  {
+    "id": 2412010005,
+    "itemName": "Panasonic Baterai AAA",
+    "category": "Elektronik Kecil",
+    "brand": "Panasonic",
+    "capitalPrice": 1.2,
+    "stock": 80
+  },
+  {
+    "id": 2412010006,
+    "itemName": "Sari Buah Marjan",
+    "category": "Minuman",
+    "brand": "Marjan",
+    "capitalPrice": 2.3,
+    "stock": 30
+  }
+]

@@ -39,7 +39,7 @@ export const RoleHeader = ({
         title="ROLE"
         column={column}
         options={roles}
-        onFIlter={onRoleFilter}
+        onFilter={onRoleFilter}
       />
     </div>
   );

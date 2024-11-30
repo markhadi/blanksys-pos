@@ -14,14 +14,14 @@ interface FilterPopover<T> {
   column: Column<T>;
   title: string;
   options: string[];
-  onFIlter: (value: string[]) => void;
+  onFilter: (value: string[]) => void;
 }
 
 export const FilterPopover = <T,>({
   column,
   title,
   options,
-  onFIlter,
+  onFilter,
 }: FilterPopover<T>) => {
   const [search, setSearch] = useState('');
   const [open, setOpen] = useState(false);
@@ -68,7 +68,7 @@ export const FilterPopover = <T,>({
     if (tempSortDir !== undefined) {
       column.toggleSorting(tempSortDir);
     }
-    onFIlter(tempSelectedValues);
+    onFilter(tempSelectedValues);
     column.setFilterValue(tempSelectedValues);
     setOpen(false);
   };
@@ -92,7 +92,7 @@ export const FilterPopover = <T,>({
           </Button>
         </div>
       </PopoverTrigger>
-      <PopoverContent align="end" className="w-96 p-4">
+      <PopoverContent align="end" className="w-full sm:w-96 p-4">
         <div className="space-y-4">
           <div className="space-y-2">
             <Button
@@ -162,7 +162,7 @@ export const FilterPopover = <T,>({
                 Clear
               </Button>
             </div>
-            <div className="space-y-2">
+            <div className="space-y-2 max-h-20 overflow-y-auto">
               {filteredOptions.map((option) => (
                 <div key={option} className="flex items-center gap-2">
                   <Checkbox

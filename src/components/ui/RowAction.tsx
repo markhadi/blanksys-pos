@@ -10,9 +10,10 @@ import { Icon } from '@iconify/react';
 interface RowActionProps {
   onEdit: () => void;
   onDelete: () => void;
+  onView?: () => void;
 }
 
-export const RowAction = ({ onEdit, onDelete }: RowActionProps) => {
+export const RowAction = ({ onEdit, onDelete, onView }: RowActionProps) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -24,6 +25,12 @@ export const RowAction = ({ onEdit, onDelete }: RowActionProps) => {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
+        {onView && (
+          <DropdownMenuItem onClick={onView}>
+            <Icon icon="solar:eye-outline" className="mr-2 h-4 w-4" />
+            Detail
+          </DropdownMenuItem>
+        )}
         <DropdownMenuItem onClick={onEdit}>
           <Icon icon="solar:pen-2-linear" className="mr-2 h-4 w-4" />
           Edit
