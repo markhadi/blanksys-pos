@@ -25,6 +25,13 @@ import { useState } from 'react';
 import { FormCategory } from '@/components/category/FormCategory';
 import { FormBrand } from '@/components/brand/FormBrand';
 import { FormUnit } from '@/components/unit/FormUnit';
+import { useCategoryMutations } from '@/hooks/category/useMutations';
+import { CreateFormData as CreateCategoryFormData } from '@/schema/category';
+import { useCategoryDialogs } from '@/hooks/category/useDialogs';
+import { useBrandMutations } from '@/hooks/brand/useMutations';
+import { CreateFormData as CreateBrandFormData } from '@/schema/brand';
+import { CreateFormData as CreateUnitFormData } from '@/schema/unit';
+import { useUnitMutations } from '@/hooks/unit/useMutations';
 
 interface FormFieldsProps {
   form: UseFormReturn<CreateMasterItemFormData>;
@@ -33,15 +40,53 @@ interface FormFieldsProps {
 }
 
 export const FormFields = ({ form, onGenerateId, mode }: FormFieldsProps) => {
-  const [categoryDialog, setCategoryDialog] = useState({ open: false });
   const [brandDialog, setBrandDialog] = useState({ open: false });
   const [unitDialog, setUnitDialog] = useState({ open: false });
+  const { createMutation: createCategoryMutation } = useCategoryMutations();
+  const { createMutation: createBrandMutation } = useBrandMutations();
+  const { createMutation: createUnitMutation } = useUnitMutations();
+
+  const { openCreateDialog, formDialog, closeFormDialog } =
+    useCategoryDialogs();
 
   const { data: categories = [] } = useCategories({});
   const { data: brands = [] } = useBrands({});
   const { data: units = [] } = useUnits({});
 
   const isDetail = mode === 'detail';
+
+  const handleCategorySubmit = async (data: CreateCategoryFormData) => {
+    try {
+      const newCategory = await createCategoryMutation.mutateAsync(data);
+      const categoryId = parseInt(newCategory.id.toString(), 10);
+
+      form.setValue('idCategory', categoryId);
+    } catch (error) {
+      console.error('Failed to create category:', error);
+    }
+  };
+
+  const handleBrandSubmit = async (data: CreateBrandFormData) => {
+    try {
+      const newBrand = await createBrandMutation.mutateAsync(data);
+      const brandId = parseInt(newBrand.id.toString(), 10);
+
+      form.setValue('idBrand', brandId);
+    } catch (error) {
+      console.error('Failed to create brand:', error);
+    }
+  };
+
+  const handleUnitSubmit = async (data: CreateUnitFormData) => {
+    try {
+      const newUnit = await createUnitMutation.mutateAsync(data);
+      const unitId = parseInt(newUnit.id.toString(), 10);
+
+      form.setValue('idStockUnit', unitId);
+    } catch (error) {
+      console.error('Failed to create unit:', error);
+    }
+  };
 
   return (
     <>
@@ -127,8 +172,13 @@ export const FormFields = ({ form, onGenerateId, mode }: FormFieldsProps) => {
               </FormLabel>
               <div className="flex gap-2">
                 <Select
-                  value={field.value?.toString()}
-                  onValueChange={(value) => field.onChange(parseInt(value))}
+                  value={String(field.value || '')}
+                  onValueChange={(value) => {
+                    const numValue = parseInt(value, 10);
+                    if (!isNaN(numValue)) {
+                      field.onChange(numValue);
+                    }
+                  }}
                   disabled={isDetail}
                 >
                   <FormControl>
@@ -140,7 +190,7 @@ export const FormFields = ({ form, onGenerateId, mode }: FormFieldsProps) => {
                     <Button
                       type="button"
                       className="w-full font-medium font-inter text-[16px] leading-[1.5em] text-[#94A3B8] bg-transparent hover:bg-transparent items-center gap-2 justify-start"
-                      onClick={() => setCategoryDialog({ open: true })}
+                      onClick={openCreateDialog}
                     >
                       <Icon icon="solar:add-circle-outline" />
                       <span>Add New Category</span>
@@ -156,7 +206,6 @@ export const FormFields = ({ form, onGenerateId, mode }: FormFieldsProps) => {
                   </SelectContent>
                 </Select>
               </div>
-              <FormMessage />
             </FormItem>
           )}
         />
@@ -171,8 +220,13 @@ export const FormFields = ({ form, onGenerateId, mode }: FormFieldsProps) => {
               </FormLabel>
               <div className="flex gap-2">
                 <Select
-                  value={field.value?.toString()}
-                  onValueChange={(value) => field.onChange(parseInt(value))}
+                  value={String(field.value || '')}
+                  onValueChange={(value) => {
+                    const numValue = parseInt(value, 10);
+                    if (!isNaN(numValue)) {
+                      field.onChange(numValue);
+                    }
+                  }}
                   disabled={isDetail}
                 >
                   <FormControl>
@@ -243,8 +297,13 @@ export const FormFields = ({ form, onGenerateId, mode }: FormFieldsProps) => {
               </FormLabel>
               <div className="flex gap-2">
                 <Select
-                  value={field.value?.toString()}
-                  onValueChange={(value) => field.onChange(parseInt(value))}
+                  value={String(field.value || '')}
+                  onValueChange={(value) => {
+                    const numValue = parseInt(value, 10);
+                    if (!isNaN(numValue)) {
+                      field.onChange(numValue);
+                    }
+                  }}
                   disabled={isDetail}
                 >
                   <FormControl>
@@ -276,33 +335,27 @@ export const FormFields = ({ form, onGenerateId, mode }: FormFieldsProps) => {
       </div>
 
       <FormCategory
-        open={categoryDialog.open}
-        onClose={() => setCategoryDialog({ open: false })}
+        open={formDialog.open}
+        onClose={closeFormDialog}
         mode="add"
-        onSubmit={(data) => {
-          console.log(data);
-          setCategoryDialog({ open: false });
-        }}
+        onSubmit={handleCategorySubmit}
+        isLoading={createCategoryMutation.isPending}
       />
 
       <FormBrand
         open={brandDialog.open}
         onClose={() => setBrandDialog({ open: false })}
         mode="add"
-        onSubmit={(data) => {
-          console.log(data);
-          setBrandDialog({ open: false });
-        }}
+        onSubmit={handleBrandSubmit}
+        isLoading={createBrandMutation.isPending}
       />
 
       <FormUnit
         open={unitDialog.open}
         onClose={() => setUnitDialog({ open: false })}
         mode="add"
-        onSubmit={(data) => {
-          console.log(data);
-          setUnitDialog({ open: false });
-        }}
+        onSubmit={handleUnitSubmit}
+        isLoading={createUnitMutation.isPending}
       />
     </>
   );

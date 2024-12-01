@@ -94,9 +94,9 @@ export const TableColumns = (
     id: 'stock',
     accessorKey: 'stock',
     header: ({ column }) => <StockHeader column={column} />,
-    cell: ({ getValue }) => (
+    cell: ({ getValue, row }) => (
       <span className="min-w-48 flex-shrink-0 flex items-center justify-end gap-3">
-        {getValue() as string} <span>Pcs</span>
+        {getValue() as string} <span>{row.original.unit}</span>
       </span>
     ),
   },
