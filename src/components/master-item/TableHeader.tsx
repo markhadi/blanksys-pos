@@ -26,7 +26,8 @@ export const CategoryHeader = ({
   onCategoryFilter: (categories: string[]) => void;
 }) => {
   const { data: masterItems = [] } = useMasterItems({});
-  const categories = Array.from(
+
+  const categoryOptions = Array.from(
     new Set(masterItems.map((item) => item.category))
   ).sort();
 
@@ -35,7 +36,7 @@ export const CategoryHeader = ({
       <FilterPopover
         column={column}
         title="CATEGORY"
-        options={categories}
+        options={categoryOptions}
         onFilter={onCategoryFilter}
       />
     </div>
@@ -50,7 +51,8 @@ export const BrandHeader = ({
   onBrandFilter: (brands: string[]) => void;
 }) => {
   const { data: masterItems = [] } = useMasterItems({});
-  const brands = Array.from(
+
+  const brandOptions = Array.from(
     new Set(masterItems.map((item) => item.brand))
   ).sort();
 
@@ -59,7 +61,7 @@ export const BrandHeader = ({
       <FilterPopover
         column={column}
         title="BRAND"
-        options={brands}
+        options={brandOptions}
         onFilter={onBrandFilter}
       />
     </div>

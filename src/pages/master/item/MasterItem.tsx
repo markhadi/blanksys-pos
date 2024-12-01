@@ -1,6 +1,7 @@
 import { FormMasterItem } from '@/components/master-item/FormMasterItem';
 import { TableMasterItem } from '@/components/master-item/Table';
 import { ActionHeader } from '@/components/ui/ActionHeader';
+import { useMasterItemDialogs } from '@/hooks/master-item/useDialogs';
 import { useMasterItems } from '@/hooks/master-item/useMasterItems';
 import { CreateMasterItemFormData } from '@/schema/master-item';
 import { SortingState } from '@tanstack/react-table';
@@ -12,11 +13,6 @@ export const MasterItem = () => {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
-  const [formDialog, setFormDialog] = useState({
-    open: false,
-    mode: 'add' as 'add' | 'edit',
-    masterItem: undefined,
-  });
 
   const { data: masterItems = [], isLoading } = useMasterItems({
     search: searchQuery,
@@ -43,9 +39,18 @@ export const MasterItem = () => {
     setSelectedBrands(brands);
   };
 
+  const {
+    formDialog,
+    openCreateDialog,
+    closeFormDialog,
+    openDetailDialog,
+    openEditDialog,
+    openDeleteDialog,
+  } = useMasterItemDialogs();
+
   const handleSubmit = (data: CreateMasterItemFormData) => {
     console.log(data);
-    setFormDialog((prev) => ({ ...prev, open: false }));
+    closeFormDialog();
   };
 
   return (
@@ -58,17 +63,16 @@ export const MasterItem = () => {
         }}
         actionButton={{
           label: 'Add New',
-          onClick: () =>
-            setFormDialog({ open: true, mode: 'add', masterItem: undefined }),
+          onClick: openCreateDialog,
         }}
       />
 
       <TableMasterItem
         data={masterItems}
         isLoading={isLoading}
-        onEdit={() => {}}
-        onDelete={() => {}}
-        onView={() => {}}
+        onEdit={openEditDialog}
+        onDelete={openDeleteDialog}
+        onView={openDetailDialog}
         sorting={sorting}
         onSortingChange={setSorting}
         onCategoryFilter={handleCategoryFilter}
@@ -77,7 +81,7 @@ export const MasterItem = () => {
 
       <FormMasterItem
         open={formDialog.open}
-        onClose={() => setFormDialog((prev) => ({ ...prev, open: false }))}
+        onClose={closeFormDialog}
         onSubmit={handleSubmit}
         masterItem={formDialog.masterItem}
         mode={formDialog.mode}

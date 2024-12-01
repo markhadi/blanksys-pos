@@ -2,7 +2,7 @@ import { Button } from './button';
 import { Loader2 } from 'lucide-react';
 
 interface FormActionsProps {
-  mode: 'add' | 'edit';
+  mode: 'add' | 'edit' | 'detail';
   isLoading?: boolean;
   onCancel: () => void;
   className?: string;
@@ -19,6 +19,16 @@ export const FormActions = ({
     }
     return mode === 'add' ? 'Add' : 'Update';
   };
+
+  if (mode === 'detail') {
+    return (
+      <div className="flex justify-end gap-5 sm:gap-10">
+        <Button type="button" onClick={onCancel}>
+          Close
+        </Button>
+      </div>
+    );
+  }
 
   return (
     <div className="flex justify-end gap-5 sm:gap-10">

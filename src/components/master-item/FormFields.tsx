@@ -29,9 +29,10 @@ import { FormUnit } from '@/components/unit/FormUnit';
 interface FormFieldsProps {
   form: UseFormReturn<CreateMasterItemFormData>;
   onGenerateId: () => void;
+  mode: 'add' | 'edit' | 'detail';
 }
 
-export const FormFields = ({ form, onGenerateId }: FormFieldsProps) => {
+export const FormFields = ({ form, onGenerateId, mode }: FormFieldsProps) => {
   const [categoryDialog, setCategoryDialog] = useState({ open: false });
   const [brandDialog, setBrandDialog] = useState({ open: false });
   const [unitDialog, setUnitDialog] = useState({ open: false });
@@ -40,6 +41,8 @@ export const FormFields = ({ form, onGenerateId }: FormFieldsProps) => {
   const { data: brands = [] } = useBrands({});
   const { data: units = [] } = useUnits({});
 
+  const isDetail = mode === 'detail';
+
   return (
     <>
       <FormField
@@ -47,8 +50,13 @@ export const FormFields = ({ form, onGenerateId }: FormFieldsProps) => {
         name="image"
         render={({ field }) => (
           <FormItem>
+            <FormLabel>Image</FormLabel>
             <FormControl>
-              <ImageUpload value={field.value} onChange={field.onChange} />
+              <ImageUpload
+                value={field.value}
+                onChange={field.onChange}
+                disabled={isDetail}
+              />
             </FormControl>
             <FormMessage />
           </FormItem>
@@ -67,17 +75,20 @@ export const FormFields = ({ form, onGenerateId }: FormFieldsProps) => {
               <FormControl>
                 <Input
                   {...field}
+                  disabled={isDetail || mode === 'edit'}
                   placeholder="ITEM-000000"
                   className="pr-[140px] pl-4 py-3 h-14"
                 />
               </FormControl>
-              <Button
-                type="button"
-                onClick={onGenerateId}
-                className="absolute right-4 h-9 px-6 text-[16px] leading-[1.5em] top-1/2 -translate-y-1/2"
-              >
-                Generate
-              </Button>
+              {mode === 'add' && (
+                <Button
+                  type="button"
+                  onClick={onGenerateId}
+                  className="absolute right-4 h-9 px-6 text-[16px] leading-[1.5em] top-1/2 -translate-y-1/2"
+                >
+                  Generate
+                </Button>
+              )}
             </div>
             <FormMessage />
           </FormItem>
@@ -95,6 +106,7 @@ export const FormFields = ({ form, onGenerateId }: FormFieldsProps) => {
             <FormControl>
               <Input
                 {...field}
+                disabled={isDetail}
                 placeholder="Item Name"
                 className="h-14 px-4 py-3"
               />
@@ -107,14 +119,18 @@ export const FormFields = ({ form, onGenerateId }: FormFieldsProps) => {
       <div className="grid grid-cols-2 gap-10">
         <FormField
           control={form.control}
-          name="category"
+          name="idCategory"
           render={({ field }) => (
             <FormItem className="flex-1">
               <FormLabel className="font-medium font-inter text-black text-[16px] leading-[1.5em]">
                 Category
               </FormLabel>
               <div className="flex gap-2">
-                <Select onValueChange={field.onChange} value={field.value}>
+                <Select
+                  value={field.value?.toString()}
+                  onValueChange={(value) => field.onChange(parseInt(value))}
+                  disabled={isDetail}
+                >
                   <FormControl>
                     <SelectTrigger className="h-14 px-4 py-3">
                       <SelectValue placeholder="Select category" />
@@ -147,14 +163,18 @@ export const FormFields = ({ form, onGenerateId }: FormFieldsProps) => {
 
         <FormField
           control={form.control}
-          name="brand"
+          name="idBrand"
           render={({ field }) => (
             <FormItem className="flex-1">
               <FormLabel className="font-medium font-inter text-black text-[16px] leading-[1.5em]">
                 Brand
               </FormLabel>
               <div className="flex gap-2">
-                <Select onValueChange={field.onChange} value={field.value}>
+                <Select
+                  value={field.value?.toString()}
+                  onValueChange={(value) => field.onChange(parseInt(value))}
+                  disabled={isDetail}
+                >
                   <FormControl>
                     <SelectTrigger className="h-14 px-4 py-3">
                       <SelectValue placeholder="Select brand" />
@@ -200,6 +220,7 @@ export const FormFields = ({ form, onGenerateId }: FormFieldsProps) => {
                     min="0"
                     {...field}
                     onChange={(e) => field.onChange(Number(e.target.value))}
+                    disabled={isDetail}
                     className="h-14 pl-12 pr-4 py-3 rounded-[8px] border border-[#E2E8F0]"
                   />
                 </FormControl>
@@ -214,14 +235,18 @@ export const FormFields = ({ form, onGenerateId }: FormFieldsProps) => {
 
         <FormField
           control={form.control}
-          name="stockUnit"
+          name="idStockUnit"
           render={({ field }) => (
             <FormItem className="flex-1">
               <FormLabel className="font-medium font-inter text-black text-[16px] leading-[1.5em]">
                 Stock of Units
               </FormLabel>
               <div className="flex gap-2">
-                <Select onValueChange={field.onChange} value={field.value}>
+                <Select
+                  value={field.value?.toString()}
+                  onValueChange={(value) => field.onChange(parseInt(value))}
+                  disabled={isDetail}
+                >
                   <FormControl>
                     <SelectTrigger className="h-14 px-4 py-3">
                       <SelectValue placeholder="Select unit" />

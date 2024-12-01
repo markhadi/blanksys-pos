@@ -22,10 +22,10 @@ import { useEffect } from 'react';
 const DEFAULT_CREATE_VALUES = {
   id: '',
   itemName: '',
-  category: '',
-  brand: '',
+  idCategory: 0,
+  idBrand: 0,
   capitalPrice: 0,
-  stockUnit: '',
+  idStockUnit: 0,
 };
 
 export const FormMasterItem = ({
@@ -46,10 +46,10 @@ export const FormMasterItem = ({
         : {
             id: masterItem?.id,
             itemName: masterItem?.itemName,
-            category: masterItem?.category,
-            brand: masterItem?.brand,
+            idCategory: masterItem?.idCategory,
+            idBrand: masterItem?.idBrand,
             capitalPrice: masterItem?.capitalPrice,
-            stockUnit: masterItem?.stockUnit,
+            idStockUnit: masterItem?.idStockUnit,
             image: masterItem?.image,
           },
   });
@@ -62,10 +62,10 @@ export const FormMasterItem = ({
         ? {
             id: masterItem.id,
             itemName: masterItem.itemName,
-            category: masterItem.category,
-            brand: masterItem.brand,
+            idCategory: masterItem.idCategory,
+            idBrand: masterItem.idBrand,
             capitalPrice: masterItem.capitalPrice,
-            stockUnit: masterItem.stockUnit,
+            idStockUnit: masterItem.idStockUnit,
             image: masterItem.image,
           }
         : DEFAULT_CREATE_VALUES;
@@ -95,7 +95,11 @@ export const FormMasterItem = ({
       <DialogContent className="gap-10 w-full max-w-[878px] lg:!rounded-[15px]">
         <DialogHeader>
           <DialogTitle className="font-bold font-inter text-black text-[20px] leading-[1.5em]">
-            {mode === 'add' ? 'Add New Item' : 'Edit Item'}
+            {mode === 'add'
+              ? 'Add New Item'
+              : mode === 'edit'
+              ? 'Edit Item'
+              : 'Item Detail'}
           </DialogTitle>
         </DialogHeader>
 
@@ -104,7 +108,11 @@ export const FormMasterItem = ({
             onSubmit={form.handleSubmit(handleSubmit)}
             className="space-y-5"
           >
-            <FormFields form={form} onGenerateId={handleGenerateId} />
+            <FormFields
+              form={form}
+              onGenerateId={handleGenerateId}
+              mode={mode}
+            />
 
             <FormActions
               mode={mode}
