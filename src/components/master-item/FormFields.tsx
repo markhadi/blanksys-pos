@@ -8,20 +8,11 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
 import { ImageUpload } from '@/components/ui/ImageUpload';
 import { useCategories } from '@/hooks/category/useCategories';
 import { useBrands } from '@/hooks/brand/useBrand';
 import { useUnits } from '@/hooks/unit/useUnit';
 import { CreateMasterItemFormData } from '@/schema/master-item';
-import { Icon } from '@iconify/react';
-import { useState } from 'react';
 import { FormCategory } from '@/components/category/FormCategory';
 import { FormBrand } from '@/components/brand/FormBrand';
 import { FormUnit } from '@/components/unit/FormUnit';
@@ -31,6 +22,10 @@ import { useBrandMutations } from '@/hooks/brand/useMutations';
 import { CreateFormData as CreateBrandFormData } from '@/schema/brand';
 import { CreateFormData as CreateUnitFormData } from '@/schema/unit';
 import { useUnitMutations } from '@/hooks/unit/useMutations';
+import { SelectField } from './SelectField';
+import { PriceInput } from '@/components/ui/PriceInput';
+import { DialogState } from '@/types/master-item';
+import { useState } from 'react';
 
 interface FormFieldsProps {
   form: UseFormReturn<CreateMasterItemFormData>;
@@ -38,10 +33,24 @@ interface FormFieldsProps {
   mode: 'add' | 'edit' | 'detail';
 }
 
+const useDialogState = (initialState: DialogState = { open: false }) => {
+  const [state, setState] = useState<DialogState>(initialState);
+
+  const open = () => setState({ open: true });
+  const close = () => setState({ open: false });
+
+  return {
+    state,
+    open,
+    close,
+  };
+};
+
 export const FormFields = ({ form, onGenerateId, mode }: FormFieldsProps) => {
-  const [categoryDialog, setCategoryDialog] = useState({ open: false });
-  const [brandDialog, setBrandDialog] = useState({ open: false });
-  const [unitDialog, setUnitDialog] = useState({ open: false });
+  const categoryDialog = useDialogState();
+  const brandDialog = useDialogState();
+  const unitDialog = useDialogState();
+
   const { createMutation: createCategoryMutation } = useCategoryMutations();
   const { createMutation: createBrandMutation } = useBrandMutations();
   const { createMutation: createUnitMutation } = useUnitMutations();
@@ -55,9 +64,7 @@ export const FormFields = ({ form, onGenerateId, mode }: FormFieldsProps) => {
   const handleCategorySubmit = async (data: CreateCategoryFormData) => {
     try {
       const newCategory = await createCategoryMutation.mutateAsync(data);
-      const categoryId = parseInt(newCategory.id.toString(), 10);
-
-      form.setValue('idCategory', categoryId);
+      form.setValue('idCategory', parseInt(newCategory.id.toString(), 10));
     } catch (error) {
       console.error('Failed to create category:', error);
     }
@@ -66,9 +73,7 @@ export const FormFields = ({ form, onGenerateId, mode }: FormFieldsProps) => {
   const handleBrandSubmit = async (data: CreateBrandFormData) => {
     try {
       const newBrand = await createBrandMutation.mutateAsync(data);
-      const brandId = parseInt(newBrand.id.toString(), 10);
-
-      form.setValue('idBrand', brandId);
+      form.setValue('idBrand', parseInt(newBrand.id.toString(), 10));
     } catch (error) {
       console.error('Failed to create brand:', error);
     }
@@ -77,29 +82,18 @@ export const FormFields = ({ form, onGenerateId, mode }: FormFieldsProps) => {
   const handleUnitSubmit = async (data: CreateUnitFormData) => {
     try {
       const newUnit = await createUnitMutation.mutateAsync(data);
-      const unitId = parseInt(newUnit.id.toString(), 10);
-
-      form.setValue('idStockUnit', unitId);
+      form.setValue('idStockUnit', parseInt(newUnit.id.toString(), 10));
     } catch (error) {
       console.error('Failed to create unit:', error);
     }
   };
 
-  const [categorySearch, setCategorySearch] = useState('');
-  const [brandSearch, setBrandSearch] = useState('');
-  const [unitSearch, setUnitSearch] = useState('');
-
-  const filteredCategories = categories?.filter((category) =>
-    category.categoryName.toLowerCase().includes(categorySearch.toLowerCase())
-  );
-
-  const filteredBrands = brands?.filter((brand) =>
-    brand.brandName.toLowerCase().includes(brandSearch.toLowerCase())
-  );
-
-  const filteredUnits = units?.filter((unit) =>
-    unit.unitName.toLowerCase().includes(unitSearch.toLowerCase())
-  );
+  const categoryOptions = categories.map((c) => ({
+    id: c.id,
+    name: c.categoryName,
+  }));
+  const brandOptions = brands.map((b) => ({ id: b.id, name: b.brandName }));
+  const unitOptions = units.map((u) => ({ id: u.id, name: u.unitName }));
 
   return (
     <>
@@ -179,68 +173,17 @@ export const FormFields = ({ form, onGenerateId, mode }: FormFieldsProps) => {
           control={form.control}
           name="idCategory"
           render={({ field }) => (
-            <FormItem className="flex-1">
-              <FormLabel className="font-medium font-inter text-black text-[16px] leading-[1.5em]">
-                Category
-              </FormLabel>
-              <div className="flex gap-2">
-                <Select
-                  value={String(field.value || '')}
-                  onValueChange={(value) => {
-                    const numValue = parseInt(value, 10);
-                    if (!isNaN(numValue)) {
-                      field.onChange(numValue);
-                    }
-                  }}
-                  disabled={isDetail}
-                >
-                  <FormControl>
-                    <SelectTrigger className="h-14 px-4 py-3">
-                      <SelectValue placeholder="Select category" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    <div className="sticky top-0 bg-white z-10">
-                      <div className="p-2">
-                        <Input
-                          placeholder="Search category..."
-                          value={categorySearch}
-                          onChange={(e) => {
-                            e.preventDefault();
-                            e.stopPropagation();
-                            setCategorySearch(e.target.value);
-                          }}
-                          className="h-9"
-                        />
-                      </div>
-                      <Button
-                        type="button"
-                        className="w-full font-medium text-[#94A3B8] bg-transparent hover:bg-gray-100 items-center gap-2 justify-start"
-                        onClick={() => setCategoryDialog({ open: true })}
-                      >
-                        <Icon icon="solar:add-circle-outline" />
-                        <span>Add New Category</span>
-                      </Button>
-                    </div>
-
-                    {filteredCategories?.length === 0 ? (
-                      <div className="p-4 text-center text-sm text-gray-500">
-                        No categories found
-                      </div>
-                    ) : (
-                      filteredCategories?.map((category) => (
-                        <SelectItem
-                          key={category.id}
-                          value={category.id.toString()}
-                        >
-                          {category.categoryName}
-                        </SelectItem>
-                      ))
-                    )}
-                  </SelectContent>
-                </Select>
-              </div>
-            </FormItem>
+            <SelectField
+              label="Category"
+              placeholder="Select category"
+              searchPlaceholder="Search category..."
+              options={categoryOptions}
+              value={field.value}
+              onChange={field.onChange}
+              onAddNew={categoryDialog.open}
+              addNewLabel="Add New Category"
+              disabled={isDetail}
+            />
           )}
         />
 
@@ -248,66 +191,17 @@ export const FormFields = ({ form, onGenerateId, mode }: FormFieldsProps) => {
           control={form.control}
           name="idBrand"
           render={({ field }) => (
-            <FormItem className="flex-1">
-              <FormLabel className="font-medium font-inter text-black text-[16px] leading-[1.5em]">
-                Brand
-              </FormLabel>
-              <div className="flex gap-2">
-                <Select
-                  value={String(field.value || '')}
-                  onValueChange={(value) => {
-                    const numValue = parseInt(value, 10);
-                    if (!isNaN(numValue)) {
-                      field.onChange(numValue);
-                    }
-                  }}
-                  disabled={isDetail}
-                >
-                  <FormControl>
-                    <SelectTrigger className="h-14 px-4 py-3">
-                      <SelectValue placeholder="Select brand" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    <div className="sticky top-0 bg-white z-10">
-                      <div className="p-2">
-                        <Input
-                          placeholder="Search brand..."
-                          value={brandSearch}
-                          onChange={(e) => {
-                            e.preventDefault();
-                            e.stopPropagation();
-                            setBrandSearch(e.target.value);
-                          }}
-                          className="h-9"
-                        />
-                      </div>
-                      <Button
-                        type="button"
-                        className="w-full font-medium text-[#94A3B8] bg-transparent hover:bg-gray-100 items-center gap-2 justify-start"
-                        onClick={() => setBrandDialog({ open: true })}
-                      >
-                        <Icon icon="solar:add-circle-outline" />
-                        <span>Add New Brand</span>
-                      </Button>
-                    </div>
-
-                    {filteredBrands?.length === 0 ? (
-                      <div className="p-4 text-center text-sm text-gray-500">
-                        No brands found
-                      </div>
-                    ) : (
-                      filteredBrands?.map((brand) => (
-                        <SelectItem key={brand.id} value={brand.id.toString()}>
-                          {brand.brandName}
-                        </SelectItem>
-                      ))
-                    )}
-                  </SelectContent>
-                </Select>
-              </div>
-              <FormMessage />
-            </FormItem>
+            <SelectField
+              label="Brand"
+              placeholder="Select brand"
+              searchPlaceholder="Search brand..."
+              options={brandOptions}
+              value={field.value}
+              onChange={field.onChange}
+              onAddNew={brandDialog.open}
+              addNewLabel="Add New Brand"
+              disabled={isDetail}
+            />
           )}
         />
       </div>
@@ -317,28 +211,12 @@ export const FormFields = ({ form, onGenerateId, mode }: FormFieldsProps) => {
           control={form.control}
           name="capitalPrice"
           render={({ field }) => (
-            <FormItem>
-              <FormLabel className="font-medium font-inter text-black text-[16px] leading-[1.5em]">
-                Capital Price
-              </FormLabel>
-              <div className="flex relative">
-                <FormControl>
-                  <Input
-                    type="number"
-                    step="0.01"
-                    min="0"
-                    {...field}
-                    onChange={(e) => field.onChange(Number(e.target.value))}
-                    disabled={isDetail}
-                    className="h-14 pl-12 pr-4 py-3 rounded-[8px] border border-[#E2E8F0]"
-                  />
-                </FormControl>
-                <span className="absolute left-0 top-0 bg-[#64748B] text-white h-full w-11 flex items-center justify-center rounded-tl-[8px] rounded-bl-[8px]">
-                  $
-                </span>
-              </div>
-              <FormMessage />
-            </FormItem>
+            <PriceInput
+              label="Capital Price"
+              value={field.value}
+              onChange={field.onChange}
+              disabled={isDetail}
+            />
           )}
         />
 
@@ -346,89 +224,40 @@ export const FormFields = ({ form, onGenerateId, mode }: FormFieldsProps) => {
           control={form.control}
           name="idStockUnit"
           render={({ field }) => (
-            <FormItem className="flex-1">
-              <FormLabel className="font-medium font-inter text-black text-[16px] leading-[1.5em]">
-                Stock of Units
-              </FormLabel>
-              <div className="flex gap-2">
-                <Select
-                  value={String(field.value || '')}
-                  onValueChange={(value) => {
-                    const numValue = parseInt(value, 10);
-                    if (!isNaN(numValue)) {
-                      field.onChange(numValue);
-                    }
-                  }}
-                  disabled={isDetail}
-                >
-                  <FormControl>
-                    <SelectTrigger className="h-14 px-4 py-3">
-                      <SelectValue placeholder="Select unit" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    <div className="sticky top-0 bg-white z-10">
-                      <div className="p-2">
-                        <Input
-                          placeholder="Search unit..."
-                          value={unitSearch}
-                          onChange={(e) => {
-                            e.preventDefault();
-                            e.stopPropagation();
-                            setUnitSearch(e.target.value);
-                          }}
-                          className="h-9"
-                        />
-                      </div>
-                      <Button
-                        type="button"
-                        className="w-full font-medium text-[#94A3B8] bg-transparent hover:bg-gray-100 items-center gap-2 justify-start"
-                        onClick={() => setUnitDialog({ open: true })}
-                      >
-                        <Icon icon="solar:add-circle-outline" />
-                        <span>Add New Unit</span>
-                      </Button>
-                    </div>
-
-                    {filteredUnits?.length === 0 ? (
-                      <div className="p-4 text-center text-sm text-gray-500">
-                        No units found
-                      </div>
-                    ) : (
-                      filteredUnits?.map((unit) => (
-                        <SelectItem key={unit.id} value={unit.id.toString()}>
-                          {unit.unitName}
-                        </SelectItem>
-                      ))
-                    )}
-                  </SelectContent>
-                </Select>
-              </div>
-              <FormMessage />
-            </FormItem>
+            <SelectField
+              label="Stock of Units"
+              placeholder="Select unit"
+              searchPlaceholder="Search unit..."
+              options={unitOptions}
+              value={field.value}
+              onChange={field.onChange}
+              onAddNew={unitDialog.open}
+              addNewLabel="Add New Unit"
+              disabled={isDetail}
+            />
           )}
         />
       </div>
 
       <FormCategory
-        open={categoryDialog.open}
-        onClose={() => setCategoryDialog({ open: false })}
+        open={categoryDialog.state.open}
+        onClose={categoryDialog.close}
         mode="add"
         onSubmit={handleCategorySubmit}
         isLoading={createCategoryMutation.isPending}
       />
 
       <FormBrand
-        open={brandDialog.open}
-        onClose={() => setBrandDialog({ open: false })}
+        open={brandDialog.state.open}
+        onClose={brandDialog.close}
         mode="add"
         onSubmit={handleBrandSubmit}
         isLoading={createBrandMutation.isPending}
       />
 
       <FormUnit
-        open={unitDialog.open}
-        onClose={() => setUnitDialog({ open: false })}
+        open={unitDialog.state.open}
+        onClose={unitDialog.close}
         mode="add"
         onSubmit={handleUnitSubmit}
         isLoading={createUnitMutation.isPending}

@@ -59,3 +59,24 @@ export interface MasterItemFormProps {
   mode: 'add' | 'edit' | 'detail';
   isLoading?: boolean;
 }
+
+export interface SelectOption {
+  id: number;
+  name: string;
+}
+
+export interface DialogState {
+  open: boolean;
+}
+
+export interface SelectFieldProps {
+  label: string;
+  placeholder: string;
+  searchPlaceholder: string;
+  options: SelectOption[];
+  value: number | undefined;
+  onChange: (value: number) => void;
+  onAddNew: () => void;
+  addNewLabel: string;
+  disabled?: boolean;
+}
