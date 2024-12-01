@@ -85,6 +85,22 @@ export const FormFields = ({ form, onGenerateId, mode }: FormFieldsProps) => {
     }
   };
 
+  const [categorySearch, setCategorySearch] = useState('');
+  const [brandSearch, setBrandSearch] = useState('');
+  const [unitSearch, setUnitSearch] = useState('');
+
+  const filteredCategories = categories?.filter((category) =>
+    category.categoryName.toLowerCase().includes(categorySearch.toLowerCase())
+  );
+
+  const filteredBrands = brands?.filter((brand) =>
+    brand.brandName.toLowerCase().includes(brandSearch.toLowerCase())
+  );
+
+  const filteredUnits = units?.filter((unit) =>
+    unit.unitName.toLowerCase().includes(unitSearch.toLowerCase())
+  );
+
   return (
     <>
       <FormField
@@ -184,22 +200,43 @@ export const FormFields = ({ form, onGenerateId, mode }: FormFieldsProps) => {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    <Button
-                      type="button"
-                      className="w-full font-medium font-inter text-[16px] leading-[1.5em] text-[#94A3B8] bg-transparent hover:bg-transparent items-center gap-2 justify-start"
-                      onClick={() => setCategoryDialog({ open: true })}
-                    >
-                      <Icon icon="solar:add-circle-outline" />
-                      <span>Add New Category</span>
-                    </Button>
-                    {categories.map((category) => (
-                      <SelectItem
-                        key={category.id}
-                        value={category.id.toString()}
+                    <div className="sticky top-0 bg-white z-10">
+                      <div className="p-2">
+                        <Input
+                          placeholder="Search category..."
+                          value={categorySearch}
+                          onChange={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            setCategorySearch(e.target.value);
+                          }}
+                          className="h-9"
+                        />
+                      </div>
+                      <Button
+                        type="button"
+                        className="w-full font-medium text-[#94A3B8] bg-transparent hover:bg-gray-100 items-center gap-2 justify-start"
+                        onClick={() => setCategoryDialog({ open: true })}
                       >
-                        {category.categoryName}
-                      </SelectItem>
-                    ))}
+                        <Icon icon="solar:add-circle-outline" />
+                        <span>Add New Category</span>
+                      </Button>
+                    </div>
+
+                    {filteredCategories?.length === 0 ? (
+                      <div className="p-4 text-center text-sm text-gray-500">
+                        No categories found
+                      </div>
+                    ) : (
+                      filteredCategories?.map((category) => (
+                        <SelectItem
+                          key={category.id}
+                          value={category.id.toString()}
+                        >
+                          {category.categoryName}
+                        </SelectItem>
+                      ))
+                    )}
                   </SelectContent>
                 </Select>
               </div>
@@ -232,19 +269,40 @@ export const FormFields = ({ form, onGenerateId, mode }: FormFieldsProps) => {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    <Button
-                      type="button"
-                      className="w-full font-medium font-inter text-[16px] leading-[1.5em] text-[#94A3B8] bg-transparent hover:bg-transparent items-center gap-2 justify-start"
-                      onClick={() => setBrandDialog({ open: true })}
-                    >
-                      <Icon icon="solar:add-circle-outline" />
-                      <span>Add New Brand</span>
-                    </Button>
-                    {brands.map((brand) => (
-                      <SelectItem key={brand.id} value={brand.id.toString()}>
-                        {brand.brandName}
-                      </SelectItem>
-                    ))}
+                    <div className="sticky top-0 bg-white z-10">
+                      <div className="p-2">
+                        <Input
+                          placeholder="Search brand..."
+                          value={brandSearch}
+                          onChange={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            setBrandSearch(e.target.value);
+                          }}
+                          className="h-9"
+                        />
+                      </div>
+                      <Button
+                        type="button"
+                        className="w-full font-medium text-[#94A3B8] bg-transparent hover:bg-gray-100 items-center gap-2 justify-start"
+                        onClick={() => setBrandDialog({ open: true })}
+                      >
+                        <Icon icon="solar:add-circle-outline" />
+                        <span>Add New Brand</span>
+                      </Button>
+                    </div>
+
+                    {filteredBrands?.length === 0 ? (
+                      <div className="p-4 text-center text-sm text-gray-500">
+                        No brands found
+                      </div>
+                    ) : (
+                      filteredBrands?.map((brand) => (
+                        <SelectItem key={brand.id} value={brand.id.toString()}>
+                          {brand.brandName}
+                        </SelectItem>
+                      ))
+                    )}
                   </SelectContent>
                 </Select>
               </div>
@@ -309,19 +367,40 @@ export const FormFields = ({ form, onGenerateId, mode }: FormFieldsProps) => {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    <Button
-                      type="button"
-                      className="w-full font-medium font-inter text-[16px] leading-[1.5em] text-[#94A3B8] bg-transparent hover:bg-transparent items-center gap-2 justify-start"
-                      onClick={() => setUnitDialog({ open: true })}
-                    >
-                      <Icon icon="solar:add-circle-outline" />
-                      <span>Add New Unit</span>
-                    </Button>
-                    {units.map((unit) => (
-                      <SelectItem key={unit.id} value={unit.id.toString()}>
-                        {unit.unitName}
-                      </SelectItem>
-                    ))}
+                    <div className="sticky top-0 bg-white z-10">
+                      <div className="p-2">
+                        <Input
+                          placeholder="Search unit..."
+                          value={unitSearch}
+                          onChange={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            setUnitSearch(e.target.value);
+                          }}
+                          className="h-9"
+                        />
+                      </div>
+                      <Button
+                        type="button"
+                        className="w-full font-medium text-[#94A3B8] bg-transparent hover:bg-gray-100 items-center gap-2 justify-start"
+                        onClick={() => setUnitDialog({ open: true })}
+                      >
+                        <Icon icon="solar:add-circle-outline" />
+                        <span>Add New Unit</span>
+                      </Button>
+                    </div>
+
+                    {filteredUnits?.length === 0 ? (
+                      <div className="p-4 text-center text-sm text-gray-500">
+                        No units found
+                      </div>
+                    ) : (
+                      filteredUnits?.map((unit) => (
+                        <SelectItem key={unit.id} value={unit.id.toString()}>
+                          {unit.unitName}
+                        </SelectItem>
+                      ))
+                    )}
                   </SelectContent>
                 </Select>
               </div>
