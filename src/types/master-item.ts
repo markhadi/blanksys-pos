@@ -18,6 +18,17 @@ export interface MasterItem {
   image?: string;
 }
 
+export interface MasterItemDataType {
+  id: string;
+  itemName: string;
+  idCategory: number;
+  idBrand: number;
+  capitalPrice: number;
+  stock: number;
+  idStockUnit: number;
+  image: string;
+}
+
 export interface MasterItemTableProps {
   data: MasterItem[];
   isLoading?: boolean;

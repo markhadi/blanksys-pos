@@ -32,7 +32,7 @@ export const CategoryHeader = ({
   ).sort();
 
   return (
-    <div className="min-w-64 flex-shrink-0 flex items-center gap-2">
+    <div className="min-w-80 flex-shrink-0 flex items-center gap-2">
       <FilterPopover
         column={column}
         title="CATEGORY"
@@ -74,7 +74,7 @@ export const CapitalPriceHeader = ({
   column: Column<MasterItem>;
 }) => (
   <button
-    className="min-w-72 flex-shrink-0 flex items-center gap-2 justify-between w-full"
+    className="min-w-48 flex-shrink-0 flex items-center gap-2 justify-between w-full"
     onClick={() => {
       column.toggleSorting();
     }}

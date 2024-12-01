@@ -23,7 +23,11 @@ export const FormActions = ({
   if (mode === 'detail') {
     return (
       <div className="flex justify-end gap-5 sm:gap-10">
-        <Button type="button" onClick={onCancel}>
+        <Button
+          type="button"
+          className="w-full flex items-center justify-center"
+          onClick={onCancel}
+        >
           Close
         </Button>
       </div>

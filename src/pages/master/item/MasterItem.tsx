@@ -3,6 +3,7 @@ import { TableMasterItem } from '@/components/master-item/Table';
 import { ActionHeader } from '@/components/ui/ActionHeader';
 import { useMasterItemDialogs } from '@/hooks/master-item/useDialogs';
 import { useMasterItems } from '@/hooks/master-item/useMasterItems';
+import { useMasterItemMutations } from '@/hooks/master-item/useMutations';
 import { CreateMasterItemFormData } from '@/schema/master-item';
 import { SortingState } from '@tanstack/react-table';
 import { useState } from 'react';
@@ -48,9 +49,10 @@ export const MasterItem = () => {
     openDeleteDialog,
   } = useMasterItemDialogs();
 
+  const { createMutation } = useMasterItemMutations();
+
   const handleSubmit = (data: CreateMasterItemFormData) => {
-    console.log(data);
-    closeFormDialog();
+    createMutation.mutate(data as CreateMasterItemFormData);
   };
 
   return (

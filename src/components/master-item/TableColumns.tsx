@@ -44,7 +44,7 @@ export const TableColumns = (
       <CategoryHeader column={column} onCategoryFilter={onCategoryFilter} />
     ),
     cell: ({ getValue, row }) => (
-      <span className="min-w-64 flex-shrink-0 ">
+      <span className="min-w-80 flex-shrink-0 ">
         <span
           className={`${
             row.index % 2 === 0 ? 'bg-[#475569]' : 'bg-[#64748B]'
@@ -87,7 +87,7 @@ export const TableColumns = (
     accessorKey: 'capitalPrice',
     header: ({ column }) => <CapitalPriceHeader column={column} />,
     cell: ({ getValue }) => (
-      <span className="min-w-72 flex-shrink-0 ">$ {getValue() as string}</span>
+      <span className="min-w-48 flex-shrink-0 ">$ {getValue() as string}</span>
     ),
   },
   {

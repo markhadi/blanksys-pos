@@ -22,10 +22,11 @@ import { useEffect } from 'react';
 const DEFAULT_CREATE_VALUES = {
   id: '',
   itemName: '',
-  idCategory: 0,
-  idBrand: 0,
+  idCategory: undefined,
+  idBrand: undefined,
   capitalPrice: 0,
-  idStockUnit: 0,
+  idStockUnit: undefined,
+  image: '',
 };
 
 export const FormMasterItem = ({

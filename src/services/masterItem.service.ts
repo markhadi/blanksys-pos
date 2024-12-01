@@ -1,8 +1,13 @@
 import masterItemData from '@/data/masterItem.json';
-import { MasterItem, MasterItemSearchParams } from '@/types/master-item';
+import {
+  MasterItem,
+  MasterItemDataType,
+  MasterItemSearchParams,
+} from '@/types/master-item';
 import { CategoryService } from './category.service';
 import { BrandService } from './brand.service';
 import { UnitService } from './unit.service';
+import { CreateMasterItemFormData } from '@/schema/master-item';
 
 export const MasterItemService = {
   fetchMasterItems: async ({
@@ -65,5 +70,39 @@ export const MasterItemService = {
     }
 
     return masterItems;
+  },
+
+  createMasterItem: async (
+    data: CreateMasterItemFormData
+  ): Promise<MasterItemDataType> => {
+    await new Promise((resolve) => setTimeout(resolve, 500));
+
+    let imageUrl = data.image;
+
+    if (data.image && data.image.startsWith('data:image')) {
+      try {
+        // 1. Upload ke cloud storage (S3, Cloudinary, Firebase Storage, dll)
+        // 2. Compress image sebelum upload
+        // 3. Validasi ukuran dan format
+        // 4. Generate berbagai ukuran (thumbnail, medium, large)
+        // const uploadedImage = await uploadToCloudStorage(data.image);
+        // imageUrl = uploadedImage.url;
+
+        imageUrl = 'https://via.placeholder.com/150';
+      } catch (error) {
+        console.error('Error uploading image:', error);
+        throw new Error('Failed to upload image');
+      }
+    }
+
+    const newMasterItem: MasterItemDataType = {
+      image: imageUrl || '',
+      stock: 0,
+      ...data,
+    };
+
+    masterItemData.push(newMasterItem);
+
+    return newMasterItem;
   },
 };
