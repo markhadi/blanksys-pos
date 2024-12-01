@@ -51,8 +51,28 @@ export const useMasterItemMutations = () => {
     },
   });
 
+  const deleteMutation = useMutation({
+    mutationFn: (id: string) => MasterItemService.deleteMasterItem(id),
+    onSuccess: (deletedItem) => {
+      queryClient.invalidateQueries({ queryKey: ['masterItems'] });
+      toast({
+        title: 'Success',
+        description: `Item "${deletedItem.itemName}" has been deleted`,
+      });
+    },
+    onError: (error) => {
+      console.log(error);
+      toast({
+        variant: 'destructive',
+        title: 'Error',
+        description: 'Failed to delete item. Please try again.',
+      });
+    },
+  });
+
   return {
     createMutation,
     updateMutation,
+    deleteMutation,
   };
 };

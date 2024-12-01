@@ -7,6 +7,7 @@ import { useMasterItemMutations } from '@/hooks/master-item/useMutations';
 import { CreateMasterItemFormData } from '@/schema/master-item';
 import { SortingState } from '@tanstack/react-table';
 import { useState } from 'react';
+import { DeleteConfirmationDialog } from '@/components/ui/DeleteConfirmationDialog';
 
 export const MasterItem = () => {
   const [searchValue, setSearchValue] = useState('');
@@ -47,9 +48,12 @@ export const MasterItem = () => {
     openDetailDialog,
     openEditDialog,
     openDeleteDialog,
+    deleteDialog,
+    closeDeleteDialog,
   } = useMasterItemDialogs();
 
-  const { createMutation, updateMutation } = useMasterItemMutations();
+  const { createMutation, updateMutation, deleteMutation } =
+    useMasterItemMutations();
 
   const handleSubmit = async (data: CreateMasterItemFormData) => {
     if (formDialog.mode === 'add') {
@@ -59,6 +63,13 @@ export const MasterItem = () => {
         id: formDialog.masterItem.id,
         data,
       });
+    }
+  };
+
+  const handleConfirmDelete = () => {
+    if (deleteDialog.masterItem?.id) {
+      deleteMutation.mutate(deleteDialog.masterItem.id);
+      closeDeleteDialog();
     }
   };
 
@@ -94,7 +105,15 @@ export const MasterItem = () => {
         onSubmit={handleSubmit}
         masterItem={formDialog.masterItem}
         mode={formDialog.mode}
-        isLoading={false}
+        isLoading={createMutation.isPending || updateMutation.isPending}
+      />
+
+      <DeleteConfirmationDialog
+        open={deleteDialog.open}
+        onOpenChange={closeDeleteDialog}
+        onConfirm={handleConfirmDelete}
+        itemName={deleteDialog.masterItem?.itemName || ''}
+        isLoading={deleteMutation.isPending}
       />
     </div>
   );

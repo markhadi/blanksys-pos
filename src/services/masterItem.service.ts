@@ -147,4 +147,19 @@ export const MasterItemService = {
     masterItemData[itemIndex] = updatedItem;
     return updatedItem;
   },
+
+  deleteMasterItem: async (id: string): Promise<MasterItemDataType> => {
+    await new Promise((resolve) => setTimeout(resolve, 500));
+
+    const index = masterItemData.findIndex((item) => item.id === id);
+    if (index === -1) {
+      throw new Error('Item not found');
+    }
+
+    const deletedItem = masterItemData[index];
+    masterItemData.splice(index, 1);
+
+    console.log(deletedItem);
+    return deletedItem;
+  },
 };
