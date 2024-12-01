@@ -27,7 +27,6 @@ import { FormBrand } from '@/components/brand/FormBrand';
 import { FormUnit } from '@/components/unit/FormUnit';
 import { useCategoryMutations } from '@/hooks/category/useMutations';
 import { CreateFormData as CreateCategoryFormData } from '@/schema/category';
-import { useCategoryDialogs } from '@/hooks/category/useDialogs';
 import { useBrandMutations } from '@/hooks/brand/useMutations';
 import { CreateFormData as CreateBrandFormData } from '@/schema/brand';
 import { CreateFormData as CreateUnitFormData } from '@/schema/unit';
@@ -40,14 +39,12 @@ interface FormFieldsProps {
 }
 
 export const FormFields = ({ form, onGenerateId, mode }: FormFieldsProps) => {
+  const [categoryDialog, setCategoryDialog] = useState({ open: false });
   const [brandDialog, setBrandDialog] = useState({ open: false });
   const [unitDialog, setUnitDialog] = useState({ open: false });
   const { createMutation: createCategoryMutation } = useCategoryMutations();
   const { createMutation: createBrandMutation } = useBrandMutations();
   const { createMutation: createUnitMutation } = useUnitMutations();
-
-  const { openCreateDialog, formDialog, closeFormDialog } =
-    useCategoryDialogs();
 
   const { data: categories = [] } = useCategories({});
   const { data: brands = [] } = useBrands({});
@@ -190,7 +187,7 @@ export const FormFields = ({ form, onGenerateId, mode }: FormFieldsProps) => {
                     <Button
                       type="button"
                       className="w-full font-medium font-inter text-[16px] leading-[1.5em] text-[#94A3B8] bg-transparent hover:bg-transparent items-center gap-2 justify-start"
-                      onClick={openCreateDialog}
+                      onClick={() => setCategoryDialog({ open: true })}
                     >
                       <Icon icon="solar:add-circle-outline" />
                       <span>Add New Category</span>
@@ -335,8 +332,8 @@ export const FormFields = ({ form, onGenerateId, mode }: FormFieldsProps) => {
       </div>
 
       <FormCategory
-        open={formDialog.open}
-        onClose={closeFormDialog}
+        open={categoryDialog.open}
+        onClose={() => setCategoryDialog({ open: false })}
         mode="add"
         onSubmit={handleCategorySubmit}
         isLoading={createCategoryMutation.isPending}
