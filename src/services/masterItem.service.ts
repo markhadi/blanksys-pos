@@ -7,7 +7,10 @@ import {
 import { CategoryService } from './category.service';
 import { BrandService } from './brand.service';
 import { UnitService } from './unit.service';
-import { CreateMasterItemFormData } from '@/schema/master-item';
+import {
+  CreateMasterItemFormData,
+  UpdateMasterItemFormData,
+} from '@/schema/master-item';
 
 export const MasterItemService = {
   fetchMasterItems: async ({
@@ -98,11 +101,50 @@ export const MasterItemService = {
     const newMasterItem: MasterItemDataType = {
       image: imageUrl || '',
       stock: 0,
-      ...data,
+      id: data.id,
+      itemName: data.itemName,
+      idCategory: data.idCategory,
+      idBrand: data.idBrand,
+      capitalPrice: data.capitalPrice,
+      idStockUnit: data.idStockUnit,
     };
+
+    console.log(newMasterItem);
 
     masterItemData.push(newMasterItem);
 
     return newMasterItem;
+  },
+
+  updateMasterItem: async (
+    id: string,
+    data: UpdateMasterItemFormData
+  ): Promise<MasterItemDataType> => {
+    await new Promise((resolve) => setTimeout(resolve, 500));
+
+    let imageUrl = data.image;
+
+    if (data.image && data.image.startsWith('data:image')) {
+      try {
+        imageUrl = 'https://via.placeholder.com/150';
+      } catch (error) {
+        console.error('Error uploading image:', error);
+        throw new Error('Failed to upload image');
+      }
+    }
+
+    const itemIndex = masterItemData.findIndex((item) => item.id === id);
+    if (itemIndex === -1) throw new Error('Item not found');
+
+    const updatedItem = {
+      ...masterItemData[itemIndex],
+      ...data,
+      image: imageUrl || '',
+    };
+
+    console.log(updatedItem);
+
+    masterItemData[itemIndex] = updatedItem;
+    return updatedItem;
   },
 };

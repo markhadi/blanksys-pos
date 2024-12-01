@@ -49,10 +49,17 @@ export const MasterItem = () => {
     openDeleteDialog,
   } = useMasterItemDialogs();
 
-  const { createMutation } = useMasterItemMutations();
+  const { createMutation, updateMutation } = useMasterItemMutations();
 
-  const handleSubmit = (data: CreateMasterItemFormData) => {
-    createMutation.mutate(data as CreateMasterItemFormData);
+  const handleSubmit = async (data: CreateMasterItemFormData) => {
+    if (formDialog.mode === 'add') {
+      await createMutation.mutateAsync(data);
+    } else if (formDialog.masterItem?.id) {
+      await updateMutation.mutateAsync({
+        id: formDialog.masterItem.id,
+        data,
+      });
+    }
   };
 
   return (
