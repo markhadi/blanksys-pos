@@ -6,3 +6,11 @@ export const generateItemId = (): string => {
     .padStart(3, '0');
   return `${prefix}-${timestamp}${random}`;
 };
+
+export const generatePriceId = () => {
+  const prefix = 'PRICE';
+  const randomNum = Math.floor(Math.random() * 1000000)
+    .toString()
+    .padStart(6, '0');
+  return `${prefix}-${randomNum}`;
+};

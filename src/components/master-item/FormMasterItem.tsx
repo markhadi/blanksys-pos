@@ -106,7 +106,11 @@ export const FormMasterItem = ({
 
         <Form {...form}>
           <form
-            onSubmit={form.handleSubmit(handleSubmit)}
+            onSubmit={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              form.handleSubmit(handleSubmit)(e);
+            }}
             className="space-y-5"
           >
             <FormFields
