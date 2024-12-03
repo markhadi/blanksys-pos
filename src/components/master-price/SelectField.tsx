@@ -65,11 +65,25 @@ export const SelectField = ({
           <FormControl>
             <SelectTrigger className="h-14 px-4 py-3">
               <SelectValue placeholder={placeholder}>
-                {showQuantity && quantity !== undefined && (
-                  <div className="flex items-center gap-2">
-                    <span>{options.find((opt) => opt.id === value)?.name}</span>
-                    <span className="text-gray-500">({quantity} pcs)</span>
-                  </div>
+                {value && (
+                  <>
+                    {showQuantity ? (
+                      <div className="flex items-center gap-2">
+                        <span>
+                          {options.find((opt) => opt.id === value)?.name}
+                        </span>
+                        {quantity && (
+                          <span className="text-gray-500">
+                            ({quantity} pcs)
+                          </span>
+                        )}
+                      </div>
+                    ) : (
+                      <span>
+                        {options.find((opt) => opt.id === value)?.name}
+                      </span>
+                    )}
+                  </>
                 )}
               </SelectValue>
             </SelectTrigger>
