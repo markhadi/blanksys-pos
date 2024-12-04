@@ -1,0 +1,92 @@
+[
+  {
+    "id_transaction": "TRX-2412010001",
+    "timestamp": "2023-12-01T08:30:00Z",
+    "qty": 2,
+    "unit": "PCS",
+    "transaction": 0.7,
+    "notes": "Regular purchase",
+    "status": "Complete"
+  },
+  {
+    "id_transaction": "TRX-2412010002",
+    "timestamp": "2023-12-01T09:15:00Z",
+    "qty": 5,
+    "unit": "PCS",
+    "transaction": 1.5,
+    "notes": "Bulk purchase",
+    "status": "Complete"
+  },
+  {
+    "id_transaction": "TRX-2412010003",
+    "timestamp": "2023-12-01T10:45:00Z",
+    "qty": 1,
+    "unit": "BOX",
+    "transaction": 18.0,
+    "notes": "Customer requested refund - damaged package",
+    "status": "Refund"
+  },
+  {
+    "id_transaction": "TRX-2412010004",
+    "timestamp": "2023-12-01T11:20:00Z",
+    "qty": 3,
+    "unit": "PCS",
+    "transaction": 3.6,
+    "notes": "Regular purchase",
+    "status": "Complete"
+  },
+  {
+    "id_transaction": "TRX-2412010005",
+    "timestamp": "2023-12-01T13:00:00Z",
+    "qty": 1,
+    "unit": "PCS",
+    "transaction": 2.0,
+    "notes": "Payment issue",
+    "status": "Canceled"
+  },
+  {
+    "id_transaction": "TRX-2412010006",
+    "timestamp": "2023-12-01T14:30:00Z",
+    "qty": 4,
+    "unit": "PCS",
+    "transaction": 2.0,
+    "notes": "Regular purchase",
+    "status": "Complete"
+  },
+  {
+    "id_transaction": "TRX-2412010007",
+    "timestamp": "2023-12-01T15:45:00Z",
+    "qty": 2,
+    "unit": "BOX",
+    "transaction": 9.0,
+    "notes": "Bulk purchase",
+    "status": "Complete"
+  },
+  {
+    "id_transaction": "TRX-2412010008",
+    "timestamp": "2023-12-01T16:20:00Z",
+    "qty": 1,
+    "unit": "PCS",
+    "transaction": 1.5,
+    "notes": "Wrong item selected",
+    "status": "Canceled"
+  },
+  {
+    "id_transaction": "TRX-2412010009",
+    "timestamp": "2023-12-01T17:00:00Z",
+    "qty": 3,
+    "unit": "PCS",
+    "transaction": 4.2,
+    "notes": "Quality issue",
+    "status": "Refund"
+  },
+  {
+    "id_transaction": "TRX-2412010010",
+    "timestamp": "2023-12-01T18:30:00Z",
+    "qty": 6,
+    "unit": "PCS",
+    "transaction": 7.8,
+    "notes": "Regular purchase",
+    "status": "Complete"
+  }
+]

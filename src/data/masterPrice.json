@@ -39,20 +39,117 @@
     "id_item": "ITEM-2411301153",
     "id_unit": 1,
     "capital_price": 1.5,
-    "selling_price": 2
+    "selling_price": 2.0
   },
   {
     "id": "PRICE-2411301154",
     "id_item": "ITEM-2411301154",
     "id_unit": 2,
-    "capital_price": 15,
-    "selling_price": 18
+
+    "capital_price": 15.0,
+    "selling_price": 18.0
   },
   {
     "id": "PRICE-2411301155",
     "id_item": "ITEM-2411301155",
     "id_unit": 3,
     "capital_price": 0.8,
-    "selling_price": 1
+    "selling_price": 1.0
+  },
+  {
+    "id": "PRICE-2411301156",
+    "id_item": "ITEM-2411301156",
+    "id_unit": 1,
+
+    "capital_price": 1.2,
+    "selling_price": 1.5
+  },
+  {
+    "id": "PRICE-2411301157",
+    "id_item": "ITEM-2411301157",
+    "id_unit": 2,
+
+    "capital_price": 7.5,
+    "selling_price": 9.0
+  },
+  {
+    "id": "PRICE-2411301158",
+    "id_item": "ITEM-2411301158",
+
+    "id_unit": 1,
+    "capital_price": 1.6,
+    "selling_price": 2.0
+  },
+  {
+    "id": "PRICE-2411301159",
+    "id_item": "ITEM-2411301159",
+
+    "id_unit": 2,
+    "capital_price": 1.2,
+    "selling_price": 1.5
+  },
+  {
+    "id": "PRICE-2411301160",
+    "id_item": "ITEM-2411301160",
+
+    "id_unit": 3,
+
+    "capital_price": 0.6,
+    "selling_price": 0.8
+  },
+  {
+    "id": "PRICE-2412010000",
+    "id_item": "ITEM-2412010000",
+    "id_unit": 1,
+
+    "capital_price": 2.8,
+    "selling_price": 3.5
+  },
+  {
+    "id": "PRICE-2412010001",
+    "id_item": "ITEM-2412010001",
+    "id_unit": 2,
+
+    "capital_price": 3.5,
+    "selling_price": 4.2
+  },
+  {
+    "id": "PRICE-2412010002",
+    "id_item": "ITEM-2412010002",
+    "id_unit": 3,
+
+    "capital_price": 1.5,
+    "selling_price": 2.0
+  },
+  {
+    "id": "PRICE-2412010003",
+    "id_item": "ITEM-2412010003",
+    "id_unit": 1,
+
+    "capital_price": 0.1,
+    "selling_price": 0.15
+  },
+  {
+    "id": "PRICE-2412010004",
+    "id_item": "ITEM-2412010004",
+    "id_unit": 2,
+
+    "capital_price": 1.8,
+    "selling_price": 2.3
+  },
+  {
+    "id": "PRICE-2412010005",
+    "id_item": "ITEM-2412010005",
+    "id_unit": 3,
+
+    "capital_price": 1.2,
+    "selling_price": 1.5
+  },
+  {
+    "id": "PRICE-2412010006",
+    "id_item": "ITEM-2412010006",
+    "id_unit": 1,
+    "capital_price": 2.3,
+    "selling_price": 2.8
   }
 ]

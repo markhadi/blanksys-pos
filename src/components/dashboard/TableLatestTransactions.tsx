@@ -3,7 +3,7 @@ import { ColumnDef } from '@tanstack/react-table';
 import { Transaction } from '@/types/dashboard';
 import { StatusBadge } from '@/components/dashboard/StatusBadge';
 import { VirtualTable } from '@/components/ui/VirtualTable';
-import { transactionService } from '@/services/transaction.service';
+import { TransactionService } from '@/services/transaction.service';
 
 export const TableLatestTransactions = () => {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
@@ -11,7 +11,7 @@ export const TableLatestTransactions = () => {
   useEffect(() => {
     const fetchTransactions = async () => {
       try {
-        const data = await transactionService.getLatestTransactions();
+        const data = await TransactionService.getLatestTransactions();
         setTransactions(data);
       } catch (error) {
         console.error('Error fetching transactions:', error);
