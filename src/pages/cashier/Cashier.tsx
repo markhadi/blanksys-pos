@@ -1,4 +1,4 @@
-import { Suspense } from 'react';
+import { Suspense, useState, useEffect } from 'react';
 import { ProductCard } from '@/components/product/ProductCard';
 import { ProductCardSkeleton } from '@/components/product/ProductCardSkeleton';
 import { useMasterItems } from '@/hooks/master-item/useMasterItems';
@@ -7,6 +7,14 @@ import { useMasterPrices } from '@/hooks/master-price/useMasterPrice';
 export const Cashier = () => {
   const { data: items, isLoading: isLoadingItems } = useMasterItems({});
   const { data: prices, isLoading: isLoadingPrices } = useMasterPrices({});
+
+  const [prevItemsCount, setPrevItemsCount] = useState(0);
+
+  useEffect(() => {
+    if (items?.length) {
+      setPrevItemsCount(items.length);
+    }
+  }, [items]);
 
   const products = items?.map((item) => {
     const itemPrices =
@@ -31,11 +39,13 @@ export const Cashier = () => {
   };
 
   if (isLoadingItems || isLoadingPrices) {
+    const skeletonCount = prevItemsCount || 10;
+
     return (
       <div className="flex flex-col gap-5">
-        <ProductCardSkeleton />
-        <ProductCardSkeleton />
-        <ProductCardSkeleton />
+        {Array.from({ length: skeletonCount }).map((_, index) => (
+          <ProductCardSkeleton key={index} />
+        ))}
       </div>
     );
   }
