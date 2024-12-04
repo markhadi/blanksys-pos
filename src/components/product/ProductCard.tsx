@@ -8,6 +8,7 @@ interface ProductCardProps {
   brand: string;
   price: number;
   stock?: number;
+  unit: string;
   onAddToCart: () => void;
 }
 
@@ -18,6 +19,7 @@ export const ProductCard = ({
   brand,
   price,
   stock,
+  unit,
   onAddToCart,
 }: ProductCardProps) => {
   const isOutOfStock = typeof stock === 'undefined' || stock === 0;
@@ -61,7 +63,7 @@ export const ProductCard = ({
                   {stock}
                 </span>
                 <span className="text-[14px] font-poppins text-[#475569]">
-                  Stock available
+                  {unit} available
                 </span>
               </>
             )}
