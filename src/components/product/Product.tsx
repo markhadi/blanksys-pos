@@ -1,6 +1,7 @@
 import { Suspense } from 'react';
-import { ProductCardSkeleton } from './ProductCardSkeleton';
-import { ProductCard } from './ProductCard';
+import { ProductCardSkeleton } from '@/components/product/ProductCardSkeleton';
+import { ProductCard } from '@/components/product/ProductCard';
+import { ProductEmptyState } from '@/components/product/ProductEmptyState';
 import { useMasterItems } from '@/hooks/master-item/useMasterItems';
 import { useMasterPrices } from '@/hooks/master-price/useMasterPrice';
 import { useCart } from '@/contexts/CartContext';
@@ -51,6 +52,8 @@ export const Product = ({ searchQuery }: ProductProps) => {
             <ProductCardSkeleton key={index} />
           ))}
         </div>
+      ) : products?.length === 0 ? (
+        <ProductEmptyState />
       ) : (
         products?.map((product) => (
           <Suspense key={product.id} fallback={<ProductCardSkeleton />}>
