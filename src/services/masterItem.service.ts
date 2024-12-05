@@ -46,8 +46,11 @@ export const MasterItemService = {
 
     if (search?.trim()) {
       const normalizedSearch = search.toLowerCase().trim();
-      masterItems = masterItems.filter((item) =>
-        item.itemName.toLowerCase().includes(normalizedSearch)
+      masterItems = masterItems.filter(
+        (item) =>
+          item.itemName.toLowerCase().includes(normalizedSearch) ||
+          item.category.toLowerCase().includes(normalizedSearch) ||
+          item.brand.toLowerCase().includes(normalizedSearch)
       );
     }
 
