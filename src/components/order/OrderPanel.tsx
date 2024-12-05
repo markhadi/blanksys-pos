@@ -8,6 +8,7 @@ import { OrderForm } from './OrderForm';
 import { CustomerFormData } from '@/types/order';
 import { useCart } from '@/contexts/CartContext';
 import { EmptyState } from './EmptyState';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 export const OrderPanel = () => {
   const {
@@ -75,23 +76,36 @@ export const OrderPanel = () => {
 
   return (
     <section className="bg-white rounded-xl p-6 md:px-12 md:py-7 shadow-lg flex flex-col h-full">
-      <h2 className="text-[22px] font-bold">ORDER</h2>
+      <h2 className="text-[22px] font-bold mb-3">ORDER</h2>
       <div className="flex flex-col gap-5 justify-between h-full">
-        <div className="flex flex-col max-h-96 sm:max-h-80 overflow-y-auto">
-          {orderItems.length > 0 ? (
-            orderItems.map((item) => (
-              <OrderItem
-                key={item.id}
-                {...item}
-                onIncrement={() => handleIncrement(item.id)}
-                onDecrement={() => handleDecrement(item.id)}
-                onRemove={() => removeItem(item.id)}
-              />
-            ))
-          ) : (
-            <EmptyState />
-          )}
-        </div>
+        <Tabs defaultValue="cart">
+          <TabsList>
+            <TabsTrigger value="cart">
+              Cart <span className="ml-1">({orderItems.length})</span>
+            </TabsTrigger>
+            <TabsTrigger value="order-list">Order List</TabsTrigger>
+          </TabsList>
+          <TabsContent value="cart">
+            <div className="flex flex-col max-h-96 sm:max-h-80 overflow-y-auto">
+              {orderItems.length > 0 ? (
+                orderItems.map((item) => (
+                  <OrderItem
+                    key={item.id}
+                    {...item}
+                    onIncrement={() => handleIncrement(item.id)}
+                    onDecrement={() => handleDecrement(item.id)}
+                    onRemove={() => removeItem(item.id)}
+                  />
+                ))
+              ) : (
+                <EmptyState />
+              )}
+            </div>
+          </TabsContent>
+          <TabsContent value="order-list">
+            <div>Order List</div>
+          </TabsContent>
+        </Tabs>
 
         <OrderForm form={form} onSubmit={handleSubmit}>
           <OrderActions
