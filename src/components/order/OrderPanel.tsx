@@ -5,19 +5,21 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { OrderItem } from './OrderCard';
 import { OrderForm } from './OrderForm';
-import { CustomerFormData } from '@/types/order';
+import { CustomerFormData, OrderHistory } from '@/types/order';
 import { useCart } from '@/contexts/CartContext';
 import { EmptyState } from './EmptyState';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { useOrderHistory } from '@/hooks/order/useOrderHistory';
+import { OrderHistoryItem } from './OrderHistoryItem';
 
 export const OrderPanel = () => {
+  const { orders, saveOrder } = useOrderHistory();
   const {
     items: orderItems,
     updateQuantity,
     removeItem,
     clearCart,
   } = useCart();
-
   const form = useForm<CustomerFormData>({
     resolver: zodResolver(
       z.object({
@@ -72,7 +74,31 @@ export const OrderPanel = () => {
     clearCart();
   };
   const handlePrint = () => console.log('Print order');
-  const handleSave = () => console.log('Save order');
+
+  const handleSave = async () => {
+    const result = await form.trigger();
+    if (!result) {
+      return;
+    }
+
+    const formData = form.getValues();
+    const orderData = {
+      customerName: formData.customerName,
+      items: orderItems,
+      total: calculateTotal(orderItems),
+      timestamp: new Date().toISOString(),
+      note: formData.note,
+    };
+
+    saveOrder(orderData);
+    clearCart();
+    form.reset();
+  };
+
+  const handleOrderClick = (order: OrderHistory) => {
+    // TODO: Implement order detail view
+    console.log('Order details:', order);
+  };
 
   return (
     <section className="bg-white rounded-xl p-6 md:px-12 md:py-7 shadow-lg flex flex-col h-full">
@@ -83,7 +109,9 @@ export const OrderPanel = () => {
             <TabsTrigger value="cart">
               Cart <span className="ml-1">({orderItems.length})</span>
             </TabsTrigger>
-            <TabsTrigger value="order-list">Order List</TabsTrigger>
+            <TabsTrigger value="order-list">
+              Order List <span className="ml-1">({orders.length})</span>
+            </TabsTrigger>
           </TabsList>
           <TabsContent value="cart">
             <div className="flex flex-col max-h-96 sm:max-h-80 overflow-y-auto">
@@ -116,55 +144,19 @@ export const OrderPanel = () => {
           </TabsContent>
           <TabsContent value="order-list">
             <div className="flex flex-col max-h-96 sm:max-h-80 overflow-y-auto border border-[#94A3B8] rounded-lg px-2">
-              <button
-                role="button"
-                onClick={() => {
-                  console.log('tampilkan detail');
-                }}
-                className="flex items-start gap-2 sm:items-center justify-between border-b border-[#94A3B8] py-2 flex-col sm:flex-row"
-              >
-                <div className="flex items-center gap-5">
-                  <span className="h-12 w-12 grid place-content-center rounded-full bg-[#475569] text-white text[20px] leading-[28px] font-semibold">
-                    TE
-                  </span>
-                  <div className="flex flex-col items-start">
-                    <h3 className="text-[20px] leading-[28px] font-semibold">
-                      Test
-                    </h3>
-                    <p className="text-[#475569] leading-[28px]">
-                      TRX-2412010011
-                    </p>
-                  </div>
+              {orders.length > 0 ? (
+                orders.map((order) => (
+                  <OrderHistoryItem
+                    key={order.id}
+                    order={order}
+                    onClick={handleOrderClick}
+                  />
+                ))
+              ) : (
+                <div className="py-8 text-center text-gray-500">
+                  No orders yet
                 </div>
-                <span className="font-bold text-[#475569] text-right w-full sm:w-max">
-                  $ 10.000
-                </span>
-              </button>
-
-              <button
-                role="button"
-                onClick={() => {
-                  console.log('tampilkan detail');
-                }}
-                className="flex items-start gap-2 sm:items-center justify-between border-b border-[#94A3B8] py-2 flex-col sm:flex-row"
-              >
-                <div className="flex items-center gap-5">
-                  <span className="h-12 w-12 grid place-content-center rounded-full bg-[#475569] text-white text[20px] leading-[28px] font-semibold">
-                    EM
-                  </span>
-                  <div className="flex flex-col items-start">
-                    <h3 className="text-[20px] leading-[28px] font-semibold">
-                      Emet
-                    </h3>
-                    <p className="text-[#475569] leading-[28px]">
-                      TRX-2412010012
-                    </p>
-                  </div>
-                </div>
-                <span className="font-bold text-[#475569] text-right w-full sm:w-max">
-                  $ 1.000
-                </span>
-              </button>
+              )}
             </div>
           </TabsContent>
         </Tabs>
