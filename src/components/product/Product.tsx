@@ -24,7 +24,7 @@ export const Product = ({ searchQuery }: ProductProps) => {
 
     return {
       id: item.id,
-      imageUrl: item.image || 'https://via.placeholder.com/150',
+      imageUrl: item.image || 'https://dummyimage.com/100x100',
       name: item.itemName,
       category: item.category,
       brand: item.brand,

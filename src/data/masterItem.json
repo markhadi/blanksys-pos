@@ -7,7 +7,7 @@
     "capitalPrice": 1.5,
     "stock": 24,
     "idStockUnit": 8,
-    "image": "https://via.placeholder.com/150"
+    "image": "https://dummyimage.com/100x100/"
   },
   {
     "id": "ITEM-2411301149",
@@ -17,7 +17,7 @@
     "capitalPrice": 0.2,
     "stock": 500,
     "idStockUnit": 8,
-    "image": "https://via.placeholder.com/150"
+    "image": "https://dummyimage.com/100x100/"
   },
   {
     "id": "ITEM-2411301150",
@@ -27,7 +27,7 @@
     "capitalPrice": 0.9,
     "stock": 48,
     "idStockUnit": 8,
-    "image": "https://via.placeholder.com/150"
+    "image": "https://dummyimage.com/100x100/"
   },
   {
     "id": "ITEM-2411301151",
@@ -37,7 +37,7 @@
     "capitalPrice": 0.35,
     "stock": 120,
     "idStockUnit": 8,
-    "image": "https://via.placeholder.com/150"
+    "image": "https://dummyimage.com/100x100/"
   },
   {
     "id": "ITEM-2411301152",
@@ -47,7 +47,7 @@
     "capitalPrice": 0.4,
     "stock": 200,
     "idStockUnit": 8,
-    "image": "https://via.placeholder.com/150"
+    "image": "https://dummyimage.com/100x100/"
   },
   {
     "id": "ITEM-2411301153",
@@ -57,7 +57,7 @@
     "capitalPrice": 1.5,
     "stock": 50,
     "idStockUnit": 8,
-    "image": "https://via.placeholder.com/150"
+    "image": "https://dummyimage.com/100x100/"
   },
   {
     "id": "ITEM-2411301154",
@@ -67,7 +67,7 @@
     "capitalPrice": 15,
     "stock": 30,
     "idStockUnit": 8,
-    "image": "https://via.placeholder.com/150"
+    "image": "https://dummyimage.com/100x100/"
   },
   {
     "id": "ITEM-2411301155",
@@ -77,7 +77,7 @@
     "capitalPrice": 0.8,
     "stock": 100,
     "idStockUnit": 8,
-    "image": "https://via.placeholder.com/150"
+    "image": "https://dummyimage.com/100x100/"
   },
   {
     "id": "ITEM-2411301156",
@@ -87,7 +87,7 @@
     "capitalPrice": 1.2,
     "stock": 60,
     "idStockUnit": 8,
-    "image": "https://via.placeholder.com/150"
+    "image": "https://dummyimage.com/100x100/"
   },
   {
     "id": "ITEM-2411301157",
@@ -97,7 +97,7 @@
     "capitalPrice": 7.5,
     "stock": 30,
     "idStockUnit": 8,
-    "image": "https://via.placeholder.com/150"
+    "image": "https://dummyimage.com/100x100/"
   },
   {
     "id": "ITEM-2411301158",
@@ -107,7 +107,7 @@
     "capitalPrice": 1.6,
     "stock": 70,
     "idStockUnit": 8,
-    "image": "https://via.placeholder.com/150"
+    "image": "https://dummyimage.com/100x100/"
   },
   {
     "id": "ITEM-2411301159",
@@ -117,7 +117,7 @@
     "capitalPrice": 1.2,
     "stock": 50,
     "idStockUnit": 8,
-    "image": "https://via.placeholder.com/150"
+    "image": "https://dummyimage.com/100x100/"
   },
   {
     "id": "ITEM-2411301160",
@@ -127,7 +127,7 @@
     "capitalPrice": 0.6,
     "stock": 120,
     "idStockUnit": 8,
-    "image": "https://via.placeholder.com/150"
+    "image": "https://dummyimage.com/100x100/"
   },
   {
     "id": "ITEM-2412010000",
@@ -137,7 +137,7 @@
     "capitalPrice": 2.8,
     "stock": 25,
     "idStockUnit": 8,
-    "image": "https://via.placeholder.com/150"
+    "image": "https://dummyimage.com/100x100/"
   },
   {
     "id": "ITEM-2412010001",
@@ -147,7 +147,7 @@
     "capitalPrice": 3.5,
     "stock": 20,
     "idStockUnit": 8,
-    "image": "https://via.placeholder.com/150"
+    "image": "https://dummyimage.com/100x100/"
   },
   {
     "id": "ITEM-2412010002",
@@ -157,7 +157,7 @@
     "capitalPrice": 1.5,
     "stock": 40,
     "idStockUnit": 8,
-    "image": "https://via.placeholder.com/150"
+    "image": "https://dummyimage.com/100x100/"
   },
   {
     "id": "ITEM-2412010003",
@@ -167,7 +167,7 @@
     "capitalPrice": 0.1,
     "stock": 400,
     "idStockUnit": 8,
-    "image": "https://via.placeholder.com/150"
+    "image": "https://dummyimage.com/100x100/"
   },
   {
     "id": "ITEM-2412010004",
@@ -177,7 +177,7 @@
     "capitalPrice": 1.8,
     "stock": 50,
     "idStockUnit": 8,
-    "image": "https://via.placeholder.com/150"
+    "image": "https://dummyimage.com/100x100/"
   },
   {
     "id": "ITEM-2412010005",
@@ -187,7 +187,7 @@
     "capitalPrice": 1.2,
     "stock": 80,
     "idStockUnit": 8,
-    "image": "https://via.placeholder.com/150"
+    "image": "https://dummyimage.com/100x100/"
   },
   {
     "id": "ITEM-2412010006",
@@ -197,6 +197,6 @@
     "capitalPrice": 2.3,
     "stock": 30,
     "idStockUnit": 8,
-    "image": "https://via.placeholder.com/150"
+    "image": "https://dummyimage.com/100x100/"
   }
 ]
