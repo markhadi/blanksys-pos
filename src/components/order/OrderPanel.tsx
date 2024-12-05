@@ -74,10 +74,10 @@ export const OrderPanel = () => {
   const handleSave = () => console.log('Save order');
 
   return (
-    <section className="bg-white rounded-xl px-12 py-7 shadow-lg flex flex-col h-full">
+    <section className="bg-white rounded-xl p-6 md:px-12 md:py-7 shadow-lg flex flex-col h-full">
       <h2 className="text-[22px] font-bold">ORDER</h2>
       <div className="flex flex-col gap-5 justify-between h-full">
-        <div className="flex flex-col max-h-80 overflow-y-auto">
+        <div className="flex flex-col max-h-96 sm:max-h-80 overflow-y-auto">
           {orderItems.length > 0 ? (
             orderItems.map((item) => (
               <OrderItem

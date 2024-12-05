@@ -45,7 +45,7 @@ export const Product = ({ searchQuery }: ProductProps) => {
   };
 
   return (
-    <div className="flex flex-col gap-5 max-h-[calc(100vh-176px)] overflow-y-auto">
+    <div className="flex flex-col gap-5 max-h-[50dvh] 3xl:max-h-[calc(100dvh-176px)] overflow-y-auto">
       {isLoadingItems || isLoadingPrices ? (
         <div className="flex flex-col h-full gap-5">
           {Array.from({ length: 7 }).map((_, index) => (

@@ -13,10 +13,10 @@ export const Cashier = () => {
   };
 
   return (
-    <div className="grid grid-cols-[minmax(0,1fr)_minmax(0,1fr)] gap-5 h-full">
+    <div className="grid grid-cols-1 3xl:grid-cols-[minmax(0,1fr)_minmax(0,725px)] gap-5 h-full">
       <Tabs defaultValue="general">
-        <div className="flex justify-between items-center">
-          <TabsList>
+        <div className="flex justify-between items-center flex-wrap gap-5">
+          <TabsList className="w-full lg:w-max">
             <TabsTrigger value="general">General</TabsTrigger>
             <TabsTrigger value="recent">Recent</TabsTrigger>
             <TabsTrigger value="popular">Popular</TabsTrigger>

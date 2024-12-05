@@ -27,10 +27,10 @@ export const OrderActions = ({
         $ {total.toLocaleString()}
       </span>
     </div>
-    <div className="flex items-center justify-end gap-4">
+    <div className="flex items-center justify-end gap-4 flex-wrap lg:flex-nowrap">
       <Button
         variant="outline"
-        className="w-full font-inter text-[20px] h-14 font-medium"
+        className="w-full font-inter text-[20px] h-max lg:h-14 font-medium"
         onClick={onClear}
         type="reset"
         disabled={itemCount === 0}
@@ -40,7 +40,7 @@ export const OrderActions = ({
       </Button>
       <Button
         variant="outline"
-        className="w-full font-inter text-[20px] h-14 font-medium"
+        className="w-full font-inter text-[20px] h-max lg:h-14 font-medium"
         onClick={onPrint}
         type="button"
         disabled={itemCount === 0}
@@ -50,7 +50,7 @@ export const OrderActions = ({
       </Button>
       <Button
         variant="outline"
-        className="w-full font-inter text-[20px] h-14 font-medium"
+        className="w-full font-inter text-[20px] h-max lg:h-14 font-medium"
         onClick={onSave}
         type="button"
         disabled={itemCount === 0}
@@ -59,7 +59,7 @@ export const OrderActions = ({
         Save
       </Button>
       <Button
-        className="w-full font-inter text-[20px] h-14 font-bold"
+        className="w-full font-inter text-[20px] h-max lg:h-14 font-bold"
         onClick={onCheckout}
         type="submit"
         disabled={isSubmitting || itemCount === 0}

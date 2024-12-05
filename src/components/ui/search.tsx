@@ -19,7 +19,7 @@ export const Search = ({ value, onChange, onSearch }: SearchProps) => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex items-center gap-1 border border-[#E1E1E1] bg-white rounded-[6px] w-full sm:w-[220px] md:w-[258px] h-[54px] p-1 focus-within:border-[#0F172A] transition-all duration-300"
+      className="flex items-center gap-1 border border-[#E1E1E1] bg-white rounded-[6px] w-full lg:w-[258px] h-[54px] p-1 focus-within:border-[#0F172A] transition-all duration-300"
     >
       <input
         type="text"

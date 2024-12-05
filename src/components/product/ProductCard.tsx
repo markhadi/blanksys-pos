@@ -26,8 +26,8 @@ export const ProductCard = ({
   const isOutOfStock = typeof stock === 'undefined' || stock === 0;
 
   return (
-    <article className="flex flex-grow flex-wrap items-center justify-between gap-5 p-3 bg-white rounded-lg shadow-md">
-      <div className="flex items-center gap-5">
+    <article className="flex flex-col lg:flex-row items-start flex-grow lg:items-center justify-between gap-5 p-3 bg-white rounded-lg shadow-md">
+      <div className="flex flex-col lg:flex-row w-full lg:w-max items-start lg:items-center gap-5">
         <div className="relative w-24 h-24">
           {!imageLoaded && (
             <div className="absolute inset-0 animate-pulse bg-gray-200 rounded-md" />
@@ -44,7 +44,7 @@ export const ProductCard = ({
         </div>
         <div className="flex flex-col gap-2">
           <h2 className="text-[20px] font-poppins font-bold">{name}</h2>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 flex-wrap">
             <span className="text-[14px] font-poppins bg-[#475569] text-white rounded-lg px-2">
               {category}
             </span>
@@ -70,7 +70,7 @@ export const ProductCard = ({
           </div>
         </div>
       </div>
-      <div className="flex items-center gap-5">
+      <div className="flex items-center gap-5 w-full lg:w-max justify-between">
         <span className="text-[20px] font-poppins">
           $ {price.toLocaleString()}
         </span>
