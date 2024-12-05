@@ -103,8 +103,8 @@ export const OrderPanel = () => {
   return (
     <section className="bg-white rounded-xl p-6 md:px-12 md:py-7 shadow-lg flex flex-col h-full">
       <h2 className="text-[22px] font-bold mb-3">ORDER</h2>
-      <div className="flex flex-col gap-5 justify-between h-full">
-        <Tabs defaultValue="cart">
+      <div className="flex flex-col h-full">
+        <Tabs defaultValue="cart" className="flex flex-col gap-5 h-full">
           <TabsList>
             <TabsTrigger value="cart">
               Cart <span className="ml-1">({orderItems.length})</span>
@@ -113,35 +113,39 @@ export const OrderPanel = () => {
               Order List <span className="ml-1">({orders.length})</span>
             </TabsTrigger>
           </TabsList>
-          <TabsContent value="cart">
-            <div className="flex flex-col max-h-96 sm:max-h-80 overflow-y-auto">
-              {orderItems.length > 0 ? (
-                orderItems.map((item) => (
-                  <OrderItem
-                    key={item.id}
-                    {...item}
-                    onIncrement={() => handleIncrement(item.id)}
-                    onDecrement={() => handleDecrement(item.id)}
-                    onRemove={() => removeItem(item.id)}
-                  />
-                ))
-              ) : (
-                <EmptyState />
-              )}
-            </div>
 
-            <OrderForm form={form} onSubmit={handleSubmit}>
-              <OrderActions
-                total={calculateTotal(orderItems)}
-                onClear={handleClear}
-                onPrint={handlePrint}
-                onSave={handleSave}
-                onCheckout={form.handleSubmit(handleSubmit)}
-                isSubmitting={form.formState.isSubmitting}
-                itemCount={orderItems.length}
-              />
-            </OrderForm>
+          <TabsContent value="cart" className="h-full">
+            <div className="flex flex-col h-full justify-between gap-10">
+              <div className="flex flex-col max-h-96 sm:max-h-80 overflow-y-auto">
+                {orderItems.length > 0 ? (
+                  orderItems.map((item) => (
+                    <OrderItem
+                      key={item.id}
+                      {...item}
+                      onIncrement={() => handleIncrement(item.id)}
+                      onDecrement={() => handleDecrement(item.id)}
+                      onRemove={() => removeItem(item.id)}
+                    />
+                  ))
+                ) : (
+                  <EmptyState />
+                )}
+              </div>
+
+              <OrderForm form={form} onSubmit={handleSubmit}>
+                <OrderActions
+                  total={calculateTotal(orderItems)}
+                  onClear={handleClear}
+                  onPrint={handlePrint}
+                  onSave={handleSave}
+                  onCheckout={form.handleSubmit(handleSubmit)}
+                  isSubmitting={form.formState.isSubmitting}
+                  itemCount={orderItems.length}
+                />
+              </OrderForm>
+            </div>
           </TabsContent>
+
           <TabsContent value="order-list">
             <div className="flex flex-col max-h-96 sm:max-h-80 overflow-y-auto border border-[#94A3B8] rounded-lg px-2">
               {orders.length > 0 ? (
