@@ -22,8 +22,8 @@ export const ProductCard = ({
   unit,
   onAddToCart,
 }: ProductCardProps) => {
-  const isOutOfStock = typeof stock === 'undefined' || stock === 0;
   const [imageLoaded, setImageLoaded] = useState(false);
+  const isOutOfStock = typeof stock === 'undefined' || stock === 0;
 
   return (
     <article className="flex flex-grow flex-wrap items-center justify-between gap-5 p-3 bg-white rounded-lg shadow-md">

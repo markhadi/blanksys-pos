@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Icon } from '@iconify/react';
 import { MenuItemProps } from '@/types/layout';
+import IconBack from '@/assets/icons/solar_backspace-outline.svg';
 
 export const MenuItem = ({
   path,
@@ -28,7 +29,11 @@ export const MenuItem = ({
       }
     `}
   >
-    <Icon height={24} width={24} icon={icon} />
+    {icon === 'solar:backspace-outline' ? (
+      <img src={IconBack} alt="back" height={24} width={24} />
+    ) : (
+      <Icon height={24} width={24} icon={icon} />
+    )}
     <span>{label}</span>
   </Link>
 );
