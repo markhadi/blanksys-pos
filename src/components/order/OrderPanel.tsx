@@ -7,7 +7,6 @@ import { OrderItem } from './OrderCard';
 import { OrderForm } from './OrderForm';
 import { CustomerFormData } from '@/types/order';
 import { useCart } from '@/contexts/CartContext';
-import { toast } from '@/hooks/use-toast';
 import { EmptyState } from './EmptyState';
 
 export const OrderPanel = () => {
@@ -44,10 +43,6 @@ export const OrderPanel = () => {
     console.log('Order Data:', orderData);
     clearCart();
     form.reset();
-    toast({
-      title: 'Success',
-      description: 'Order checkout successfully',
-    });
 
     // TODO: Send to API
   };
