@@ -11,6 +11,7 @@ import { EmptyState } from './EmptyState';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useOrderHistory } from '@/hooks/order/useOrderHistory';
 import { OrderHistoryItem } from './OrderHistoryItem';
+import { OrderDetail } from './OrderDetail';
 
 export const OrderPanel = () => {
   const { orders, saveOrder } = useOrderHistory();
@@ -102,7 +103,7 @@ export const OrderPanel = () => {
 
   return (
     <section className="bg-white rounded-xl p-6 md:px-12 md:py-7 shadow-lg flex flex-col h-full">
-      <h2 className="text-[22px] font-bold mb-3">ORDER</h2>
+      {/* <h2 className="text-[22px] font-bold mb-3">ORDER</h2>
       <div className="flex flex-col h-full">
         <Tabs defaultValue="cart" className="flex flex-col gap-5 h-full">
           <TabsList>
@@ -164,7 +165,9 @@ export const OrderPanel = () => {
             </div>
           </TabsContent>
         </Tabs>
-      </div>
+      </div> */}
+
+      <OrderDetail />
     </section>
   );
 };
