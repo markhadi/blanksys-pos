@@ -23,6 +23,7 @@ export const OrderPanel = () => {
     addToCart,
   } = useCart();
   const { orders, saveOrder, deleteOrder, editOrder } = useOrderHistory();
+  const [editingOrderId, setEditingOrderId] = useState<string | null>(null);
   const form = useForm<CustomerFormData>({
     resolver: zodResolver(
       z.object({
@@ -80,11 +81,15 @@ export const OrderPanel = () => {
   };
 
   const handleClear = () => {
+    setEditingOrderId(null);
+    form.reset({
+      customerName: '',
+      note: '',
+    });
     clearCart();
   };
-  const handlePrint = () => console.log('Print order');
 
-  const [editingOrderId, setEditingOrderId] = useState<string | null>(null);
+  const handlePrint = () => console.log('Print order');
 
   const handleEdit = () => {
     if (selectedOrder) {

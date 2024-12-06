@@ -35,8 +35,8 @@ const OrderHeader = ({
   onBack,
 }: Pick<OrderDetailProps, 'orderId' | 'customerName' | 'note' | 'onBack'>) => (
   <>
-    <div className="flex items-center gap-2 mb-14">
-      <button onClick={onBack} className="p-2 rounded-full bg-[#F8FAFC]">
+    <div className="flex items-center gap-2 mb-14 flex-wrap">
+      <button onClick={onBack}>
         <ArrowLeft />
       </button>
       <h2 className="text-[20px] leading-[28px] font-bold">Order Details</h2>
