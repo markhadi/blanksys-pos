@@ -13,6 +13,8 @@ export const OrderHistoryItem = ({ order, onClick }: OrderHistoryItemProps) => {
     .toUpperCase()
     .slice(0, 2);
 
+  const formattedTotal = (order.total || 0).toLocaleString();
+
   return (
     <button
       role="button"
@@ -31,7 +33,7 @@ export const OrderHistoryItem = ({ order, onClick }: OrderHistoryItemProps) => {
         </div>
       </div>
       <span className="font-bold text-[#475569] text-right w-full sm:w-max">
-        $ {order.total.toLocaleString()}
+        $ {formattedTotal}
       </span>
     </button>
   );

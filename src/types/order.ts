@@ -9,8 +9,12 @@ export interface OrderHistory {
   id: string;
   customerName: string;
   transactionId: string;
-  total: number;
   items: CartItem[];
   timestamp: string;
   note?: string;
+  subtotal: number;
+  discount: number;
+  cutPrice: number;
+  tax: number;
+  total: number;
 }

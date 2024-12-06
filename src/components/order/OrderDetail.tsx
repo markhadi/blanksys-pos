@@ -32,10 +32,11 @@ const OrderHeader = ({
   orderId,
   customerName,
   note,
-}: Pick<OrderDetailProps, 'orderId' | 'customerName' | 'note'>) => (
+  onBack,
+}: Pick<OrderDetailProps, 'orderId' | 'customerName' | 'note' | 'onBack'>) => (
   <>
     <div className="flex items-center gap-2 mb-14">
-      <button className="p-2 rounded-full bg-[#F8FAFC]">
+      <button onClick={onBack} className="p-2 rounded-full bg-[#F8FAFC]">
         <ArrowLeft />
       </button>
       <h2 className="text-[20px] leading-[28px] font-bold">Order Details</h2>
@@ -86,28 +87,32 @@ const OrderSummarySection = ({ summary }: { summary: OrderSummary }) => (
     <div className="flex justify-between items-center">
       <p className="font-poppins font-bold text-[18px]">Total</p>
       <p className="font-poppins font-bold text-[20px]">
-        ${summary.subtotal.toFixed(2)}
+        ${(summary?.total || 0).toFixed(2)}
       </p>
     </div>
     <div className="flex justify-between items-center">
       <p className="font-poppins font-bold text-[18px]">Discount</p>
-      <p className="font-poppins text-[20px]">{summary.discount}%</p>
+      <p className="font-poppins text-[20px]">{summary?.discount || 0}%</p>
     </div>
     <div className="flex justify-between items-center">
       <p className="font-poppins font-bold text-[18px]">Cut Price</p>
-      <p className="font-poppins text-[20px]">${summary.cutPrice.toFixed(2)}</p>
+      <p className="font-poppins text-[20px]">
+        ${(summary?.cutPrice || 0).toFixed(2)}
+      </p>
     </div>
     <div className="flex justify-between items-center">
       <div>
         <p className="font-poppins font-bold text-[18px]">TAX</p>
         <span className="text-[#475569] text-[16px] font-poppins">PPN 11%</span>
       </div>
-      <p className="font-poppins text-[20px]">${summary.tax.toFixed(2)}</p>
+      <p className="font-poppins text-[20px]">
+        ${(summary?.tax || 0).toFixed(2)}
+      </p>
     </div>
     <div className="flex justify-between items-center border-b border-[#CBD5E1] pb-3">
       <p className="font-poppins font-bold text-[18px]">SUBTOTAL</p>
       <p className="font-poppins font-bold text-[20px]">
-        ${summary.total.toFixed(2)}
+        ${(summary?.subtotal || 0).toFixed(2)}
       </p>
     </div>
   </div>
@@ -156,13 +161,25 @@ const ActionButtons = ({
   </div>
 );
 
-export const OrderDetail = (props: OrderDetailProps) => {
+export const OrderDetail = ({
+  orderId,
+  customerName,
+  note,
+  items,
+  summary,
+  onBack,
+  onDelete,
+  onEdit,
+  onPrint,
+  onComplete,
+}: OrderDetailProps) => {
   return (
     <div className="flex flex-col h-full">
       <OrderHeader
-        orderId={props.orderId}
-        customerName={props.customerName}
-        note={props.note}
+        orderId={orderId}
+        customerName={customerName}
+        note={note}
+        onBack={onBack}
       />
 
       <div className="flex flex-col gap-4 justify-between h-full">
@@ -176,15 +193,15 @@ export const OrderDetail = (props: OrderDetailProps) => {
             </h3>
           </div>
 
-          <OrderItemList items={props.items} />
-          <OrderSummarySection summary={props.summary} />
+          <OrderItemList items={items} />
+          <OrderSummarySection summary={summary} />
         </div>
 
         <ActionButtons
-          onDelete={props.onDelete}
-          onEdit={props.onEdit}
-          onPrint={props.onPrint}
-          onComplete={props.onComplete}
+          onDelete={onDelete}
+          onEdit={onEdit}
+          onPrint={onPrint}
+          onComplete={onComplete}
         />
       </div>
     </div>
