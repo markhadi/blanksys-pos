@@ -1,15 +1,6 @@
 import { Printer, Save, Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-
-interface OrderActionsProps {
-  total: number;
-  onClear: () => void;
-  onPrint: () => void;
-  onSave: () => void;
-  onCheckout: () => void;
-  isSubmitting?: boolean;
-  itemCount: number;
-}
+import { OrderActionsProps } from '@/types/order';
 
 export const OrderActions = ({
   total,
@@ -18,6 +9,7 @@ export const OrderActions = ({
   onSave,
   onCheckout,
   isSubmitting,
+  isEditing,
   itemCount,
 }: OrderActionsProps) => (
   <>
@@ -62,7 +54,7 @@ export const OrderActions = ({
         className="w-full font-inter text-[20px] h-max lg:h-14 font-bold"
         onClick={onCheckout}
         type="submit"
-        disabled={isSubmitting || itemCount === 0}
+        disabled={isSubmitting || itemCount === 0 || isEditing}
       >
         Checkout
       </Button>

@@ -18,3 +18,41 @@ export interface OrderHistory {
   tax: number;
   total: number;
 }
+
+export interface OrderActionsProps {
+  total: number;
+  onClear: () => void;
+  onPrint: () => void;
+  onSave: () => void;
+  onCheckout: () => void;
+  isSubmitting?: boolean;
+  isEditing?: boolean;
+  itemCount: number;
+}
+
+export interface OrderItem {
+  name: string;
+  price: number;
+  quantity: number;
+}
+
+export interface OrderSummary {
+  subtotal: number;
+  discount: number;
+  cutPrice: number;
+  tax: number;
+  total: number;
+}
+
+export interface OrderDetailProps {
+  orderId: string;
+  customerName: string;
+  note: string;
+  items: OrderItem[];
+  summary: OrderSummary;
+  onBack: () => void;
+  onEdit: () => void;
+  onDelete: () => void;
+  onPrint: () => void;
+  onComplete: () => void;
+}

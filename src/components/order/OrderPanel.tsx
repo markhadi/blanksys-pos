@@ -5,7 +5,12 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { OrderItem } from './OrderCard';
 import { OrderForm } from './OrderForm';
-import { CustomerFormData, OrderHistory } from '@/types/order';
+import {
+  CustomerFormData,
+  OrderHistory,
+  OrderItem as OrderItemType,
+  OrderSummary,
+} from '@/types/order';
 import { useCart } from '@/contexts/CartContext';
 import { EmptyState } from './EmptyState';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -13,6 +18,7 @@ import { useOrderHistory } from '@/hooks/order/useOrderHistory';
 import { OrderHistoryItem } from './OrderHistoryItem';
 import { OrderDetail } from './OrderDetail';
 import { useState } from 'react';
+import { TransactionDialog } from './TransactionDialog';
 
 export const OrderPanel = () => {
   const {
@@ -51,15 +57,39 @@ export const OrderPanel = () => {
   const cutPrice = (total * discount) / 100;
   const subtotal = total - cutPrice + tax;
 
+  const [transactionData, setTransactionData] = useState<{
+    items: OrderItemType[];
+    summary: OrderSummary;
+  } | null>(null);
+
   const handleSubmit = (formData: CustomerFormData) => {
     const orderData = {
-      customer: formData,
+      customerName: formData.customerName,
       items: orderItems,
-      total: calculateTotal(orderItems),
+      total,
+      subtotal,
+      discount,
+      cutPrice,
+      tax,
       timestamp: new Date().toISOString(),
+      note: formData.note,
     };
 
     console.log('Order Data:', orderData);
+
+    setTransactionData({
+      items: orderItems,
+      summary: {
+        subtotal,
+        discount,
+        cutPrice,
+        tax,
+        total,
+      },
+    });
+
+    saveOrder(orderData);
+    handleTransactionDialogOpen();
     clearCart();
     form.reset();
 
@@ -169,6 +199,33 @@ export const OrderPanel = () => {
     }
   };
 
+  const [openTransactionDialog, setOpenTransactionDialog] = useState(false);
+
+  const handleTransactionDialogClose = () => {
+    setOpenTransactionDialog(false);
+  };
+
+  const handleTransactionDialogOpen = () => {
+    setOpenTransactionDialog(true);
+  };
+
+  const handleComplete = () => {
+    if (selectedOrder) {
+      setTransactionData({
+        items: selectedOrder.items,
+        summary: {
+          subtotal: selectedOrder.subtotal,
+          discount: selectedOrder.discount,
+          cutPrice: selectedOrder.cutPrice,
+          tax: selectedOrder.tax,
+          total: selectedOrder.total,
+        },
+      });
+      setOpenTransactionDialog(true);
+      setSelectedOrder(null);
+    }
+  };
+
   return (
     <>
       <section className="bg-white rounded-xl p-6 md:px-12 md:py-7 shadow-lg flex flex-col h-full">
@@ -189,7 +246,7 @@ export const OrderPanel = () => {
             onEdit={handleEdit}
             onDelete={handleDelete}
             onPrint={() => {}}
-            onComplete={() => {}}
+            onComplete={handleComplete}
           />
         ) : (
           <>
@@ -234,6 +291,7 @@ export const OrderPanel = () => {
                         onCheckout={form.handleSubmit(handleSubmit)}
                         isSubmitting={form.formState.isSubmitting}
                         itemCount={orderItems.length}
+                        isEditing={!!editingOrderId}
                       />
                     </OrderForm>
                   </div>
@@ -261,6 +319,21 @@ export const OrderPanel = () => {
           </>
         )}
       </section>
+
+      <TransactionDialog
+        open={openTransactionDialog}
+        onClose={handleTransactionDialogClose}
+        items={transactionData?.items || []}
+        summary={
+          transactionData?.summary || {
+            subtotal: 0,
+            discount: 0,
+            cutPrice: 0,
+            tax: 0,
+            total: 0,
+          }
+        }
+      />
     </>
   );
 };

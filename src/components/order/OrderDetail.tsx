@@ -1,32 +1,6 @@
 import { ArrowLeft, Edit, Printer, Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-
-interface OrderItem {
-  name: string;
-  price: number;
-  quantity: number;
-}
-
-interface OrderSummary {
-  subtotal: number;
-  discount: number;
-  cutPrice: number;
-  tax: number;
-  total: number;
-}
-
-interface OrderDetailProps {
-  orderId: string;
-  customerName: string;
-  note: string;
-  items: OrderItem[];
-  summary: OrderSummary;
-  onBack: () => void;
-  onEdit: () => void;
-  onDelete: () => void;
-  onPrint: () => void;
-  onComplete: () => void;
-}
+import { OrderDetailProps, OrderItem, OrderSummary } from '@/types/order';
 
 const OrderHeader = ({
   orderId,
@@ -64,7 +38,7 @@ const OrderHeader = ({
   </>
 );
 
-const OrderItemList = ({ items }: { items: OrderItem[] }) => (
+export const OrderItemList = ({ items }: { items: OrderItem[] }) => (
   <div className="flex flex-col gap-2 border-b border-[#CBD5E1] pb-3 mb-3 max-h-40 overflow-y-auto">
     {items.map((item, index) => (
       <div key={index} className="flex justify-between items-center">
@@ -82,7 +56,7 @@ const OrderItemList = ({ items }: { items: OrderItem[] }) => (
   </div>
 );
 
-const OrderSummarySection = ({ summary }: { summary: OrderSummary }) => (
+export const OrderSummarySection = ({ summary }: { summary: OrderSummary }) => (
   <div className="flex flex-col gap-2">
     <div className="flex justify-between items-center">
       <p className="font-poppins font-bold text-[18px]">Total</p>
