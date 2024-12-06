@@ -22,8 +22,13 @@ export const useOrderHistory = () => {
     return newOrder;
   };
 
+  const deleteOrder = (orderId: string) => {
+    setOrders((prev) => prev.filter((order) => order.id !== orderId));
+  };
+
   return {
     orders,
     saveOrder,
+    deleteOrder,
   };
 };

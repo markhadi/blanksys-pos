@@ -21,7 +21,7 @@ export const OrderPanel = () => {
     removeItem,
     clearCart,
   } = useCart();
-  const { orders, saveOrder } = useOrderHistory();
+  const { orders, saveOrder, deleteOrder } = useOrderHistory();
   const form = useForm<CustomerFormData>({
     resolver: zodResolver(
       z.object({
@@ -117,6 +117,13 @@ export const OrderPanel = () => {
     setSelectedOrder(null);
   };
 
+  const handleDelete = () => {
+    if (selectedOrder) {
+      deleteOrder(selectedOrder.id);
+      setSelectedOrder(null);
+    }
+  };
+
   return (
     <>
       <section className="bg-white rounded-xl p-6 md:px-12 md:py-7 shadow-lg flex flex-col h-full">
@@ -135,7 +142,7 @@ export const OrderPanel = () => {
             }}
             onBack={handleBack}
             onEdit={() => {}}
-            onDelete={() => {}}
+            onDelete={handleDelete}
             onPrint={() => {}}
             onComplete={() => {}}
           />
