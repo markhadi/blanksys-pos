@@ -26,9 +26,18 @@ export const useOrderHistory = () => {
     setOrders((prev) => prev.filter((order) => order.id !== orderId));
   };
 
+  const editOrder = (orderId: string, orderData: Partial<OrderHistory>) => {
+    setOrders((prev) =>
+      prev.map((order) =>
+        order.id === orderId ? { ...order, ...orderData } : order
+      )
+    );
+  };
+
   return {
     orders,
     saveOrder,
     deleteOrder,
+    editOrder,
   };
 };

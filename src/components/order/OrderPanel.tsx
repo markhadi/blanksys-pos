@@ -20,8 +20,9 @@ export const OrderPanel = () => {
     updateQuantity,
     removeItem,
     clearCart,
+    addToCart,
   } = useCart();
-  const { orders, saveOrder, deleteOrder } = useOrderHistory();
+  const { orders, saveOrder, deleteOrder, editOrder } = useOrderHistory();
   const form = useForm<CustomerFormData>({
     resolver: zodResolver(
       z.object({
@@ -83,12 +84,42 @@ export const OrderPanel = () => {
   };
   const handlePrint = () => console.log('Print order');
 
+  const [editingOrderId, setEditingOrderId] = useState<string | null>(null);
+
+  const handleEdit = () => {
+    if (selectedOrder) {
+      setEditingOrderId(selectedOrder.id);
+      // Pre-fill form
+      form.reset({
+        customerName: selectedOrder.customerName,
+        note: selectedOrder.note || '',
+      });
+
+      // Clear existing cart first
+      clearCart();
+
+      // Add items to cart one by one
+      selectedOrder.items.forEach((item) => {
+        addToCart({
+          id: item.id,
+          name: item.name,
+          price: item.price,
+          imageUrl: item.imageUrl,
+          unit: item.unit,
+        });
+        // Update quantity after adding
+        updateQuantity(item.id, item.quantity);
+      });
+
+      setSelectedOrder(null);
+    }
+  };
+
   const handleSave = async () => {
     const result = await form.trigger();
     if (!result) return;
 
     const formData = form.getValues();
-
     const orderData = {
       customerName: formData.customerName,
       items: orderItems,
@@ -101,16 +132,25 @@ export const OrderPanel = () => {
       note: formData.note,
     };
 
-    saveOrder(orderData);
+    if (editingOrderId) {
+      editOrder(editingOrderId, orderData);
+      setEditingOrderId(null);
+    } else {
+      saveOrder(orderData);
+    }
+
     clearCart();
-    form.reset();
+    form.reset({
+      customerName: '',
+      note: '',
+    });
+    setSelectedOrder(null);
   };
 
   const [selectedOrder, setSelectedOrder] = useState<OrderHistory | null>(null);
 
   const handleOrderClick = (order: OrderHistory) => {
     setSelectedOrder(order);
-    console.log('Order details:', order);
   };
 
   const handleBack = () => {
@@ -141,7 +181,7 @@ export const OrderPanel = () => {
               total: selectedOrder.total,
             }}
             onBack={handleBack}
-            onEdit={() => {}}
+            onEdit={handleEdit}
             onDelete={handleDelete}
             onPrint={() => {}}
             onComplete={() => {}}
