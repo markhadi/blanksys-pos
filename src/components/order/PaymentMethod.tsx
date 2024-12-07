@@ -10,6 +10,7 @@ import {
   SelectValue,
 } from '../ui/select';
 import QRCode from '@/assets/images/qr-code.png';
+import { Icon } from '@iconify/react';
 
 interface PaymentMethodProps {
   subtotal: number;
@@ -47,22 +48,30 @@ export const PaymentMethod = ({ subtotal }: PaymentMethodProps) => {
   ];
 
   return (
-    <div className="flex flex-col gap-6 h-[700px]">
+    <div className="flex flex-col gap-6">
       <div className="flex flex-col gap-2">
-        <Label>Payment Method</Label>
+        <Label className="text-[20px] leading-[30px] font-medium">
+          Payment Method
+        </Label>
         <Select
           value={method}
           onValueChange={(value: 'cash' | 'qris' | 'transfer') =>
             handleMethodChange(value)
           }
         >
-          <SelectTrigger>
+          <SelectTrigger className="text-[20px] leading-[30px]">
             <SelectValue placeholder="Select payment method" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="cash">Cash</SelectItem>
-            <SelectItem value="qris">QRIS</SelectItem>
-            <SelectItem value="transfer">Transfer Bank</SelectItem>
+            <SelectItem value="cash" className="text-[20px] leading-[30px]">
+              Cash
+            </SelectItem>
+            <SelectItem value="qris" className="text-[20px] leading-[30px]">
+              QRIS
+            </SelectItem>
+            <SelectItem value="transfer" className="text-[20px] leading-[30px]">
+              Transfer Bank
+            </SelectItem>
           </SelectContent>
         </Select>
       </div>
@@ -70,12 +79,14 @@ export const PaymentMethod = ({ subtotal }: PaymentMethodProps) => {
       {method === 'cash' && (
         <div className="flex flex-col gap-4">
           <div>
-            <Label>Cash Amount</Label>
+            <Label className="text-[20px] leading-[30px] font-medium">
+              Cash Amount
+            </Label>
             <Input
               type="text"
               value={cashAmount}
               readOnly
-              className="text-lg text-right font-bold"
+              className="!text-[20px] !leading-[30px] text-right"
             />
           </div>
 
@@ -85,10 +96,18 @@ export const PaymentMethod = ({ subtotal }: PaymentMethodProps) => {
                 <Button
                   key={`${rowIndex}-${colIndex}`}
                   variant={num === 'del' ? 'destructive' : 'outline'}
-                  className="h-28 text-xl font-bold"
+                  className={`h-28 text-[38px] font-medium bg-[#F1F5F9] hover:bg-[#E2E8F0] ${
+                    num === 'del'
+                      ? 'text-[#EF4444] [&_svg]:size-9'
+                      : 'text-black'
+                  }`}
                   onClick={() => handleNumberClick(num)}
                 >
-                  {num === 'del' ? '⌫' : num}
+                  {num === 'del' ? (
+                    <Icon icon="solar:backspace-outline" />
+                  ) : (
+                    num
+                  )}
                 </Button>
               ))
             )}
