@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { Label } from '../ui/label';
 import {
@@ -28,6 +29,23 @@ export const PaymentMethod = ({ subtotal }: PaymentMethodProps) => {
     return amount - subtotal;
   };
 
+  const handleNumberClick = (value: string) => {
+    if (value === 'del') {
+      setCashAmount((prev) => prev.slice(0, -1));
+    } else if (value === '.' && cashAmount.includes('.')) {
+      return;
+    } else {
+      setCashAmount((prev) => prev + value);
+    }
+  };
+
+  const numberPad = [
+    ['1', '2', '3'],
+    ['4', '5', '6'],
+    ['7', '8', '9'],
+    ['.', '0', 'del'],
+  ];
+
   return (
     <div className="flex flex-col gap-6 h-[700px]">
       <div className="flex flex-col gap-2">
@@ -54,13 +72,28 @@ export const PaymentMethod = ({ subtotal }: PaymentMethodProps) => {
           <div>
             <Label>Cash Amount</Label>
             <Input
-              type="number"
+              type="text"
               value={cashAmount}
-              onChange={(e) => setCashAmount(e.target.value)}
-              placeholder="Enter cash amount"
-              className="text-lg"
+              readOnly
+              className="text-lg text-right font-bold"
             />
           </div>
+
+          <div className="grid grid-cols-3 gap-2">
+            {numberPad.map((row, rowIndex) =>
+              row.map((num, colIndex) => (
+                <Button
+                  key={`${rowIndex}-${colIndex}`}
+                  variant={num === 'del' ? 'destructive' : 'outline'}
+                  className="h-28 text-xl font-bold"
+                  onClick={() => handleNumberClick(num)}
+                >
+                  {num === 'del' ? '⌫' : num}
+                </Button>
+              ))
+            )}
+          </div>
+
           {cashAmount && (
             <div className="flex flex-col gap-2">
               <div className="flex justify-between">
