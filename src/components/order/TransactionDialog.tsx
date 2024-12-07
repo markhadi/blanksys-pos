@@ -49,7 +49,7 @@ export const TransactionDialog = ({
 
   const calculateChange = () => {
     const amount = parseFloat(cashAmount) || 0;
-    return amount - summary.total;
+    return amount - summary.subtotal;
   };
 
   const handleSubmit = () => {
