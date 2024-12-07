@@ -1,5 +1,6 @@
 import { Dialog, DialogContent, DialogTitle, DialogHeader } from '../ui/dialog';
 import { OrderItemList, OrderSummarySection } from './OrderDetail';
+import { PaymentMethod } from './PaymentMethod';
 
 interface OrderItem {
   name: string;
@@ -43,7 +44,9 @@ export const TransactionDialog = ({
             <OrderSummarySection summary={summary} />
           </div>
 
-          <div>transaction</div>
+          <div>
+            <PaymentMethod subtotal={summary.subtotal} />
+          </div>
         </div>
       </DialogContent>
     </Dialog>
