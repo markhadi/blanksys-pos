@@ -38,8 +38,17 @@ const OrderHeader = ({
   </>
 );
 
-export const OrderItemList = ({ items }: { items: OrderItem[] }) => (
-  <div className="flex flex-col gap-2 border-b border-[#CBD5E1] pb-3 mb-3 max-h-40 overflow-y-auto">
+interface OrderItemListProps {
+  items: OrderItem[];
+  className?: string;
+}
+
+export const OrderItemList = ({ items, className }: OrderItemListProps) => (
+  <div
+    className={`flex flex-col gap-2 border-b border-[#CBD5E1] pb-3 mb-3 max-h-40 overflow-y-auto ${
+      className || ''
+    }`}
+  >
     {items.map((item, index) => (
       <div key={index} className="flex justify-between items-center">
         <div>

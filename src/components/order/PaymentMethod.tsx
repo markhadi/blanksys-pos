@@ -1,7 +1,5 @@
-import { useState } from 'react';
-import { Button } from '../ui/button';
-import { Input } from '../ui/input';
 import { Label } from '../ui/label';
+import { Input } from '../ui/input';
 import {
   Select,
   SelectContent,
@@ -9,34 +7,30 @@ import {
   SelectTrigger,
   SelectValue,
 } from '../ui/select';
-import QRCode from '@/assets/images/qr-code.png';
+import { Button } from '../ui/button';
 import { Icon } from '@iconify/react';
+import QRCode from '@/assets/images/qr-code.png';
 
 interface PaymentMethodProps {
-  subtotal: number;
+  selectedMethod: 'cash' | 'qris' | 'transfer';
+  onMethodChange: (method: 'cash' | 'qris' | 'transfer') => void;
+  cashAmount: string;
+  onCashAmountChange: (amount: string) => void;
 }
 
-export const PaymentMethod = ({ subtotal }: PaymentMethodProps) => {
-  const [method, setMethod] = useState<'cash' | 'qris' | 'transfer'>('cash');
-  const [cashAmount, setCashAmount] = useState<string>('');
-
-  const handleMethodChange = (value: 'cash' | 'qris' | 'transfer') => {
-    setMethod(value);
-    setCashAmount('');
-  };
-
-  const calculateChange = () => {
-    const amount = parseFloat(cashAmount) || 0;
-    return amount - subtotal;
-  };
-
+export const PaymentMethod = ({
+  selectedMethod,
+  onMethodChange,
+  cashAmount,
+  onCashAmountChange,
+}: PaymentMethodProps) => {
   const handleNumberClick = (value: string) => {
     if (value === 'del') {
-      setCashAmount((prev) => prev.slice(0, -1));
+      onCashAmountChange(cashAmount.slice(0, -1));
     } else if (value === '.' && cashAmount.includes('.')) {
       return;
     } else {
-      setCashAmount((prev) => prev + value);
+      onCashAmountChange(cashAmount + value);
     }
   };
 
@@ -53,12 +47,7 @@ export const PaymentMethod = ({ subtotal }: PaymentMethodProps) => {
         <Label className="text-[20px] leading-[30px] font-medium">
           Payment Method
         </Label>
-        <Select
-          value={method}
-          onValueChange={(value: 'cash' | 'qris' | 'transfer') =>
-            handleMethodChange(value)
-          }
-        >
+        <Select value={selectedMethod} onValueChange={onMethodChange}>
           <SelectTrigger className="text-[20px] leading-[30px]">
             <SelectValue placeholder="Select payment method" />
           </SelectTrigger>
@@ -76,7 +65,7 @@ export const PaymentMethod = ({ subtotal }: PaymentMethodProps) => {
         </Select>
       </div>
 
-      {method === 'cash' && (
+      {selectedMethod === 'cash' && (
         <div className="flex flex-col gap-4">
           <div>
             <Label className="text-[20px] leading-[30px] font-medium">
@@ -112,34 +101,13 @@ export const PaymentMethod = ({ subtotal }: PaymentMethodProps) => {
               ))
             )}
           </div>
-
-          {cashAmount && (
-            <div className="flex flex-col gap-2">
-              <div className="flex justify-between">
-                <span>Total:</span>
-                <span className="font-bold">${subtotal.toFixed(2)}</span>
-              </div>
-              <div className="flex justify-between">
-                <span>Cash:</span>
-                <span className="font-bold">
-                  ${parseFloat(cashAmount || '0').toFixed(2)}
-                </span>
-              </div>
-              <div className="flex justify-between border-t pt-2">
-                <span>Change:</span>
-                <span className="font-bold">
-                  ${calculateChange().toFixed(2)}
-                </span>
-              </div>
-            </div>
-          )}
         </div>
       )}
 
-      {method === 'qris' && (
+      {selectedMethod === 'qris' && (
         <div className="flex flex-col items-center gap-2">
           <h3 className="text-center text-[20px] leading-[30px] font-bold">
-            Scan QRIS Bellow
+            Scan QRIS Below
           </h3>
           <img src={QRCode} alt="QRIS Code" className="w-full max-w-[500px]" />
           <span className="text-center text-[20px] leading-[30px] font-medium">
@@ -148,11 +116,11 @@ export const PaymentMethod = ({ subtotal }: PaymentMethodProps) => {
         </div>
       )}
 
-      {method === 'transfer' && (
+      {selectedMethod === 'transfer' && (
         <div className="flex flex-col gap-4">
           <div className="flex flex-col items-center gap-2">
             <h3 className="text-center text-[20px] leading-[30px] font-bold">
-              Transfer to Bank Bellow
+              Transfer to Bank Below
             </h3>
             <h4 className="text-center text-[24px] leading-[36px] font-bold">
               BRI 12345 6789 10231
