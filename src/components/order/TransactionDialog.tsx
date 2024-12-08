@@ -92,7 +92,7 @@ export const TransactionDialog = ({
 
   return (
     <Dialog open={open} onOpenChange={handleClose}>
-      <DialogContent className="gap-10 w-full max-w-[1120px]">
+      <DialogContent className="gap-10 w-full max-w-[1120px] max-h-[80vh] h-min overflow-y-auto">
         {!isComplete ? (
           <>
             <DialogHeader>
@@ -101,7 +101,7 @@ export const TransactionDialog = ({
               </DialogTitle>
             </DialogHeader>
 
-            <div className="grid grid-cols-2 gap-10">
+            <div className="grid grid-cols-1 gap-10 sm:grid-cols-2">
               <div className="flex flex-col justify-between gap-6 h-full">
                 <div>
                   <OrderItemList items={items} className="!max-h-80" />
@@ -109,7 +109,7 @@ export const TransactionDialog = ({
                 </div>
                 <Button
                   variant="outline"
-                  className="w-full text-[20px] py-6"
+                  className="w-full text-[20px] py-6 sm:flex hidden"
                   onClick={handleClose}
                 >
                   Close
@@ -123,6 +123,14 @@ export const TransactionDialog = ({
                   cashAmount={cashAmount}
                   onCashAmountChange={handleCashAmountChange}
                 />
+
+                <Button
+                  variant="outline"
+                  className="w-full text-[20px] py-6 sm:hidden flex"
+                  onClick={handleClose}
+                >
+                  Close
+                </Button>
 
                 <Button
                   className="w-full text-[20px] py-6 font-bold"
