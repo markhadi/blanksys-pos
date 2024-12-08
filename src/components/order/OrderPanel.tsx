@@ -28,7 +28,8 @@ export const OrderPanel = () => {
     clearCart,
     addToCart,
   } = useCart();
-  const { orders, saveOrder, deleteOrder, editOrder } = useOrderHistory();
+  const { orders, saveOrder, deleteOrder, editOrder, setOrders } =
+    useOrderHistory();
   const [editingOrderId, setEditingOrderId] = useState<string | null>(null);
   const form = useForm<CustomerFormData>({
     resolver: zodResolver(
@@ -58,12 +59,13 @@ export const OrderPanel = () => {
   const subtotal = total - cutPrice + tax;
 
   const [transactionData, setTransactionData] = useState<{
+    orderId?: string;
     items: OrderItemType[];
     summary: OrderSummary;
   } | null>(null);
 
   const handleSubmit = (formData: CustomerFormData) => {
-    const orderData = {
+    const savedOrder = saveOrder({
       customerName: formData.customerName,
       items: orderItems,
       total,
@@ -73,11 +75,12 @@ export const OrderPanel = () => {
       tax,
       timestamp: new Date().toISOString(),
       note: formData.note,
-    };
+    });
 
-    console.log('Order Data:', orderData);
+    console.log('Order Data:', savedOrder);
 
     setTransactionData({
+      orderId: savedOrder.id,
       items: orderItems,
       summary: {
         subtotal,
@@ -88,7 +91,6 @@ export const OrderPanel = () => {
       },
     });
 
-    saveOrder(orderData);
     handleTransactionDialogOpen();
     clearCart();
     form.reset();
@@ -212,6 +214,7 @@ export const OrderPanel = () => {
   const handleComplete = () => {
     if (selectedOrder) {
       setTransactionData({
+        orderId: selectedOrder.id,
         items: selectedOrder.items,
         summary: {
           subtotal: selectedOrder.subtotal,
@@ -323,7 +326,8 @@ export const OrderPanel = () => {
       <TransactionDialog
         open={openTransactionDialog}
         onClose={handleTransactionDialogClose}
-        items={transactionData?.items || []}
+        items={transactionData?.items || selectedOrder?.items || []}
+        orderId={transactionData?.orderId || selectedOrder?.id}
         summary={
           transactionData?.summary || {
             subtotal: 0,
@@ -333,6 +337,22 @@ export const OrderPanel = () => {
             total: 0,
           }
         }
+        onTransactionComplete={() => {
+          console.log('TransactionData:', transactionData);
+          console.log('SelectedOrder:', selectedOrder);
+          console.log('OrderId from transaction:', transactionData?.orderId);
+          console.log('OrderId from selected:', selectedOrder?.id);
+
+          const idToDelete = transactionData?.orderId || selectedOrder?.id;
+          console.log('ID to delete:', idToDelete);
+          if (idToDelete) {
+            const updatedOrders = orders.filter(
+              (order) => order.id !== idToDelete
+            );
+            setOrders(updatedOrders);
+          }
+          setSelectedOrder(null);
+        }}
       />
     </>
   );

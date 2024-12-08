@@ -39,5 +39,6 @@ export const useOrderHistory = () => {
     saveOrder,
     deleteOrder,
     editOrder,
+    setOrders,
   };
 };

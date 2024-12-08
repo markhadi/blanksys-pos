@@ -4,6 +4,7 @@ import { PaymentMethod } from './PaymentMethod';
 import { Button } from '../ui/button';
 import { Icon } from '@iconify/react';
 import { useState } from 'react';
+import { useOrderHistory } from '@/hooks/order/useOrderHistory';
 
 interface OrderItem {
   name: string;
@@ -24,6 +25,8 @@ interface TransactionDialogProps {
   onClose: () => void;
   items: OrderItem[];
   summary: OrderSummary;
+  orderId?: string;
+  onTransactionComplete?: () => void;
 }
 
 export const TransactionDialog = ({
@@ -31,7 +34,10 @@ export const TransactionDialog = ({
   onClose,
   items,
   summary,
+  orderId,
+  onTransactionComplete,
 }: TransactionDialogProps) => {
+  const { deleteOrder } = useOrderHistory();
   const [isComplete, setIsComplete] = useState(false);
   const [selectedMethod, setSelectedMethod] = useState<
     'cash' | 'qris' | 'transfer'
@@ -52,8 +58,29 @@ export const TransactionDialog = ({
     return amount - summary.subtotal;
   };
 
-  const handleSubmit = () => {
-    setIsComplete(true);
+  const handleSubmit = async () => {
+    try {
+      console.log('Sending to database:', {
+        id: orderId,
+        paymentMethod: selectedMethod,
+        items,
+        summary,
+      });
+
+      await new Promise((resolve) => setTimeout(resolve, 500));
+
+      if (orderId) {
+        console.log('Deleting order from localStorage:', orderId);
+        deleteOrder(orderId);
+      }
+
+      console.log('Transaction completed successfully');
+      setIsComplete(true);
+
+      onTransactionComplete?.();
+    } catch (error) {
+      console.error('Transaction failed:', error);
+    }
   };
 
   const handleClose = () => {

@@ -31,6 +31,7 @@ export interface OrderActionsProps {
 }
 
 export interface OrderItem {
+  orderId?: string;
   name: string;
   price: number;
   quantity: number;
