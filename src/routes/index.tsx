@@ -22,6 +22,7 @@ import { MasterPrice } from '@/pages/master/MasterPrice';
 
 // Inventory
 import { PurchaseOrder } from '@/pages/inventory/PurchaseOrder';
+import { CreatePurchaseOrder } from '@/pages/inventory/CreatePurchaseOrder';
 import { Supplier } from '@/pages/inventory/Supplier';
 import { Receive } from '@/pages/inventory/Receive';
 import { Issued } from '@/pages/inventory/Issued';
@@ -113,6 +114,14 @@ export const router = createBrowserRouter([
         element: (
           <ProtectedRoute roles={['Administrator']}>
             <PurchaseOrder />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: ROUTES.INVENTORY.CREATE_PURCHASE_ORDER,
+        element: (
+          <ProtectedRoute roles={['Administrator']}>
+            <CreatePurchaseOrder />
           </ProtectedRoute>
         ),
       },

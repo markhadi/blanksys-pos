@@ -10,6 +10,26 @@ export const NavContent = ({ location, onItemClick }: NavContentProps) => {
     hasRole(section.roles)
   );
 
+  const isActiveRoute = (itemPath: string, currentPath: string) => {
+    if (
+      itemPath === '/purchase-order' &&
+      currentPath.startsWith('/purchase-order')
+    ) {
+      return true;
+    }
+
+    if (itemPath === currentPath) return true;
+
+    if (itemPath !== '/' && currentPath.startsWith(itemPath)) {
+      const nextPathSegment = currentPath
+        .slice(itemPath.length + 1)
+        .split('/')[0];
+      return !nextPathSegment;
+    }
+
+    return false;
+  };
+
   return (
     <nav className="flex flex-col p-5 gap-3">
       {filteredSections.map((section, sectionIndex) => {
@@ -35,7 +55,7 @@ export const NavContent = ({ location, onItemClick }: NavContentProps) => {
               <MenuItem
                 key={`${sectionIndex}-${itemIndex}`}
                 {...item}
-                isActive={location.pathname === item.path}
+                isActive={isActiveRoute(item.path, location.pathname)}
                 onClick={onItemClick}
               />
             ))}

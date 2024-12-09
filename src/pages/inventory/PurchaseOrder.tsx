@@ -7,8 +7,10 @@ import {
 } from '@/types/purchaseOrder';
 import { SortingState } from '@tanstack/react-table';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export const PurchaseOrder = () => {
+  const navigate = useNavigate();
   const [searchValue, setSearchValue] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
   const [sorting, setSorting] = useState<SortingState>([]);
@@ -52,7 +54,7 @@ export const PurchaseOrder = () => {
         }}
         actionButton={{
           label: 'New Item Request',
-          onClick: () => {},
+          onClick: () => navigate('/purchase-order/create-po'),
         }}
       />
 
