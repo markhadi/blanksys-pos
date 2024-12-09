@@ -19,8 +19,43 @@ import { CalendarIcon } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { format } from 'date-fns';
 import { cn } from '@/lib/utils';
-import { useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { SupplierType } from '@/types/supplier';
+import {
+  Column,
+  getSortedRowModel,
+  SortingState,
+  getCoreRowModel,
+  OnChangeFn,
+  useReactTable,
+  flexRender,
+} from '@tanstack/react-table';
+import { PurchaseOrderItem, TablePOItemProps } from '@/types/purchaseOrder';
+import { ColumnDef } from '@tanstack/react-table';
+import { RowAction } from '@/components/ui/RowAction';
+import { useVirtualizer } from '@tanstack/react-virtual';
+import { TableConfig } from '@/config/Table';
+import { TableSkeleton } from '@/components/ui/TableSkeleton';
+import { EmptyState } from '@/components/ui/TableEmptyState';
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  DialogHeader,
+} from '@/components/ui/dialog';
+import { useMasterItems } from '@/hooks/master-item/useMasterItems';
+import { useUnits } from '@/hooks/unit/useUnit';
+import { z } from 'zod';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form';
 
 const ActionsHeader = () => {
   const navigate = useNavigate();
@@ -80,7 +115,7 @@ const PurchaseOrderHeader = ({
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-sm p-3 flex flex-col xl:flex-row items-start xl:items-center justify-between gap-7">
+    <div className="bg-white p-3 flex flex-col xl:flex-row items-start xl:items-center justify-between gap-7">
       <div className="flex flex-col lg:flex-row items-start lg:items-center gap-7 w-full">
         <div className="flex gap-2 items-center w-full xl:w-auto">
           <label className="font-medium text-black min-w-28 lg:min-w-max">
@@ -161,15 +196,489 @@ const PurchaseOrderHeader = ({
   );
 };
 
+const addItemSchema = z.object({
+  id_item: z.string().min(1, 'Item is required'),
+  quantity: z.string().min(1, 'Quantity is required'),
+  unit: z.string().min(1, 'Unit is required'),
+});
+
+type AddItemFormValues = z.infer<typeof addItemSchema>;
+
+interface AddItemDialogProps {
+  open: boolean;
+  onClose: () => void;
+  onAdd: (item: PurchaseOrderItem) => void;
+}
+
+const AddItemDialog = ({ open, onClose, onAdd }: AddItemDialogProps) => {
+  const { data: items = [] } = useMasterItems({});
+  const { data: units = [] } = useUnits({});
+
+  const form = useForm<AddItemFormValues>({
+    resolver: zodResolver(addItemSchema),
+    defaultValues: {
+      id_item: '',
+      quantity: '',
+      unit: '',
+    },
+  });
+
+  const selectedItemData = items.find(
+    (item) => item.id === form.watch('id_item')
+  );
+
+  const onSubmit = (values: AddItemFormValues) => {
+    if (!selectedItemData) return;
+
+    const newItem: PurchaseOrderItem = {
+      id_item: selectedItemData.id,
+      item_name: selectedItemData.itemName,
+      qty_order: Number(values.quantity),
+      price: selectedItemData.capitalPrice,
+      total: selectedItemData.capitalPrice * Number(values.quantity),
+      qty_receive: 0,
+      status: 'Partial',
+    };
+
+    onAdd(newItem);
+    onClose();
+    form.reset();
+  };
+
+  return (
+    <Dialog open={open} onOpenChange={onClose}>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>Add Item</DialogTitle>
+        </DialogHeader>
+
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+            <FormField
+              control={form.control}
+              name="id_item"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Item</FormLabel>
+                  <Select
+                    onValueChange={field.onChange}
+                    value={field.value || ''}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select item" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {items.map((item) => (
+                        <SelectItem key={item.id} value={item.id}>
+                          {item.itemName}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="quantity"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Quantity</FormLabel>
+                  <FormControl>
+                    <Input
+                      type="number"
+                      {...field}
+                      value={field.value || ''}
+                      onChange={(e) => field.onChange(e.target.value)}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="unit"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Unit</FormLabel>
+                  <Select
+                    onValueChange={field.onChange}
+                    value={field.value || ''}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select unit" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {units.map((unit) => (
+                        <SelectItem key={unit.id} value={unit.id.toString()}>
+                          {unit.unitName}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormItem>
+              <FormLabel>Capital Price</FormLabel>
+              <FormControl>
+                <Input
+                  disabled
+                  value={
+                    selectedItemData?.capitalPrice.toLocaleString('en-US', {
+                      style: 'currency',
+                      currency: 'USD',
+                    }) || ''
+                  }
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+
+            <div className="flex justify-end gap-2 pt-4">
+              <Button type="button" variant="outline" onClick={onClose}>
+                Cancel
+              </Button>
+              <Button type="submit">Add</Button>
+            </div>
+          </form>
+        </Form>
+      </DialogContent>
+    </Dialog>
+  );
+};
+
+const AddItem = ({
+  onAddItem,
+}: {
+  onAddItem: (item: PurchaseOrderItem) => void;
+}) => {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <>
+      <button
+        role="button"
+        onClick={() => setOpen(true)}
+        className="flex items-center gap-2 text-[#64748B] hover:text-[#0F172A] transition-colors duration-300 bg-white p-3"
+      >
+        <Icon height={24} width={24} icon="solar:add-square-bold" />
+        <span className="font-medium text-[16px]">Add Item</span>
+      </button>
+
+      <AddItemDialog
+        open={open}
+        onClose={() => setOpen(false)}
+        onAdd={(item) => {
+          onAddItem(item);
+          setOpen(false);
+        }}
+      />
+    </>
+  );
+};
+
+interface TableHeaderProps {
+  column: Column<PurchaseOrderItem>;
+}
+
+const IdItemTableHeader = ({ column }: TableHeaderProps) => {
+  return (
+    <button
+      className="min-w-56 flex-shrink-0 flex items-center gap-2 justify-between w-full"
+      onClick={() => column.toggleSorting()}
+    >
+      <span>ID ITEM</span>
+      <Icon icon="solar:sort-vertical-linear" className="w-4 h-4" />
+    </button>
+  );
+};
+
+const ItemNameTableHeader = ({ column }: TableHeaderProps) => {
+  return (
+    <button
+      className="min-w-96 flex-shrink-0 flex-grow flex items-center gap-2 justify-between w-full"
+      onClick={() => column.toggleSorting()}
+    >
+      <span>ITEM NAME</span>
+      <Icon icon="solar:sort-vertical-linear" className="w-4 h-4" />
+    </button>
+  );
+};
+
+const QtyTableHeader = ({ column }: TableHeaderProps) => {
+  return (
+    <button
+      className="min-w-32 flex-shrink-0 flex items-center gap-2 justify-between w-full"
+      onClick={() => column.toggleSorting()}
+    >
+      <span>QTY</span>
+      <Icon icon="solar:sort-vertical-linear" className="w-4 h-4" />
+    </button>
+  );
+};
+
+const PriceTableHeader = ({ column }: TableHeaderProps) => {
+  return (
+    <button
+      className="min-w-48 flex-shrink-0 flex items-center gap-2 justify-between w-full"
+      onClick={() => column.toggleSorting()}
+    >
+      <span>PRICE</span>
+      <Icon icon="solar:sort-vertical-linear" className="w-4 h-4" />
+    </button>
+  );
+};
+
+const TotalTableHeader = ({ column }: TableHeaderProps) => {
+  return (
+    <button
+      className="min-w-48 flex-shrink-0 flex items-center gap-2 justify-between w-full"
+      onClick={() => column.toggleSorting()}
+    >
+      <span>TOTAL</span>
+      <Icon icon="solar:sort-vertical-linear" className="w-4 h-4" />
+    </button>
+  );
+};
+
+const TableColumns = (
+  onEdit: (item: PurchaseOrderItem) => void,
+  onDelete: (item: PurchaseOrderItem) => void
+): ColumnDef<PurchaseOrderItem>[] => [
+  {
+    id: 'id_item',
+    accessorKey: 'id_item',
+    header: ({ column }) => <IdItemTableHeader column={column} />,
+    cell: ({ getValue }) => (
+      <span className="min-w-56 flex-shrink-0">{getValue() as string}</span>
+    ),
+  },
+  {
+    id: 'item_name',
+    accessorKey: 'item_name',
+    header: ({ column }) => <ItemNameTableHeader column={column} />,
+    cell: ({ getValue }) => (
+      <span className="min-w-96 flex-grow flex-shrink-0">
+        {getValue() as string}
+      </span>
+    ),
+  },
+  {
+    id: 'qty_order',
+    accessorKey: 'qty_order',
+    header: ({ column }) => <QtyTableHeader column={column} />,
+    cell: ({ getValue }) => (
+      <span className="min-w-32 flex-shrink-0">{getValue() as string}</span>
+    ),
+  },
+  {
+    id: 'price',
+    accessorKey: 'price',
+    header: ({ column }) => <PriceTableHeader column={column} />,
+    cell: ({ getValue }) => (
+      <span className="min-w-48 flex-shrink-0">{getValue() as string}</span>
+    ),
+  },
+  {
+    id: 'total',
+    accessorKey: 'total',
+    header: ({ column }) => <TotalTableHeader column={column} />,
+    cell: ({ getValue }) => (
+      <span className="min-w-48 flex-shrink-0">{getValue() as string}</span>
+    ),
+  },
+  {
+    id: 'action',
+    accessorKey: 'action',
+    header: () => <span className="w-[77px]">ACTION</span>,
+    cell: ({ row }) => (
+      <div className="w-[77px] flex justify-center">
+        <RowAction
+          onEdit={() => onEdit(row.original)}
+          onDelete={() => onDelete(row.original)}
+        />
+      </div>
+    ),
+  },
+];
+
+const TableCard = ({ children }: { children: React.ReactNode }) => {
+  return (
+    <div className="bg-white p-3 rounded-[12px] shadow-md grid grid-cols-1 h-[calc(100dvh-232px)] md:h-[calc(100dvh-274px)]">
+      {children}
+    </div>
+  );
+};
+
+const TablePOItem = ({
+  data,
+  isLoading,
+  onEdit,
+  onDelete,
+  sorting = [],
+  onSortingChange,
+}: TablePOItemProps) => {
+  const parentRef = useRef<HTMLDivElement>(null);
+
+  const columns = useMemo(
+    () => TableColumns(onEdit, onDelete),
+    [onEdit, onDelete]
+  );
+  const table = useReactTable({
+    data,
+    columns,
+    state: {
+      sorting,
+    },
+    onSortingChange: onSortingChange as OnChangeFn<SortingState>,
+    getCoreRowModel: getCoreRowModel(),
+    getSortedRowModel: getSortedRowModel(),
+  });
+
+  const { rows } = table.getRowModel();
+
+  const rowVirtualizer = useVirtualizer({
+    count: rows.length,
+    getScrollElement: () => parentRef.current,
+    estimateSize: () => TableConfig.ROW_HEIGHT,
+    overscan: TableConfig.OVERSCAN,
+  });
+
+  return (
+    <TableCard>
+      <div
+        className="overflow-auto relative rounded-lg"
+        ref={parentRef}
+        style={{ height: TableConfig.HEIGHT }}
+      >
+        <div className="w-full min-w-max bg-white text-left text-slate-700">
+          <div className="font-bold font-inter text-[16px] tracking-[-0.01em] leading-[1.5em] text-[#0F172A] border-b border-[#CBD5E1] z-10 sticky top-0 w-full bg-white h-[54px]">
+            <div className="w-full min-w-96 min-h-12 text-left flex gap-5 items-center">
+              {table.getHeaderGroups().map((headerGroup) =>
+                headerGroup.headers.map((header) => (
+                  <div
+                    key={header.id}
+                    className={`${
+                      header.id === 'item_name' ? 'flex-grow' : 'flex'
+                    } flex-shrink-0`}
+                  >
+                    {flexRender(
+                      header.column.columnDef.header,
+                      header.getContext()
+                    )}
+                  </div>
+                ))
+              )}
+            </div>
+          </div>
+
+          {isLoading ? (
+            <TableSkeleton rows={8} rowHeight={TableConfig.ROW_HEIGHT} />
+          ) : rows.length === 0 ? (
+            <EmptyState
+              title="No Item Found"
+              description="Try adding a new item."
+            />
+          ) : (
+            <div
+              style={{
+                height: `${rowVirtualizer.getTotalSize()}px`,
+                width: '100%',
+                position: 'relative',
+              }}
+            >
+              {rowVirtualizer.getVirtualItems().map((virtualRow) => {
+                const row = rows[virtualRow.index];
+                return (
+                  <div
+                    key={row.id}
+                    className={`absolute w-full flex gap-5 h-max items-center font-normal font-inter text-[16px] tracking-[-0.01em] leading-[1.5em] text-[#1E293B] ${
+                      row.index % 2 === 0 ? 'bg-[#F8FAFC]' : 'bg-white'
+                    }`}
+                    style={{
+                      height: `${virtualRow.size}px`,
+                      transform: `translateY(${virtualRow.start}px)`,
+                    }}
+                  >
+                    {row.getVisibleCells().map((cell) => (
+                      <div
+                        key={cell.id}
+                        className={`${
+                          cell.column.id === 'item_name' ? 'flex-grow' : 'flex'
+                        } flex-shrink-0`}
+                      >
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext()
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </div>
+      </div>
+    </TableCard>
+  );
+};
+
 export const CreatePurchaseOrder = () => {
+  // Load initial items from localStorage or empty array
+  const [items, setItems] = useState<PurchaseOrderItem[]>(() => {
+    const savedItems = localStorage.getItem('purchaseOrderItems');
+    return savedItems ? JSON.parse(savedItems) : [];
+  });
+  const [sorting, setSorting] = useState<SortingState>([]);
+
+  const handleEdit = (item: PurchaseOrderItem) => {
+    // Handle edit
+    console.log('edit', item);
+  };
+
+  const handleDelete = (item: PurchaseOrderItem) => {
+    const newItems = items.filter((i) => i.id_item !== item.id_item);
+    setItems(newItems);
+    localStorage.setItem('purchaseOrderItems', JSON.stringify(newItems));
+  };
+
+  const handleAddItem = (newItem: PurchaseOrderItem) => {
+    const updatedItems = [...items, newItem];
+    setItems(updatedItems);
+    localStorage.setItem('purchaseOrderItems', JSON.stringify(updatedItems));
+  };
+
   return (
     <div className="flex flex-col gap-5">
       <ActionsHeader />
-      <PurchaseOrderHeader
-        onSupplierChange={() => {}}
-        onDateChange={() => {}}
-        subtotal={0}
-      />
+      <div className="flex flex-col bg-white rounded-lg overflow-hidden shadow-sm">
+        <PurchaseOrderHeader
+          onSupplierChange={() => {}}
+          onDateChange={() => {}}
+          subtotal={items.reduce((sum, item) => sum + item.total, 0)}
+        />
+        <AddItem onAddItem={handleAddItem} />
+        <TablePOItem
+          data={items}
+          isLoading={false}
+          onEdit={handleEdit}
+          onDelete={handleDelete}
+          sorting={sorting}
+          onSortingChange={setSorting}
+        />
+      </div>
     </div>
   );
 };

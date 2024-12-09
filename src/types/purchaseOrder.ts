@@ -59,3 +59,12 @@ export interface PurchaseOrderTableProps {
   onStatusFilter: (statuses: string[]) => void;
   onCreatorFilter: (creators: string[]) => void;
 }
+
+export interface TablePOItemProps {
+  data: PurchaseOrderItem[];
+  isLoading: boolean;
+  onEdit: (item: PurchaseOrderItem) => void;
+  onDelete: (item: PurchaseOrderItem) => void;
+  sorting?: SortingState;
+  onSortingChange?: OnChangeFn<SortingState>;
+}
