@@ -11,6 +11,7 @@ const routeTitles: Record<string, string> = {
   [ROUTES.MASTER.ITEM.UNITS]: 'Item Units',
   [ROUTES.MASTER.PRICE]: 'Master Price',
   [ROUTES.INVENTORY.PURCHASE_ORDER]: 'Purchase Order',
+  [ROUTES.INVENTORY.CREATE_PURCHASE_ORDER]: 'Purchase Order',
   [ROUTES.INVENTORY.SUPPLIER]: 'Supplier',
   [ROUTES.INVENTORY.RECEIVE]: 'Receive',
   [ROUTES.INVENTORY.ISSUED]: 'Issued',
