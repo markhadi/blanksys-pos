@@ -1,0 +1,648 @@
+[
+  {
+    "id_po": "PO-000001",
+    "date": "31/12/2024",
+    "created_by": "Admin1",
+    "status": "Partial",
+    "items": [
+      {
+        "id_item": "ITEM-2411301148",
+        "item_name": "Indomie Goreng",
+        "qty_order": 100,
+        "price": 0.25,
+        "total": 25.0,
+        "qty_receive": 80,
+        "status": "Partial"
+      },
+      {
+        "id_item": "ITEM-2411301149",
+        "item_name": "Aqua 600ml",
+        "qty_order": 200,
+        "price": 0.2,
+        "total": 40.0,
+        "qty_receive": 200,
+        "status": "Complete"
+      },
+      {
+        "id_item": "ITEM-2411301150",
+        "item_name": "Sprite 1L",
+        "qty_order": 50,
+        "price": 0.9,
+        "total": 45.0,
+        "qty_receive": 40,
+        "status": "Partial"
+      }
+    ]
+  },
+  {
+    "id_po": "PO-000002",
+    "date": "30/12/2024",
+    "created_by": "Admin2",
+    "status": "Complete",
+    "items": [
+      {
+        "id_item": "ITEM-2411301151",
+        "item_name": "Tango Wafer Coklat",
+        "qty_order": 120,
+        "price": 0.35,
+        "total": 42.0,
+        "qty_receive": 120,
+        "status": "Complete"
+      },
+      {
+        "id_item": "ITEM-2411301152",
+        "item_name": "Teh Botol Sosro 250ml",
+        "qty_order": 150,
+        "price": 0.4,
+        "total": 60.0,
+        "qty_receive": 150,
+        "status": "Complete"
+      },
+      {
+        "id_item": "ITEM-2411301153",
+        "item_name": "Lifebuoy Sabun Cair 250ml",
+        "qty_order": 80,
+        "price": 1.5,
+        "total": 120.0,
+        "qty_receive": 80,
+        "status": "Complete"
+      }
+    ]
+  },
+  {
+    "id_po": "PO-000003",
+    "date": "29/12/2024",
+    "created_by": "Admin3",
+    "status": "Partial",
+    "items": [
+      {
+        "id_item": "ITEM-2411301154",
+        "item_name": "MamyPoko Pants M34",
+        "qty_order": 40,
+        "price": 15.0,
+        "total": 600.0,
+        "qty_receive": 30,
+        "status": "Partial"
+      },
+      {
+        "id_item": "ITEM-2411301155",
+        "item_name": "Frisian Flag Susu Kental Manis",
+        "qty_order": 100,
+        "price": 0.8,
+        "total": 80.0,
+        "qty_receive": 100,
+        "status": "Complete"
+      }
+    ]
+  },
+  {
+    "id_po": "PO-000004",
+    "date": "28/12/2024",
+    "created_by": "Admin1",
+    "status": "Partial",
+    "items": [
+      {
+        "id_item": "ITEM-2411301156",
+        "item_name": "Bango Kecap Manis 220ml",
+        "qty_order": 120,
+        "price": 1.2,
+        "total": 144.0,
+        "qty_receive": 100,
+        "status": "Partial"
+      },
+      {
+        "id_item": "ITEM-2411301157",
+        "item_name": "Samsung Charger Original",
+        "qty_order": 50,
+        "price": 7.5,
+        "total": 375.0,
+        "qty_receive": 50,
+        "status": "Complete"
+      },
+      {
+        "id_item": "ITEM-2411301158",
+        "item_name": "Sunlight Jeruk Nipis 800ml",
+        "qty_order": 80,
+        "price": 1.6,
+        "total": 128.0,
+        "qty_receive": 60,
+        "status": "Partial"
+      }
+    ]
+  },
+  {
+    "id_po": "PO-000005",
+    "date": "27/12/2024",
+    "created_by": "Admin2",
+    "status": "Complete",
+    "items": [
+      {
+        "id_item": "ITEM-2411301159",
+        "item_name": "Roti Tawar Sari Roti",
+        "qty_order": 60,
+        "price": 1.2,
+        "total": 72.0,
+        "qty_receive": 60,
+        "status": "Complete"
+      },
+      {
+        "id_item": "ITEM-2411301160",
+        "item_name": "Oreo Sandwich Coklat",
+        "qty_order": 200,
+        "price": 0.6,
+        "total": 120.0,
+        "qty_receive": 200,
+        "status": "Complete"
+      },
+      {
+        "id_item": "ITEM-2412010000",
+        "item_name": "So Klin Liquid 1.8L",
+        "qty_order": 40,
+        "price": 2.8,
+        "total": 112.0,
+        "qty_receive": 40,
+        "status": "Complete"
+      }
+    ]
+  },
+  {
+    "id_po": "PO-000006",
+    "date": "26/12/2024",
+    "created_by": "Admin3",
+    "status": "Partial",
+    "items": [
+      {
+        "id_item": "ITEM-2412010001",
+        "item_name": "Nugget Ayam So Good 500g",
+        "qty_order": 80,
+        "price": 3.5,
+        "total": 280.0,
+        "qty_receive": 60,
+        "status": "Partial"
+      },
+      {
+        "id_item": "ITEM-2412010002",
+        "item_name": "Garuda Kacang Kulit 500g",
+        "qty_order": 100,
+        "price": 1.5,
+        "total": 150.0,
+        "qty_receive": 100,
+        "status": "Complete"
+      },
+      {
+        "id_item": "ITEM-2412010003",
+        "item_name": "Milo Sachet 35g",
+        "qty_order": 500,
+        "price": 0.1,
+        "total": 50.0,
+        "qty_receive": 400,
+        "status": "Partial"
+      }
+    ]
+  },
+  {
+    "id_po": "PO-000007",
+    "date": "25/12/2024",
+    "created_by": "Admin1",
+    "status": "Complete",
+    "items": [
+      {
+        "id_item": "ITEM-2412010004",
+        "item_name": "Kaleng Ikan ABC 425g",
+        "qty_order": 120,
+        "price": 1.8,
+        "total": 216.0,
+        "qty_receive": 120,
+        "status": "Complete"
+      },
+      {
+        "id_item": "ITEM-2412010005",
+        "item_name": "Panasonic Baterai AAA",
+        "qty_order": 200,
+        "price": 1.2,
+        "total": 240.0,
+        "qty_receive": 200,
+        "status": "Complete"
+      }
+    ]
+  },
+  {
+    "id_po": "PO-000008",
+    "date": "24/12/2024",
+    "created_by": "Admin2",
+    "status": "Partial",
+    "items": [
+      {
+        "id_item": "ITEM-2412010006",
+        "item_name": "Sari Buah Marjan",
+        "qty_order": 150,
+        "price": 2.3,
+        "total": 345.0,
+        "qty_receive": 120,
+        "status": "Partial"
+      },
+      {
+        "id_item": "ITEM-2411301148",
+        "item_name": "Indomie Goreng",
+        "qty_order": 300,
+        "price": 0.25,
+        "total": 75.0,
+        "qty_receive": 300,
+        "status": "Complete"
+      }
+    ]
+  },
+  {
+    "id_po": "PO-000009",
+    "date": "23/12/2024",
+    "created_by": "Admin3",
+    "status": "Complete",
+    "items": [
+      {
+        "id_item": "ITEM-2411301149",
+        "item_name": "Aqua 600ml",
+        "qty_order": 400,
+        "price": 0.2,
+        "total": 80.0,
+        "qty_receive": 400,
+        "status": "Complete"
+      },
+      {
+        "id_item": "ITEM-2411301150",
+        "item_name": "Sprite 1L",
+        "qty_order": 100,
+        "price": 0.9,
+        "total": 90.0,
+        "qty_receive": 100,
+        "status": "Complete"
+      },
+      {
+        "id_item": "ITEM-2411301151",
+        "item_name": "Tango Wafer Coklat",
+        "qty_order": 250,
+        "price": 0.35,
+        "total": 87.5,
+        "qty_receive": 250,
+        "status": "Complete"
+      }
+    ]
+  },
+  {
+    "id_po": "PO-000010",
+    "date": "22/12/2024",
+    "created_by": "Admin1",
+    "status": "Partial",
+    "items": [
+      {
+        "id_item": "ITEM-2411301152",
+        "item_name": "Teh Botol Sosro 250ml",
+        "qty_order": 300,
+        "price": 0.4,
+        "total": 120.0,
+        "qty_receive": 250,
+        "status": "Partial"
+      },
+      {
+        "id_item": "ITEM-2411301153",
+        "item_name": "Lifebuoy Sabun Cair 250ml",
+        "qty_order": 150,
+        "price": 1.5,
+        "total": 225.0,
+        "qty_receive": 150,
+        "status": "Complete"
+      },
+      {
+        "id_item": "ITEM-2411301154",
+        "item_name": "MamyPoko Pants M34",
+        "qty_order": 80,
+        "price": 15.0,
+        "total": 1200.0,
+        "qty_receive": 60,
+        "status": "Partial"
+      }
+    ]
+  },
+  {
+    "id_po": "PO-000011",
+    "date": "21/12/2024",
+    "created_by": "Admin2",
+    "status": "Complete",
+    "items": [
+      {
+        "id_item": "ITEM-2411301155",
+        "item_name": "Frisian Flag Susu Kental Manis",
+        "qty_order": 200,
+        "price": 0.8,
+        "total": 160.0,
+        "qty_receive": 200,
+        "status": "Complete"
+      },
+      {
+        "id_item": "ITEM-2411301156",
+        "item_name": "Bango Kecap Manis 220ml",
+        "qty_order": 180,
+        "price": 1.2,
+        "total": 216.0,
+        "qty_receive": 180,
+        "status": "Complete"
+      }
+    ]
+  },
+  {
+    "id_po": "PO-000012",
+    "date": "20/12/2024",
+    "created_by": "Admin3",
+    "status": "Partial",
+    "items": [
+      {
+        "id_item": "ITEM-2411301157",
+        "item_name": "Samsung Charger Original",
+        "qty_order": 75,
+        "price": 7.5,
+        "total": 562.5,
+        "qty_receive": 60,
+        "status": "Partial"
+      },
+      {
+        "id_item": "ITEM-2411301158",
+        "item_name": "Sunlight Jeruk Nipis 800ml",
+        "qty_order": 120,
+        "price": 1.6,
+        "total": 192.0,
+        "qty_receive": 120,
+        "status": "Complete"
+      },
+      {
+        "id_item": "ITEM-2411301159",
+        "item_name": "Roti Tawar Sari Roti",
+        "qty_order": 100,
+        "price": 1.2,
+        "total": 120.0,
+        "qty_receive": 80,
+        "status": "Partial"
+      }
+    ]
+  },
+  {
+    "id_po": "PO-000013",
+    "date": "19/12/2024",
+    "created_by": "Admin1",
+    "status": "Complete",
+    "items": [
+      {
+        "id_item": "ITEM-2411301160",
+        "item_name": "Oreo Sandwich Coklat",
+        "qty_order": 350,
+        "price": 0.6,
+        "total": 210.0,
+        "qty_receive": 350,
+        "status": "Complete"
+      },
+      {
+        "id_item": "ITEM-2412010000",
+        "item_name": "So Klin Liquid 1.8L",
+        "qty_order": 60,
+        "price": 2.8,
+        "total": 168.0,
+        "qty_receive": 60,
+        "status": "Complete"
+      },
+      {
+        "id_item": "ITEM-2412010001",
+        "item_name": "Nugget Ayam So Good 500g",
+        "qty_order": 100,
+        "price": 3.5,
+        "total": 350.0,
+        "qty_receive": 100,
+        "status": "Complete"
+      }
+    ]
+  },
+  {
+    "id_po": "PO-000014",
+    "date": "18/12/2024",
+    "created_by": "Admin2",
+    "status": "Partial",
+    "items": [
+      {
+        "id_item": "ITEM-2412010002",
+        "item_name": "Garuda Kacang Kulit 500g",
+        "qty_order": 150,
+        "price": 1.5,
+        "total": 225.0,
+        "qty_receive": 120,
+        "status": "Partial"
+      },
+      {
+        "id_item": "ITEM-2412010003",
+        "item_name": "Milo Sachet 35g",
+        "qty_order": 800,
+        "price": 0.1,
+        "total": 80.0,
+        "qty_receive": 800,
+        "status": "Complete"
+      }
+    ]
+  },
+  {
+    "id_po": "PO-000015",
+    "date": "17/12/2024",
+    "created_by": "Admin3",
+    "status": "Complete",
+    "items": [
+      {
+        "id_item": "ITEM-2412010004",
+        "item_name": "Kaleng Ikan ABC 425g",
+        "qty_order": 160,
+        "price": 1.8,
+        "total": 288.0,
+        "qty_receive": 160,
+        "status": "Complete"
+      },
+      {
+        "id_item": "ITEM-2412010005",
+        "item_name": "Panasonic Baterai AAA",
+        "qty_order": 250,
+        "price": 1.2,
+        "total": 300.0,
+        "qty_receive": 250,
+        "status": "Complete"
+      },
+      {
+        "id_item": "ITEM-2412010006",
+        "item_name": "Sari Buah Marjan",
+        "qty_order": 180,
+        "price": 2.3,
+        "total": 414.0,
+        "qty_receive": 180,
+        "status": "Complete"
+      }
+    ]
+  },
+  {
+    "id_po": "PO-000016",
+    "date": "16/12/2024",
+    "created_by": "Admin1",
+    "status": "Partial",
+    "items": [
+      {
+        "id_item": "ITEM-2411301148",
+        "item_name": "Indomie Goreng",
+        "qty_order": 500,
+        "price": 0.25,
+        "total": 125.0,
+        "qty_receive": 400,
+        "status": "Partial"
+      },
+      {
+        "id_item": "ITEM-2411301149",
+        "item_name": "Aqua 600ml",
+        "qty_order": 600,
+        "price": 0.2,
+        "total": 120.0,
+        "qty_receive": 600,
+        "status": "Complete"
+      },
+      {
+        "id_item": "ITEM-2411301150",
+        "item_name": "Sprite 1L",
+        "qty_order": 150,
+        "price": 0.9,
+        "total": 135.0,
+        "qty_receive": 120,
+        "status": "Partial"
+      }
+    ]
+  },
+  {
+    "id_po": "PO-000017",
+    "date": "15/12/2024",
+    "created_by": "Admin2",
+    "status": "Complete",
+    "items": [
+      {
+        "id_item": "ITEM-2411301151",
+        "item_name": "Tango Wafer Coklat",
+        "qty_order": 300,
+        "price": 0.35,
+        "total": 105.0,
+        "qty_receive": 300,
+        "status": "Complete"
+      },
+      {
+        "id_item": "ITEM-2411301152",
+        "item_name": "Teh Botol Sosro 250ml",
+        "qty_order": 400,
+        "price": 0.4,
+        "total": 160.0,
+        "qty_receive": 400,
+        "status": "Complete"
+      },
+      {
+        "id_item": "ITEM-2411301153",
+        "item_name": "Lifebuoy Sabun Cair 250ml",
+        "qty_order": 200,
+        "price": 1.5,
+        "total": 300.0,
+        "qty_receive": 200,
+        "status": "Complete"
+      }
+    ]
+  },
+  {
+    "id_po": "PO-000018",
+    "date": "14/12/2024",
+    "created_by": "Admin3",
+    "status": "Partial",
+    "items": [
+      {
+        "id_item": "ITEM-2411301154",
+        "item_name": "MamyPoko Pants M34",
+        "qty_order": 100,
+        "price": 15.0,
+        "total": 1500.0,
+        "qty_receive": 80,
+        "status": "Partial"
+      },
+      {
+        "id_item": "ITEM-2411301155",
+        "item_name": "Frisian Flag Susu Kental Manis",
+        "qty_order": 250,
+        "price": 0.8,
+        "total": 200.0,
+        "qty_receive": 250,
+        "status": "Complete"
+      }
+    ]
+  },
+  {
+    "id_po": "PO-000019",
+    "date": "13/12/2024",
+    "created_by": "Admin1",
+    "status": "Complete",
+    "items": [
+      {
+        "id_item": "ITEM-2411301156",
+        "item_name": "Bango Kecap Manis 220ml",
+        "qty_order": 200,
+        "price": 1.2,
+        "total": 240.0,
+        "qty_receive": 200,
+        "status": "Complete"
+      },
+      {
+        "id_item": "ITEM-2411301157",
+        "item_name": "Samsung Charger Original",
+        "qty_order": 40,
+        "price": 7.5,
+        "total": 300.0,
+        "qty_receive": 40,
+        "status": "Complete"
+      },
+      {
+        "id_item": "ITEM-2411301158",
+        "item_name": "Sunlight Jeruk Nipis 800ml",
+        "qty_order": 150,
+        "price": 1.6,
+        "total": 240.0,
+        "qty_receive": 150,
+        "status": "Complete"
+      }
+    ]
+  },
+  {
+    "id_po": "PO-000020",
+    "date": "12/12/2024",
+    "created_by": "Admin2",
+    "status": "Partial",
+    "items": [
+      {
+        "id_item": "ITEM-2411301159",
+        "item_name": "Roti Tawar Sari Roti",
+        "qty_order": 180,
+        "price": 1.2,
+        "total": 216.0,
+        "qty_receive": 150,
+        "status": "Partial"
+      },
+      {
+        "id_item": "ITEM-2411301160",
+        "item_name": "Oreo Sandwich Coklat",
+        "qty_order": 400,
+        "price": 0.6,
+        "total": 240.0,
+        "qty_receive": 400,
+        "status": "Complete"
+      },
+      {
+        "id_item": "ITEM-2412010000",
+        "item_name": "So Klin Liquid 1.8L",
+        "qty_order": 80,
+        "price": 2.8,
+        "total": 224.0,
+        "qty_receive": 60,
+        "status": "Partial"
+      }
+    ]
+  }
+]
