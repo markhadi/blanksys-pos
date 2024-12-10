@@ -202,7 +202,6 @@ const addItemSchema = z.object({
   id_item: z.string().min(1, 'Item is required'),
   quantity: z.string().min(1, 'Quantity is required'),
   unit: z.string().min(1, 'Unit is required'),
-  price: z.string().min(1, 'Price is required'),
 });
 
 type AddItemFormValues = z.infer<typeof addItemSchema>;
@@ -231,7 +230,6 @@ const ItemDialog = ({
       id_item: defaultValues?.id_item || '',
       quantity: defaultValues?.qty_order?.toString() || '',
       unit: defaultValues?.unit || '',
-      price: defaultValues?.price?.toString() || '',
     },
   });
 
@@ -241,7 +239,6 @@ const ItemDialog = ({
         id_item: defaultValues.id_item,
         quantity: defaultValues.qty_order.toString(),
         unit: defaultValues.unit,
-        price: defaultValues.price.toString(),
       });
     }
   }, [defaultValues, form]);
@@ -251,22 +248,30 @@ const ItemDialog = ({
   );
 
   const onSubmitForm = (values: AddItemFormValues) => {
-    if (!selectedItemData) return;
+    const selectedItemData = items.find((item) => item.id === values.id_item);
 
-    const newItem: PurchaseOrderItem = {
-      id_item: selectedItemData.id,
-      item_name: selectedItemData.itemName,
-      qty_order: Number(values.quantity),
-      price: selectedItemData.capitalPrice,
-      total: selectedItemData.capitalPrice * Number(values.quantity),
-      qty_receive: defaultValues?.qty_receive || 0,
-      status: defaultValues?.status || 'Outstanding',
-      unit: values.unit,
-    };
+    if (!selectedItemData) {
+      return;
+    }
 
-    onSubmit(newItem);
-    onClose();
-    form.reset();
+    try {
+      const newItem: PurchaseOrderItem = {
+        id_item: values.id_item,
+        item_name: selectedItemData.itemName,
+        qty_order: Number(values.quantity),
+        price: selectedItemData.capitalPrice,
+        total: selectedItemData.capitalPrice * Number(values.quantity),
+        qty_receive: 0,
+        status: 'Outstanding' as PurchaseOrderStatus,
+        unit: values.unit,
+      };
+
+      onSubmit(newItem);
+      onClose();
+      form.reset();
+    } catch (error) {
+      console.error('Error constructing new item:', error);
+    }
   };
 
   return (
@@ -278,7 +283,11 @@ const ItemDialog = ({
 
         <Form {...form}>
           <form
-            onSubmit={form.handleSubmit(onSubmitForm)}
+            onSubmit={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              form.handleSubmit(onSubmitForm)(e);
+            }}
             className="space-y-4"
           >
             <FormField
@@ -416,16 +425,14 @@ const AddItem = ({
 
   return (
     <>
-      {!selectedItem && (
-        <button
-          role="button"
-          onClick={() => setOpen(true)}
-          className="flex items-center gap-2 text-[#64748B] hover:text-[#0F172A] transition-colors duration-300 bg-white p-3"
-        >
-          <Icon height={24} width={24} icon="solar:add-square-bold" />
-          <span className="font-medium text-[16px]">Add Item</span>
-        </button>
-      )}
+      <button
+        role="button"
+        onClick={() => setOpen(true)}
+        className="flex items-center gap-2 text-[#64748B] hover:text-[#0F172A] transition-colors duration-300 bg-white p-3"
+      >
+        <Icon height={24} width={24} icon="solar:add-square-bold" />
+        <span className="font-medium text-[16px]">Add Item</span>
+      </button>
 
       <ItemDialog
         open={open || !!selectedItem}
@@ -537,7 +544,12 @@ const TableColumns = (
     accessorKey: 'price',
     header: ({ column }) => <PriceTableHeader column={column} />,
     cell: ({ getValue }) => (
-      <span className="min-w-48 flex-shrink-0">{getValue() as string}</span>
+      <span className="min-w-48 flex-shrink-0">
+        {(getValue() as number).toLocaleString('en-US', {
+          style: 'currency',
+          currency: 'USD',
+        })}
+      </span>
     ),
   },
   {
@@ -545,7 +557,12 @@ const TableColumns = (
     accessorKey: 'total',
     header: ({ column }) => <TotalTableHeader column={column} />,
     cell: ({ getValue }) => (
-      <span className="min-w-48 flex-shrink-0">{getValue() as string}</span>
+      <span className="min-w-48 flex-shrink-0">
+        {(getValue() as number).toLocaleString('en-US', {
+          style: 'currency',
+          currency: 'USD',
+        })}
+      </span>
     ),
   },
   {
