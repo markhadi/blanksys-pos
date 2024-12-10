@@ -721,7 +721,46 @@ const TablePOItem = ({
   );
 };
 
+const SuccessModal = ({
+  open,
+  onClose,
+  onDownload,
+}: {
+  open: boolean;
+  onClose: () => void;
+  onDownload: () => void;
+}) => {
+  return (
+    <Dialog open={open} onOpenChange={onClose}>
+      <DialogContent className="max-w-[500px] max-h-96 w-full h-full flex flex-col items-center justify-center gap-10 px-10 py-5">
+        <div className="flex flex-col items-center gap-5 max-w-64">
+          <div className="w-24 h-24 rounded-full bg-green-100 flex items-center justify-center">
+            <Icon
+              icon="solar:check-circle-bold"
+              className="w-20 h-20 text-green-600"
+            />
+          </div>
+
+          <DialogTitle className="text-center text-[20px] font-bold">
+            PURCHASE ORDER HAS BEEN CREATED
+          </DialogTitle>
+        </div>
+        <div className="flex gap-3 w-full">
+          <Button variant="outline" className="flex-1" onClick={onClose}>
+            Close
+          </Button>
+          <Button className="flex-1 gap-2" onClick={onDownload}>
+            <Icon icon="solar:file-download-bold" />
+            Download PDF
+          </Button>
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+};
+
 export const CreatePurchaseOrder = () => {
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [items, setItems] = useState<PurchaseOrderItem[]>(() => {
     const savedItems = localStorage.getItem('purchaseOrderItems');
     return savedItems ? JSON.parse(savedItems) : [];
@@ -760,15 +799,11 @@ export const CreatePurchaseOrder = () => {
 
       createMutation.mutate(newPurchaseOrder, {
         onSuccess: () => {
-          toast({
-            title: 'Success',
-            description: 'Purchase order created successfully',
-          });
+          setShowSuccessModal(true);
           localStorage.removeItem('purchaseOrderItems');
           setItems([]);
           setSelectedSupplier('');
           setSelectedDate(undefined);
-          navigate('/purchase-order');
         },
         onError: (error) => {
           toast({
@@ -811,6 +846,10 @@ export const CreatePurchaseOrder = () => {
     localStorage.setItem('purchaseOrderItems', JSON.stringify(updatedItems));
   };
 
+  const handleDownloadPDF = () => {
+    console.log('Downloading PDF');
+  };
+
   return (
     <div className="flex flex-col gap-5">
       <ActionsHeader
@@ -836,6 +875,14 @@ export const CreatePurchaseOrder = () => {
           onDelete={handleDelete}
           sorting={sorting}
           onSortingChange={setSorting}
+        />
+        <SuccessModal
+          open={showSuccessModal}
+          onClose={() => {
+            setShowSuccessModal(false);
+            navigate('/purchase-order');
+          }}
+          onDownload={handleDownloadPDF}
         />
       </div>
     </div>
