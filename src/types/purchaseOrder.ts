@@ -8,8 +8,9 @@ export interface PurchaseOrderItem {
   qty_order: number;
   price: number;
   total: number;
+  unit: string;
   qty_receive: number;
-  status: 'Complete' | 'Partial';
+  status: 'Complete' | 'Partial' | 'Outstanding';
 }
 
 export interface PurchaseOrder {

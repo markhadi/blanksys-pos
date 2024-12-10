@@ -19,7 +19,7 @@ import { CalendarIcon } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { format } from 'date-fns';
 import { cn } from '@/lib/utils';
-import { useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { SupplierType } from '@/types/supplier';
 import {
   Column,
@@ -202,34 +202,55 @@ const addItemSchema = z.object({
   id_item: z.string().min(1, 'Item is required'),
   quantity: z.string().min(1, 'Quantity is required'),
   unit: z.string().min(1, 'Unit is required'),
+  price: z.string().min(1, 'Price is required'),
 });
 
 type AddItemFormValues = z.infer<typeof addItemSchema>;
 
-interface AddItemDialogProps {
+interface ItemDialogProps {
   open: boolean;
   onClose: () => void;
-  onAdd: (item: PurchaseOrderItem) => void;
+  onSubmit: (item: PurchaseOrderItem) => void;
+  mode: 'add' | 'edit';
+  defaultValues?: PurchaseOrderItem;
 }
 
-const AddItemDialog = ({ open, onClose, onAdd }: AddItemDialogProps) => {
+const ItemDialog = ({
+  open,
+  onClose,
+  onSubmit,
+  mode,
+  defaultValues,
+}: ItemDialogProps) => {
   const { data: items = [] } = useMasterItems({});
   const { data: units = [] } = useUnits({});
 
   const form = useForm<AddItemFormValues>({
     resolver: zodResolver(addItemSchema),
     defaultValues: {
-      id_item: '',
-      quantity: '',
-      unit: '',
+      id_item: defaultValues?.id_item || '',
+      quantity: defaultValues?.qty_order?.toString() || '',
+      unit: defaultValues?.unit || '',
+      price: defaultValues?.price?.toString() || '',
     },
   });
+
+  useEffect(() => {
+    if (defaultValues) {
+      form.reset({
+        id_item: defaultValues.id_item,
+        quantity: defaultValues.qty_order.toString(),
+        unit: defaultValues.unit,
+        price: defaultValues.price.toString(),
+      });
+    }
+  }, [defaultValues, form]);
 
   const selectedItemData = items.find(
     (item) => item.id === form.watch('id_item')
   );
 
-  const onSubmit = (values: AddItemFormValues) => {
+  const onSubmitForm = (values: AddItemFormValues) => {
     if (!selectedItemData) return;
 
     const newItem: PurchaseOrderItem = {
@@ -238,11 +259,12 @@ const AddItemDialog = ({ open, onClose, onAdd }: AddItemDialogProps) => {
       qty_order: Number(values.quantity),
       price: selectedItemData.capitalPrice,
       total: selectedItemData.capitalPrice * Number(values.quantity),
-      qty_receive: 0,
-      status: 'Partial',
+      qty_receive: defaultValues?.qty_receive || 0,
+      status: defaultValues?.status || 'Outstanding',
+      unit: values.unit,
     };
 
-    onAdd(newItem);
+    onSubmit(newItem);
     onClose();
     form.reset();
   };
@@ -251,11 +273,14 @@ const AddItemDialog = ({ open, onClose, onAdd }: AddItemDialogProps) => {
     <Dialog open={open} onOpenChange={onClose}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Add Item</DialogTitle>
+          <DialogTitle>{mode === 'add' ? 'Add Item' : 'Edit Item'}</DialogTitle>
         </DialogHeader>
 
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+          <form
+            onSubmit={form.handleSubmit(onSubmitForm)}
+            className="space-y-4"
+          >
             <FormField
               control={form.control}
               name="id_item"
@@ -264,7 +289,8 @@ const AddItemDialog = ({ open, onClose, onAdd }: AddItemDialogProps) => {
                   <FormLabel>Item</FormLabel>
                   <Select
                     onValueChange={field.onChange}
-                    value={field.value || ''}
+                    value={field.value}
+                    disabled={mode === 'edit'}
                   >
                     <FormControl>
                       <SelectTrigger>
@@ -351,7 +377,7 @@ const AddItemDialog = ({ open, onClose, onAdd }: AddItemDialogProps) => {
               <Button type="button" variant="outline" onClick={onClose}>
                 Cancel
               </Button>
-              <Button type="submit">Add</Button>
+              <Button type="submit">{mode === 'add' ? 'Add' : 'Save'}</Button>
             </div>
           </form>
         </Form>
@@ -362,29 +388,51 @@ const AddItemDialog = ({ open, onClose, onAdd }: AddItemDialogProps) => {
 
 const AddItem = ({
   onAddItem,
+  onEditItem,
+  selectedItem,
+  onOpenChange,
 }: {
   onAddItem: (item: PurchaseOrderItem) => void;
+  onEditItem: (item: PurchaseOrderItem) => void;
+  selectedItem?: PurchaseOrderItem;
+  onOpenChange?: (open: boolean) => void;
 }) => {
   const [open, setOpen] = useState(false);
+  const mode = selectedItem ? 'edit' : 'add';
+
+  const handleOpenChange = (newOpen: boolean) => {
+    setOpen(newOpen);
+    onOpenChange?.(newOpen);
+  };
+
+  const handleSubmit = (item: PurchaseOrderItem) => {
+    if (mode === 'edit') {
+      onEditItem(item);
+    } else {
+      onAddItem(item);
+    }
+    handleOpenChange(false);
+  };
 
   return (
     <>
-      <button
-        role="button"
-        onClick={() => setOpen(true)}
-        className="flex items-center gap-2 text-[#64748B] hover:text-[#0F172A] transition-colors duration-300 bg-white p-3"
-      >
-        <Icon height={24} width={24} icon="solar:add-square-bold" />
-        <span className="font-medium text-[16px]">Add Item</span>
-      </button>
+      {!selectedItem && (
+        <button
+          role="button"
+          onClick={() => setOpen(true)}
+          className="flex items-center gap-2 text-[#64748B] hover:text-[#0F172A] transition-colors duration-300 bg-white p-3"
+        >
+          <Icon height={24} width={24} icon="solar:add-square-bold" />
+          <span className="font-medium text-[16px]">Add Item</span>
+        </button>
+      )}
 
-      <AddItemDialog
-        open={open}
-        onClose={() => setOpen(false)}
-        onAdd={(item) => {
-          onAddItem(item);
-          setOpen(false);
-        }}
+      <ItemDialog
+        open={open || !!selectedItem}
+        onClose={() => handleOpenChange(false)}
+        onSubmit={handleSubmit}
+        mode={mode}
+        defaultValues={selectedItem}
       />
     </>
   );
@@ -642,6 +690,7 @@ export const CreatePurchaseOrder = () => {
     const savedItems = localStorage.getItem('purchaseOrderItems');
     return savedItems ? JSON.parse(savedItems) : [];
   });
+  const [editingItem, setEditingItem] = useState<PurchaseOrderItem>();
   const [sorting, setSorting] = useState<SortingState>([]);
   const [selectedSupplier, setSelectedSupplier] = useState<string>('');
   const [selectedDate, setSelectedDate] = useState<Date>();
@@ -658,15 +707,16 @@ export const CreatePurchaseOrder = () => {
       id_po: generatePONumber(),
       date: format(selectedDate, 'dd/MM/yyyy'),
       created_by: 'Admin1',
-      status: 'Partial' as PurchaseOrderStatus,
+      status: 'Outstanding' as PurchaseOrderStatus,
       items: items.map((item) => ({
         id_item: item.id_item,
         item_name: item.item_name,
         qty_order: item.qty_order,
+        unit: item.unit,
         price: item.price,
         total: item.total,
         qty_receive: 0,
-        status: 'Partial' as PurchaseOrderStatus,
+        status: 'Outstanding' as PurchaseOrderStatus,
       })),
     };
 
@@ -681,8 +731,12 @@ export const CreatePurchaseOrder = () => {
     });
   };
 
-  const handleEdit = (item: PurchaseOrderItem) => {
-    console.log('edit', item);
+  const handleEdit = (editedItem: PurchaseOrderItem) => {
+    const newItems = items.map((item) =>
+      item.id_item === editedItem.id_item ? editedItem : item
+    );
+    setItems(newItems);
+    localStorage.setItem('purchaseOrderItems', JSON.stringify(newItems));
   };
 
   const handleDelete = (item: PurchaseOrderItem) => {
@@ -706,11 +760,16 @@ export const CreatePurchaseOrder = () => {
           onDateChange={(date) => setSelectedDate(date)}
           subtotal={items.reduce((sum, item) => sum + item.total, 0)}
         />
-        <AddItem onAddItem={handleAddItem} />
+        <AddItem
+          onAddItem={handleAddItem}
+          onEditItem={handleEdit}
+          selectedItem={editingItem}
+          onOpenChange={(open) => !open && setEditingItem(undefined)}
+        />
         <TablePOItem
           data={items}
           isLoading={false}
-          onEdit={handleEdit}
+          onEdit={setEditingItem}
           onDelete={handleDelete}
           sorting={sorting}
           onSortingChange={setSorting}
