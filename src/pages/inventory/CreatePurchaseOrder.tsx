@@ -62,8 +62,23 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { usePurchaseOrderMutations } from '@/hooks/purchase-order/useMutations';
+import { toast } from '@/hooks/use-toast';
 
-const ActionsHeader = ({ onSubmit }: { onSubmit: () => void }) => {
+const purchaseOrderSchema = z.object({
+  supplier: z.string().min(1, 'Supplier is required'),
+  date: z.date({
+    required_error: 'Date is required',
+  }),
+  items: z.array(z.any()).min(1, 'At least one item is required'),
+});
+
+const ActionsHeader = ({
+  onSubmit,
+  isSubmitting,
+}: {
+  onSubmit: () => void;
+  isSubmitting: boolean;
+}) => {
   const navigate = useNavigate();
 
   return (
@@ -78,8 +93,12 @@ const ActionsHeader = ({ onSubmit }: { onSubmit: () => void }) => {
         </button>
         <h2 className="font-bold text-[20px]">Create Purchase Order</h2>
       </div>
-      <Button className="w-full sm:w-auto" onClick={onSubmit}>
-        Submit
+      <Button
+        className="w-full sm:w-auto"
+        onClick={onSubmit}
+        disabled={isSubmitting}
+      >
+        {isSubmitting ? 'Submitting...' : 'Submit'}
       </Button>
     </div>
   );
@@ -715,37 +734,61 @@ export const CreatePurchaseOrder = () => {
   const { createMutation } = usePurchaseOrderMutations();
 
   const handleSubmit = () => {
-    if (!selectedSupplier || !selectedDate || items.length === 0) {
-      alert('Please fill all required fields');
-      return;
-    }
+    try {
+      purchaseOrderSchema.parse({
+        supplier: selectedSupplier,
+        date: selectedDate,
+        items: items,
+      });
 
-    const newPurchaseOrder: PurchaseOrder = {
-      id_po: generatePONumber(),
-      date: format(selectedDate, 'dd/MM/yyyy'),
-      created_by: 'Admin1',
-      status: 'Outstanding' as PurchaseOrderStatus,
-      items: items.map((item) => ({
-        id_item: item.id_item,
-        item_name: item.item_name,
-        qty_order: item.qty_order,
-        unit: item.unit,
-        price: item.price,
-        total: item.total,
-        qty_receive: 0,
+      const newPurchaseOrder: PurchaseOrder = {
+        id_po: generatePONumber(),
+        date: format(selectedDate!, 'dd/MM/yyyy'),
+        created_by: 'Admin1',
         status: 'Outstanding' as PurchaseOrderStatus,
-      })),
-    };
+        items: items.map((item) => ({
+          id_item: item.id_item,
+          item_name: item.item_name,
+          qty_order: item.qty_order,
+          unit: item.unit,
+          price: item.price,
+          total: item.total,
+          qty_receive: 0,
+          status: 'Outstanding' as PurchaseOrderStatus,
+        })),
+      };
 
-    createMutation.mutate(newPurchaseOrder, {
-      onSuccess: () => {
-        localStorage.removeItem('purchaseOrderItems');
-        setItems([]);
-        setSelectedSupplier('');
-        setSelectedDate(undefined);
-        navigate('/purchase-order');
-      },
-    });
+      createMutation.mutate(newPurchaseOrder, {
+        onSuccess: () => {
+          toast({
+            title: 'Success',
+            description: 'Purchase order created successfully',
+          });
+          localStorage.removeItem('purchaseOrderItems');
+          setItems([]);
+          setSelectedSupplier('');
+          setSelectedDate(undefined);
+          navigate('/purchase-order');
+        },
+        onError: (error) => {
+          toast({
+            variant: 'destructive',
+            title: 'Error',
+            description: 'Failed to create purchase order',
+          });
+          console.log(error);
+        },
+      });
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        const errorMessages = error.errors.map((err) => err.message);
+        toast({
+          variant: 'destructive',
+          title: 'Validation Error',
+          description: errorMessages.join(', '),
+        });
+      }
+    }
   };
 
   const handleEdit = (editedItem: PurchaseOrderItem) => {
@@ -770,7 +813,10 @@ export const CreatePurchaseOrder = () => {
 
   return (
     <div className="flex flex-col gap-5">
-      <ActionsHeader onSubmit={handleSubmit} />
+      <ActionsHeader
+        onSubmit={handleSubmit}
+        isSubmitting={createMutation.isPending}
+      />
       <div className="flex flex-col bg-white rounded-lg overflow-hidden shadow-sm">
         <PurchaseOrderHeader
           onSupplierChange={(supplierId) => setSelectedSupplier(supplierId)}
