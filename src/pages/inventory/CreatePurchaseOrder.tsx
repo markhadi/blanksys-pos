@@ -30,7 +30,12 @@ import {
   useReactTable,
   flexRender,
 } from '@tanstack/react-table';
-import { PurchaseOrderItem, TablePOItemProps } from '@/types/purchaseOrder';
+import {
+  PurchaseOrder,
+  PurchaseOrderItem,
+  PurchaseOrderStatus,
+  TablePOItemProps,
+} from '@/types/purchaseOrder';
 import { ColumnDef } from '@tanstack/react-table';
 import { RowAction } from '@/components/ui/RowAction';
 import { useVirtualizer } from '@tanstack/react-virtual';
@@ -56,13 +61,10 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
+import { usePurchaseOrderMutations } from '@/hooks/purchase-order/useMutations';
 
-const ActionsHeader = () => {
+const ActionsHeader = ({ onSubmit }: { onSubmit: () => void }) => {
   const navigate = useNavigate();
-
-  const handleSubmit = () => {
-    console.log('submit');
-  };
 
   return (
     <div className="flex flex-col sm:flex-row gap-2 items-start sm:items-center justify-between">
@@ -76,7 +78,7 @@ const ActionsHeader = () => {
         </button>
         <h2 className="font-bold text-[20px]">Create Purchase Order</h2>
       </div>
-      <Button className="w-full sm:w-auto" onClick={handleSubmit}>
+      <Button className="w-full sm:w-auto" onClick={onSubmit}>
         Submit
       </Button>
     </div>
@@ -636,15 +638,50 @@ const TablePOItem = ({
 };
 
 export const CreatePurchaseOrder = () => {
-  // Load initial items from localStorage or empty array
   const [items, setItems] = useState<PurchaseOrderItem[]>(() => {
     const savedItems = localStorage.getItem('purchaseOrderItems');
     return savedItems ? JSON.parse(savedItems) : [];
   });
   const [sorting, setSorting] = useState<SortingState>([]);
+  const [selectedSupplier, setSelectedSupplier] = useState<string>('');
+  const [selectedDate, setSelectedDate] = useState<Date>();
+  const navigate = useNavigate();
+  const { createMutation } = usePurchaseOrderMutations();
+
+  const handleSubmit = () => {
+    if (!selectedSupplier || !selectedDate || items.length === 0) {
+      alert('Please fill all required fields');
+      return;
+    }
+
+    const newPurchaseOrder: PurchaseOrder = {
+      id_po: generatePONumber(),
+      date: format(selectedDate, 'dd/MM/yyyy'),
+      created_by: 'Admin1',
+      status: 'Partial' as PurchaseOrderStatus,
+      items: items.map((item) => ({
+        id_item: item.id_item,
+        item_name: item.item_name,
+        qty_order: item.qty_order,
+        price: item.price,
+        total: item.total,
+        qty_receive: 0,
+        status: 'Partial' as PurchaseOrderStatus,
+      })),
+    };
+
+    createMutation.mutate(newPurchaseOrder, {
+      onSuccess: () => {
+        localStorage.removeItem('purchaseOrderItems');
+        setItems([]);
+        setSelectedSupplier('');
+        setSelectedDate(undefined);
+        navigate('/purchase-order');
+      },
+    });
+  };
 
   const handleEdit = (item: PurchaseOrderItem) => {
-    // Handle edit
     console.log('edit', item);
   };
 
@@ -662,11 +699,11 @@ export const CreatePurchaseOrder = () => {
 
   return (
     <div className="flex flex-col gap-5">
-      <ActionsHeader />
+      <ActionsHeader onSubmit={handleSubmit} />
       <div className="flex flex-col bg-white rounded-lg overflow-hidden shadow-sm">
         <PurchaseOrderHeader
-          onSupplierChange={() => {}}
-          onDateChange={() => {}}
+          onSupplierChange={(supplierId) => setSelectedSupplier(supplierId)}
+          onDateChange={(date) => setSelectedDate(date)}
           subtotal={items.reduce((sum, item) => sum + item.total, 0)}
         />
         <AddItem onAddItem={handleAddItem} />

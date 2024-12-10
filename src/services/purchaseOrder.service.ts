@@ -58,4 +58,10 @@ export const PurchaseOrderService = {
 
     return tableRows;
   },
+
+  createPurchaseOrder: async (data: PurchaseOrder): Promise<PurchaseOrder> => {
+    await new Promise((resolve) => setTimeout(resolve, 500));
+    purchaseOrderData.push(data);
+    return data;
+  },
 };
