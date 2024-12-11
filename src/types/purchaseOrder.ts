@@ -15,6 +15,7 @@ export interface PurchaseOrderItem {
 
 export interface PurchaseOrder {
   id_po: string;
+  id_supplier: number;
   date: string;
   created_by: string;
   status: PurchaseOrderStatus;
@@ -23,6 +24,7 @@ export interface PurchaseOrder {
 
 export interface PurchaseOrderTableRow {
   id_po: string;
+  id_supplier: number;
   date: string;
   created_by: string;
   status: PurchaseOrderStatus;
@@ -33,6 +35,7 @@ export const toPurchaseOrderTableRow = (
   po: PurchaseOrder
 ): PurchaseOrderTableRow => ({
   id_po: po.id_po,
+  id_supplier: po.id_supplier,
   date: po.date,
   created_by: po.created_by,
   status: po.status,
@@ -47,6 +50,7 @@ export interface PurchaseOrderSearchParams {
     field: keyof PurchaseOrderTableRow;
     order: 'asc' | 'desc';
   };
+  id_po?: string;
 }
 
 export interface PurchaseOrderTableProps {

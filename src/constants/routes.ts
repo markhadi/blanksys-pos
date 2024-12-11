@@ -19,6 +19,7 @@ export const ROUTES = {
   INVENTORY: {
     PURCHASE_ORDER: '/purchase-order',
     CREATE_PURCHASE_ORDER: '/purchase-order/create-po',
+    EDIT_PURCHASE_ORDER: '/purchase-order/edit/:id',
     SUPPLIER: '/supplier',
     RECEIVE: '/receive',
     ISSUED: '/issued',

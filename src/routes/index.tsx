@@ -126,6 +126,14 @@ export const router = createBrowserRouter([
         ),
       },
       {
+        path: ROUTES.INVENTORY.EDIT_PURCHASE_ORDER,
+        element: (
+          <ProtectedRoute roles={['Administrator']}>
+            <CreatePurchaseOrder />
+          </ProtectedRoute>
+        ),
+      },
+      {
         path: ROUTES.INVENTORY.SUPPLIER,
         element: (
           <ProtectedRoute roles={['Administrator']}>

@@ -16,7 +16,7 @@ import {
 import { useSupplier } from '@/hooks/supplier/useSupplier';
 import { Icon } from '@iconify/react';
 import { CalendarIcon } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { format } from 'date-fns';
 import { cn } from '@/lib/utils';
 import { useEffect, useMemo, useRef, useState } from 'react';
@@ -63,6 +63,7 @@ import {
 } from '@/components/ui/form';
 import { usePurchaseOrderMutations } from '@/hooks/purchase-order/useMutations';
 import { toast } from '@/hooks/use-toast';
+import { usePurchaseOrders } from '@/hooks/purchase-order/usePurchaseOrder';
 
 const purchaseOrderSchema = z.object({
   supplier: z.string().min(1, 'Supplier is required'),
@@ -75,9 +76,11 @@ const purchaseOrderSchema = z.object({
 const ActionsHeader = ({
   onSubmit,
   isSubmitting,
+  mode,
 }: {
   onSubmit: () => void;
   isSubmitting: boolean;
+  mode: 'create' | 'edit';
 }) => {
   const navigate = useNavigate();
 
@@ -91,7 +94,9 @@ const ActionsHeader = ({
         >
           <Icon height={24} width={24} icon="icon-park-outline:left" />
         </button>
-        <h2 className="font-bold text-[20px]">Create Purchase Order</h2>
+        <h2 className="font-bold text-[20px]">
+          {mode === 'create' ? 'Create' : 'Edit'} Purchase Order
+        </h2>
       </div>
       <Button
         className="w-full sm:w-auto"
@@ -125,10 +130,26 @@ const PurchaseOrderHeader = ({
   onSupplierChange,
   onDateChange,
   subtotal,
-}: PurchaseOrderHeaderProps) => {
-  const [date, setDate] = useState<Date>();
+  mode = 'create',
+  defaultValues,
+}: PurchaseOrderHeaderProps & {
+  mode?: 'create' | 'edit';
+  defaultValues?: {
+    id_po?: string;
+    id_supplier?: string;
+    date?: Date;
+  };
+}) => {
+  const [date, setDate] = useState<Date | undefined>(defaultValues?.date);
   const { data: suppliers = [] } = useSupplier({});
-  const poNumber = generatePONumber();
+  const poNumber =
+    mode === 'create' ? generatePONumber() : defaultValues?.id_po;
+
+  useEffect(() => {
+    if (defaultValues?.date) {
+      setDate(defaultValues.date);
+    }
+  }, [defaultValues]);
 
   const handleDateSelect = (date: Date | undefined) => {
     setDate(date);
@@ -153,7 +174,10 @@ const PurchaseOrderHeader = ({
           <label className="font-medium text-black min-w-28 lg:min-w-max">
             Supplier
           </label>
-          <Select onValueChange={(value) => onSupplierChange(value)}>
+          <Select
+            onValueChange={(value) => onSupplierChange(value)}
+            value={defaultValues?.id_supplier}
+          >
             <SelectTrigger className="text-[16px] px-4 py-3 w-full xl:w-auto">
               <SelectValue placeholder="Select supplier" />
             </SelectTrigger>
@@ -447,7 +471,7 @@ const AddItem = ({
       <button
         role="button"
         onClick={() => setOpen(true)}
-        className="flex items-center gap-2 text-[#64748B] hover:text-[#0F172A] transition-colors duration-300 bg-white p-3"
+        className="flex items-center gap-2 text-[#64748B] hover:text-[#0F172A] transition-colors duration-300 bg-white p-3 w-max"
       >
         <Icon height={24} width={24} icon="solar:add-square-bold" />
         <span className="font-medium text-[16px]">Add Item</span>
@@ -770,7 +794,19 @@ export const CreatePurchaseOrder = () => {
   const [selectedSupplier, setSelectedSupplier] = useState<string>('');
   const [selectedDate, setSelectedDate] = useState<Date>();
   const navigate = useNavigate();
-  const { createMutation } = usePurchaseOrderMutations();
+  const { id } = useParams();
+
+  const { createMutation, updateMutation } = usePurchaseOrderMutations();
+  const { data: purchaseOrder } = usePurchaseOrders({ id_po: id });
+
+  useEffect(() => {
+    if (id && purchaseOrder && !Array.isArray(purchaseOrder)) {
+      setItems(purchaseOrder.items);
+      setSelectedSupplier(purchaseOrder.id_supplier.toString());
+      const [day, month, year] = purchaseOrder.date.split('/');
+      setSelectedDate(new Date(Number(year), Number(month) - 1, Number(day)));
+    }
+  }, [id, purchaseOrder]);
 
   const handleSubmit = () => {
     try {
@@ -780,9 +816,10 @@ export const CreatePurchaseOrder = () => {
         items: items,
       });
 
-      const newPurchaseOrder: PurchaseOrder = {
-        id_po: generatePONumber(),
+      const poData: PurchaseOrder = {
+        id_po: id || generatePONumber(),
         date: format(selectedDate!, 'dd/MM/yyyy'),
+        id_supplier: parseInt(selectedSupplier, 10),
         created_by: 'Admin1',
         status: 'Outstanding' as PurchaseOrderStatus,
         items: items.map((item) => ({
@@ -797,19 +834,25 @@ export const CreatePurchaseOrder = () => {
         })),
       };
 
-      createMutation.mutate(newPurchaseOrder, {
+      console.log(poData);
+
+      const mutation = id ? updateMutation : createMutation;
+
+      mutation.mutate(poData, {
         onSuccess: () => {
           setShowSuccessModal(true);
-          localStorage.removeItem('purchaseOrderItems');
-          setItems([]);
-          setSelectedSupplier('');
-          setSelectedDate(undefined);
+          if (!id) {
+            localStorage.removeItem('purchaseOrderItems');
+            setItems([]);
+            setSelectedSupplier('');
+            setSelectedDate(undefined);
+          }
         },
         onError: (error) => {
           toast({
             variant: 'destructive',
             title: 'Error',
-            description: 'Failed to create purchase order',
+            description: `Failed to ${id ? 'update' : 'create'} purchase order`,
           });
           console.log(error);
         },
@@ -850,17 +893,28 @@ export const CreatePurchaseOrder = () => {
     console.log('Downloading PDF');
   };
 
+  const calculateSubtotal = (items: PurchaseOrderItem[]) => {
+    return items.reduce((total, item) => total + item.total, 0);
+  };
+
   return (
     <div className="flex flex-col gap-5">
       <ActionsHeader
         onSubmit={handleSubmit}
-        isSubmitting={createMutation.isPending}
+        isSubmitting={createMutation.isPending || updateMutation.isPending}
+        mode={id ? 'edit' : 'create'}
       />
       <div className="flex flex-col bg-white rounded-lg overflow-hidden shadow-sm">
         <PurchaseOrderHeader
-          onSupplierChange={(supplierId) => setSelectedSupplier(supplierId)}
-          onDateChange={(date) => setSelectedDate(date)}
-          subtotal={items.reduce((sum, item) => sum + item.total, 0)}
+          onSupplierChange={setSelectedSupplier}
+          onDateChange={setSelectedDate}
+          subtotal={calculateSubtotal(items)}
+          mode={id ? 'edit' : 'create'}
+          defaultValues={{
+            id_po: id,
+            id_supplier: selectedSupplier,
+            date: selectedDate,
+          }}
         />
         <AddItem
           onAddItem={handleAddItem}

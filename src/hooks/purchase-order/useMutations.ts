@@ -44,8 +44,28 @@ export const usePurchaseOrderMutations = () => {
     },
   });
 
+  const updateMutation = useMutation({
+    mutationFn: PurchaseOrderService.updatePurchaseOrder,
+    onSuccess: (updatedPO) => {
+      queryClient.invalidateQueries({ queryKey: ['purchaseOrders'] });
+      toast({
+        title: 'Success',
+        description: `Purchase Order "${updatedPO.id_po}" has been updated`,
+      });
+    },
+    onError: (error) => {
+      console.log(error);
+      toast({
+        variant: 'destructive',
+        title: 'Error',
+        description: 'Failed to update purchase order. Please try again.',
+      });
+    },
+  });
+
   return {
     createMutation,
     deleteMutation,
+    updateMutation,
   };
 };

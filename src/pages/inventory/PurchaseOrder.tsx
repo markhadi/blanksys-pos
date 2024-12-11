@@ -35,6 +35,8 @@ export const PurchaseOrder = () => {
         : undefined,
   });
 
+  const tableData = Array.isArray(purchaseOrders) ? purchaseOrders : [];
+
   const handleSearch = () => {
     setSearchQuery(searchValue);
   };
@@ -73,9 +75,9 @@ export const PurchaseOrder = () => {
       />
 
       <TablePurchaseOrder
-        data={purchaseOrders}
+        data={tableData}
         isLoading={isLoading}
-        onEdit={() => {}}
+        onEdit={(po) => navigate(`/purchase-order/edit/${po.id_po}`)}
         onDelete={openDeleteDialog}
         onView={() => {}}
         sorting={sorting}

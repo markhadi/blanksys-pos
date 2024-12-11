@@ -12,8 +12,17 @@ export const PurchaseOrderService = {
     status,
     created_by,
     sorting,
-  }: PurchaseOrderSearchParams = {}): Promise<PurchaseOrderTableRow[]> => {
+    id_po,
+  }: PurchaseOrderSearchParams = {}): Promise<
+    PurchaseOrderTableRow[] | PurchaseOrder
+  > => {
     await new Promise((resolve) => setTimeout(resolve, 500));
+
+    if (id_po) {
+      return purchaseOrderData.find(
+        (po) => po.id_po === id_po
+      ) as PurchaseOrder;
+    }
 
     let purchaseOrders = [...purchaseOrderData] as PurchaseOrder[];
 
@@ -75,6 +84,15 @@ export const PurchaseOrderService = {
 
     const deletedPO = purchaseOrderData[index] as PurchaseOrder;
     purchaseOrderData.splice(index, 1);
+    console.log(deletedPO);
     return deletedPO;
+  },
+
+  updatePurchaseOrder: async (data: PurchaseOrder): Promise<PurchaseOrder> => {
+    await new Promise((resolve) => setTimeout(resolve, 500));
+    const index = purchaseOrderData.findIndex((po) => po.id_po === data.id_po);
+    if (index === -1) throw new Error('Purchase order not found');
+    purchaseOrderData[index] = data;
+    return data;
   },
 };
