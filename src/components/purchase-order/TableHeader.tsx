@@ -29,9 +29,13 @@ export const CreatedByHeader = ({
   column: Column<PurchaseOrderTableRow>;
   onCreatorFilter: (creators: string[]) => void;
 }) => {
-  const { data: statuses = [] } = usePurchaseOrders({});
+  const { data: purchaseOrders = [] } = usePurchaseOrders({});
   const uniqueCreators = Array.from(
-    new Set(statuses.map((po) => po.created_by))
+    new Set(
+      Array.isArray(purchaseOrders)
+        ? purchaseOrders.map((po) => po.created_by)
+        : []
+    )
   );
 
   return (
@@ -53,8 +57,14 @@ export const StatusHeader = ({
   column: Column<PurchaseOrderTableRow>;
   onStatusFilter: (statuses: string[]) => void;
 }) => {
-  const { data: statuses = [] } = usePurchaseOrders({});
-  const uniqueStatuses = Array.from(new Set(statuses.map((po) => po.status)));
+  const { data: purchaseOrders = [] } = usePurchaseOrders({});
+  const uniqueStatuses = Array.from(
+    new Set(
+      Array.isArray(purchaseOrders)
+        ? (purchaseOrders.map((po) => po.status) as string[])
+        : []
+    )
+  );
 
   return (
     <div className="min-w-56 flex-shrink-0 flex items-center gap-2">

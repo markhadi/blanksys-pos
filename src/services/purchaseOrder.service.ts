@@ -51,7 +51,7 @@ export const PurchaseOrderService = {
     }
 
     // Convert to table format
-    let tableRows = purchaseOrders.map(toPurchaseOrderTableRow);
+    const tableRows = purchaseOrders.map(toPurchaseOrderTableRow);
 
     // Apply sorting
     if (sorting) {
