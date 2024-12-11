@@ -70,7 +70,10 @@ export const PurchaseOrder = () => {
         }}
         actionButton={{
           label: 'New Item Request',
-          onClick: () => navigate('/purchase-order/create-po'),
+          onClick: () => {
+            localStorage.removeItem('purchaseOrderItems');
+            navigate('/purchase-order/create-po');
+          },
         }}
       />
 
