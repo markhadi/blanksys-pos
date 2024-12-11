@@ -1,5 +1,8 @@
 import { TablePurchaseOrder } from '@/components/purchase-order/Table';
 import { ActionHeader } from '@/components/ui/ActionHeader';
+import { DeleteConfirmationDialog } from '@/components/ui/DeleteConfirmationDialog';
+import { usePurchaseOrderDialogs } from '@/hooks/purchase-order/useDialogs';
+import { usePurchaseOrderMutations } from '@/hooks/purchase-order/useMutations';
 import { usePurchaseOrders } from '@/hooks/purchase-order/usePurchaseOrder';
 import {
   PurchaseOrderStatus,
@@ -44,6 +47,17 @@ export const PurchaseOrder = () => {
     setSelectedCreators(creators);
   };
 
+  const { deleteDialog, openDeleteDialog, closeDeleteDialog } =
+    usePurchaseOrderDialogs();
+  const { deleteMutation } = usePurchaseOrderMutations();
+
+  const handleConfirmDelete = () => {
+    if (deleteDialog.purchaseOrder?.id_po) {
+      deleteMutation.mutate(deleteDialog.purchaseOrder.id_po);
+      closeDeleteDialog();
+    }
+  };
+
   return (
     <div className="flex-grow">
       <ActionHeader
@@ -62,12 +76,20 @@ export const PurchaseOrder = () => {
         data={purchaseOrders}
         isLoading={isLoading}
         onEdit={() => {}}
-        onDelete={() => {}}
+        onDelete={openDeleteDialog}
         onView={() => {}}
         sorting={sorting}
         onSortingChange={setSorting}
         onStatusFilter={handleStatusFilter}
         onCreatorFilter={handleCreatorFilter}
+      />
+
+      <DeleteConfirmationDialog
+        open={deleteDialog.open}
+        onOpenChange={closeDeleteDialog}
+        onConfirm={handleConfirmDelete}
+        itemName={deleteDialog.purchaseOrder?.id_po || ''}
+        isLoading={deleteMutation.isPending}
       />
     </div>
   );

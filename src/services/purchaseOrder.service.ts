@@ -64,4 +64,17 @@ export const PurchaseOrderService = {
     purchaseOrderData.push(data);
     return data;
   },
+
+  deletePurchaseOrder: async (id: string): Promise<PurchaseOrder> => {
+    await new Promise((resolve) => setTimeout(resolve, 500));
+
+    const index = purchaseOrderData.findIndex((po) => po.id_po === id);
+    if (index === -1) {
+      throw new Error('Purchase order not found');
+    }
+
+    const deletedPO = purchaseOrderData[index] as PurchaseOrder;
+    purchaseOrderData.splice(index, 1);
+    return deletedPO;
+  },
 };

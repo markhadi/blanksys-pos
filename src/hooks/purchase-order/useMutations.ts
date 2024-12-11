@@ -25,5 +25,27 @@ export const usePurchaseOrderMutations = () => {
     },
   });
 
-  return { createMutation };
+  const deleteMutation = useMutation({
+    mutationFn: PurchaseOrderService.deletePurchaseOrder,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['purchaseOrders'] });
+      toast({
+        title: 'Success',
+        description: 'Purchase order deleted successfully.',
+      });
+    },
+    onError: (error) => {
+      console.log(error);
+      toast({
+        variant: 'destructive',
+        title: 'Error',
+        description: 'Failed to delete purchase order. Please try again.',
+      });
+    },
+  });
+
+  return {
+    createMutation,
+    deleteMutation,
+  };
 };
