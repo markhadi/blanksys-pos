@@ -1,3 +1,4 @@
+import { DetailPurchaseOrder } from '@/components/purchase-order/DetailPurchaseOrder';
 import { TablePurchaseOrder } from '@/components/purchase-order/Table';
 import { ActionHeader } from '@/components/ui/ActionHeader';
 import { DeleteConfirmationDialog } from '@/components/ui/DeleteConfirmationDialog';
@@ -21,6 +22,10 @@ export const PurchaseOrder = () => {
     PurchaseOrderStatus[]
   >([]);
   const [selectedCreators, setSelectedCreators] = useState<string[]>([]);
+  const [detailDialog, setDetailDialog] = useState<{
+    open: boolean;
+    purchaseOrder: PurchaseOrderTableRow | null;
+  }>({ open: false, purchaseOrder: null });
 
   const { data: purchaseOrders = [], isLoading } = usePurchaseOrders({
     search: searchQuery,
@@ -60,6 +65,14 @@ export const PurchaseOrder = () => {
     }
   };
 
+  const openDetailDialog = (po: PurchaseOrderTableRow) => {
+    setDetailDialog({ open: true, purchaseOrder: po });
+  };
+
+  const closeDetailDialog = () => {
+    setDetailDialog({ open: false, purchaseOrder: null });
+  };
+
   return (
     <div className="flex-grow">
       <ActionHeader
@@ -82,7 +95,7 @@ export const PurchaseOrder = () => {
         isLoading={isLoading}
         onEdit={(po) => navigate(`/purchase-order/edit/${po.id_po}`)}
         onDelete={openDeleteDialog}
-        onView={() => {}}
+        onView={openDetailDialog}
         sorting={sorting}
         onSortingChange={setSorting}
         onStatusFilter={handleStatusFilter}
@@ -95,6 +108,12 @@ export const PurchaseOrder = () => {
         onConfirm={handleConfirmDelete}
         itemName={deleteDialog.purchaseOrder?.id_po || ''}
         isLoading={deleteMutation.isPending}
+      />
+
+      <DetailPurchaseOrder
+        open={detailDialog.open}
+        onClose={closeDetailDialog}
+        purchaseOrder={detailDialog.purchaseOrder}
       />
     </div>
   );

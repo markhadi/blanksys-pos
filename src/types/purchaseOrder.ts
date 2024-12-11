@@ -25,6 +25,7 @@ export interface PurchaseOrder {
 export interface PurchaseOrderTableRow {
   id_po: string;
   id_supplier: number;
+  supplierName?: string;
   date: string;
   created_by: string;
   status: PurchaseOrderStatus;
