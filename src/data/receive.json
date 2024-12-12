@@ -1,0 +1,742 @@
+[
+  {
+    "id_receive": "RCV-000001",
+    "id_po": "PO-000001",
+    "date": "31/12/2024",
+    "id_supplier": 1,
+    "supplier_name": "PT Indofood Sukses Makmur",
+    "receive_by": "John Warehouse",
+    "items": [
+      {
+        "id_item": "ITEM-2411301148",
+        "item_name": "Indomie Goreng",
+        "category": "Food",
+        "brand": "Indomie",
+        "qty_order": 100,
+        "qty_receive": 80,
+        "units": "pcs",
+        "amount": 80,
+        "price_cut": 0,
+        "discount": 0,
+        "capital_price": 0.25,
+        "subtotal": 20.0,
+        "status": "Partial"
+      },
+      {
+        "id_item": "ITEM-2411301149",
+        "item_name": "Aqua 600ml",
+        "category": "Beverage",
+        "brand": "Aqua",
+        "qty_order": 200,
+        "qty_receive": 200,
+        "units": "bottle",
+        "amount": 200,
+        "price_cut": 0,
+        "discount": 2,
+        "capital_price": 0.2,
+        "subtotal": 39.2,
+        "status": "Complete"
+      },
+      {
+        "id_item": "ITEM-2411301150",
+        "item_name": "Sprite 1L",
+        "category": "Beverage",
+        "brand": "Sprite",
+        "qty_order": 50,
+        "qty_receive": 40,
+        "units": "bottle",
+        "amount": 40,
+        "price_cut": 0,
+        "discount": 0,
+        "capital_price": 0.9,
+        "subtotal": 36.0,
+        "status": "Partial"
+      }
+    ]
+  },
+  {
+    "id_receive": "RCV-000002",
+    "id_po": "PO-000002",
+    "date": "30/12/2024",
+    "id_supplier": 2,
+    "supplier_name": "PT Mayora Indah",
+    "receive_by": "Sarah Stock",
+    "items": [
+      {
+        "id_item": "ITEM-2411301151",
+        "item_name": "Tango Wafer Coklat",
+        "category": "Snack",
+        "brand": "Tango",
+        "qty_order": 120,
+        "qty_receive": 120,
+        "units": "pcs",
+        "amount": 120,
+        "price_cut": 0,
+        "discount": 5,
+        "capital_price": 0.35,
+        "subtotal": 39.9,
+        "status": "Complete"
+      }
+    ]
+  },
+  {
+    "id_receive": "RCV-000003",
+    "id_po": "PO-000003",
+    "date": "29/12/2024",
+    "id_supplier": 3,
+    "supplier_name": "PT Unilever Indonesia",
+    "receive_by": "Mike Handler",
+    "items": [
+      {
+        "id_item": "ITEM-2411301154",
+        "item_name": "MamyPoko Pants M34",
+        "category": "Baby Care",
+        "brand": "MamyPoko",
+        "qty_order": 40,
+        "qty_receive": 30,
+        "units": "pack",
+        "amount": 30,
+        "price_cut": 0,
+        "discount": 3,
+        "capital_price": 15.0,
+        "subtotal": 436.5,
+        "status": "Partial"
+      },
+      {
+        "id_item": "ITEM-2411301155",
+        "item_name": "Frisian Flag Susu Kental Manis",
+        "category": "Dairy",
+        "brand": "Frisian Flag",
+        "qty_order": 100,
+        "qty_receive": 100,
+        "units": "can",
+        "amount": 100,
+        "price_cut": 0,
+        "discount": 5,
+        "capital_price": 0.8,
+        "subtotal": 76.0,
+        "status": "Complete"
+      }
+    ]
+  },
+  {
+    "id_receive": "RCV-000004",
+    "id_po": "PO-000004",
+    "date": "28/12/2024",
+    "id_supplier": 6,
+    "supplier_name": "PT ABC Food Industry",
+    "receive_by": "Lisa Storage",
+    "items": [
+      {
+        "id_item": "ITEM-2411301156",
+        "item_name": "Bango Kecap Manis 220ml",
+        "category": "Condiments",
+        "brand": "Bango",
+        "qty_order": 120,
+        "qty_receive": 100,
+        "units": "bottle",
+        "amount": 100,
+        "price_cut": 0,
+        "discount": 2,
+        "capital_price": 1.2,
+        "subtotal": 117.6,
+        "status": "Partial"
+      },
+      {
+        "id_item": "ITEM-2411301157",
+        "item_name": "Samsung Charger Original",
+        "category": "Electronics",
+        "brand": "Samsung",
+        "qty_order": 50,
+        "qty_receive": 50,
+        "units": "pcs",
+        "amount": 50,
+        "price_cut": 0,
+        "discount": 5,
+        "capital_price": 7.5,
+        "subtotal": 356.25,
+        "status": "Complete"
+      }
+    ]
+  },
+  {
+    "id_receive": "RCV-000005",
+    "id_po": "PO-000005",
+    "date": "27/12/2024",
+    "id_supplier": 7,
+    "supplier_name": "PT Sari Roti",
+    "receive_by": "Tom Receiver",
+    "items": [
+      {
+        "id_item": "ITEM-2411301159",
+        "item_name": "Roti Tawar Sari Roti",
+        "category": "Bread",
+        "brand": "Sari Roti",
+        "qty_order": 60,
+        "qty_receive": 60,
+        "units": "pack",
+        "amount": 60,
+        "price_cut": 0,
+        "discount": 3,
+        "capital_price": 1.2,
+        "subtotal": 69.84,
+        "status": "Complete"
+      },
+      {
+        "id_item": "ITEM-2411301160",
+        "item_name": "Oreo Sandwich Coklat",
+        "category": "Snack",
+        "brand": "Oreo",
+        "qty_order": 200,
+        "qty_receive": 200,
+        "units": "pack",
+        "amount": 200,
+        "price_cut": 0,
+        "discount": 4,
+        "capital_price": 0.6,
+        "subtotal": 115.2,
+        "status": "Complete"
+      }
+    ]
+  },
+  {
+    "id_receive": "RCV-000006",
+    "id_po": "PO-000006",
+    "date": "26/12/2024",
+    "id_supplier": 8,
+    "supplier_name": "PT Frozen Food Nusantara",
+    "receive_by": "Andy Warehouse",
+    "items": [
+      {
+        "id_item": "ITEM-2412010001",
+        "item_name": "Nugget Ayam So Good 500g",
+        "category": "Frozen Food",
+        "brand": "So Good",
+        "qty_order": 80,
+        "qty_receive": 60,
+        "units": "pack",
+        "amount": 60,
+        "price_cut": 0,
+        "discount": 5,
+        "capital_price": 3.5,
+        "subtotal": 199.5,
+        "status": "Partial"
+      },
+      {
+        "id_item": "ITEM-2412010002",
+        "item_name": "Garuda Kacang Kulit 500g",
+        "category": "Snack",
+        "brand": "Garuda",
+        "qty_order": 100,
+        "qty_receive": 100,
+        "units": "pack",
+        "amount": 100,
+        "price_cut": 0,
+        "discount": 2,
+        "capital_price": 1.5,
+        "subtotal": 147.0,
+        "status": "Complete"
+      }
+    ]
+  },
+  {
+    "id_receive": "RCV-000007",
+    "id_po": "PO-000007",
+    "date": "25/12/2024",
+    "id_supplier": 9,
+    "supplier_name": "PT Canned Food Industries",
+    "receive_by": "Peter Stock",
+    "items": [
+      {
+        "id_item": "ITEM-2412010004",
+        "item_name": "Kaleng Ikan ABC 425g",
+        "category": "Canned Food",
+        "brand": "ABC",
+        "qty_order": 120,
+        "qty_receive": 120,
+        "units": "can",
+        "amount": 120,
+        "price_cut": 0,
+        "discount": 3,
+        "capital_price": 1.8,
+        "subtotal": 209.52,
+        "status": "Complete"
+      },
+      {
+        "id_item": "ITEM-2412010005",
+        "item_name": "Panasonic Baterai AAA",
+        "category": "Electronics",
+        "brand": "Panasonic",
+        "qty_order": 200,
+        "qty_receive": 200,
+        "units": "pack",
+        "amount": 200,
+        "price_cut": 0,
+        "discount": 5,
+        "capital_price": 1.2,
+        "subtotal": 228.0,
+        "status": "Complete"
+      }
+    ]
+  },
+  {
+    "id_receive": "RCV-000008",
+    "id_po": "PO-000008",
+    "date": "24/12/2024",
+    "id_supplier": 10,
+    "supplier_name": "PT Beverage Solutions",
+    "receive_by": "Mary Handler",
+    "items": [
+      {
+        "id_item": "ITEM-2412010006",
+        "item_name": "Sari Buah Marjan",
+        "category": "Beverage",
+        "brand": "Marjan",
+        "qty_order": 150,
+        "qty_receive": 120,
+        "units": "bottle",
+        "amount": 120,
+        "price_cut": 0,
+        "discount": 4,
+        "capital_price": 2.3,
+        "subtotal": 264.96,
+        "status": "Partial"
+      },
+      {
+        "id_item": "ITEM-2411301148",
+        "item_name": "Indomie Goreng",
+        "category": "Food",
+        "brand": "Indomie",
+        "qty_order": 300,
+        "qty_receive": 300,
+        "units": "pcs",
+        "amount": 300,
+        "price_cut": 0,
+        "discount": 5,
+        "capital_price": 0.25,
+        "subtotal": 71.25,
+        "status": "Complete"
+      }
+    ]
+  },
+  {
+    "id_receive": "RCV-000009",
+    "id_po": "PO-000009",
+    "date": "23/12/2024",
+    "id_supplier": 11,
+    "supplier_name": "PT Multi Beverage",
+    "receive_by": "James Warehouse",
+    "items": [
+      {
+        "id_item": "ITEM-2411301149",
+        "item_name": "Aqua 600ml",
+        "category": "Beverage",
+        "brand": "Aqua",
+        "qty_order": 400,
+        "qty_receive": 400,
+        "units": "bottle",
+        "amount": 400,
+        "price_cut": 0,
+        "discount": 6,
+        "capital_price": 0.2,
+        "subtotal": 75.2,
+        "status": "Complete"
+      },
+      {
+        "id_item": "ITEM-2411301150",
+        "item_name": "Sprite 1L",
+        "category": "Beverage",
+        "brand": "Sprite",
+        "qty_order": 100,
+        "qty_receive": 100,
+        "units": "bottle",
+        "amount": 100,
+        "price_cut": 0,
+        "discount": 3,
+        "capital_price": 0.9,
+        "subtotal": 87.3,
+        "status": "Complete"
+      }
+    ]
+  },
+  {
+    "id_receive": "RCV-000010",
+    "id_po": "PO-000010",
+    "date": "22/12/2024",
+    "id_supplier": 12,
+    "supplier_name": "PT Consumer Goods",
+    "receive_by": "David Stock",
+    "items": [
+      {
+        "id_item": "ITEM-2411301152",
+        "item_name": "Teh Botol Sosro 250ml",
+        "category": "Beverage",
+        "brand": "Sosro",
+        "qty_order": 300,
+        "qty_receive": 250,
+        "units": "bottle",
+        "amount": 250,
+        "price_cut": 0,
+        "discount": 4,
+        "capital_price": 0.4,
+        "subtotal": 96.0,
+        "status": "Partial"
+      },
+      {
+        "id_item": "ITEM-2411301153",
+        "item_name": "Lifebuoy Sabun Cair 250ml",
+        "category": "Personal Care",
+        "brand": "Lifebuoy",
+        "qty_order": 150,
+        "qty_receive": 150,
+        "units": "bottle",
+        "amount": 150,
+        "price_cut": 0,
+        "discount": 5,
+        "capital_price": 1.5,
+        "subtotal": 213.75,
+        "status": "Complete"
+      }
+    ]
+  },
+  {
+    "id_receive": "RCV-000011",
+    "id_po": "PO-000011",
+    "date": "21/12/2024",
+    "id_supplier": 13,
+    "supplier_name": "PT Dairy Products",
+    "receive_by": "Emma Handler",
+    "items": [
+      {
+        "id_item": "ITEM-2411301155",
+        "item_name": "Frisian Flag Susu Kental Manis",
+        "category": "Dairy",
+        "brand": "Frisian Flag",
+        "qty_order": 200,
+        "qty_receive": 200,
+        "units": "can",
+        "amount": 200,
+        "price_cut": 0,
+        "discount": 4,
+        "capital_price": 0.8,
+        "subtotal": 153.6,
+        "status": "Complete"
+      }
+    ]
+  },
+  {
+    "id_receive": "RCV-000012",
+    "id_po": "PO-000012",
+    "date": "20/12/2024",
+    "id_supplier": 14,
+    "supplier_name": "PT Electronics Supply",
+    "receive_by": "Robert Stock",
+    "items": [
+      {
+        "id_item": "ITEM-2411301157",
+        "item_name": "Samsung Charger Original",
+        "category": "Electronics",
+        "brand": "Samsung",
+        "qty_order": 75,
+        "qty_receive": 60,
+        "units": "pcs",
+        "amount": 60,
+        "price_cut": 0,
+        "discount": 3,
+        "capital_price": 7.5,
+        "subtotal": 435.75,
+        "status": "Partial"
+      }
+    ]
+  },
+  {
+    "id_receive": "RCV-000013",
+    "id_po": "PO-000013",
+    "date": "19/12/2024",
+    "id_supplier": 15,
+    "supplier_name": "PT Snack Foods",
+    "receive_by": "Alice Warehouse",
+    "items": [
+      {
+        "id_item": "ITEM-2411301160",
+        "item_name": "Oreo Sandwich Coklat",
+        "category": "Snack",
+        "brand": "Oreo",
+        "qty_order": 350,
+        "qty_receive": 350,
+        "units": "pack",
+        "amount": 350,
+        "price_cut": 0,
+        "discount": 5,
+        "capital_price": 0.6,
+        "subtotal": 199.5,
+        "status": "Complete"
+      },
+      {
+        "id_item": "ITEM-2412010000",
+        "item_name": "So Klin Liquid 1.8L",
+        "category": "Household",
+        "brand": "So Klin",
+        "qty_order": 60,
+        "qty_receive": 60,
+        "units": "bottle",
+        "amount": 60,
+        "price_cut": 0,
+        "discount": 3,
+        "capital_price": 2.8,
+        "subtotal": 162.96,
+        "status": "Complete"
+      }
+    ]
+  },
+  {
+    "id_receive": "RCV-000014",
+    "id_po": "PO-000014",
+    "date": "18/12/2024",
+    "id_supplier": 1,
+    "supplier_name": "PT Indofood Sukses Makmur",
+    "receive_by": "Brian Handler",
+    "items": [
+      {
+        "id_item": "ITEM-2412010002",
+        "item_name": "Garuda Kacang Kulit 500g",
+        "category": "Snack",
+        "brand": "Garuda",
+        "qty_order": 150,
+        "qty_receive": 120,
+        "units": "pack",
+        "amount": 120,
+        "price_cut": 0,
+        "discount": 4,
+        "capital_price": 1.5,
+        "subtotal": 172.8,
+        "status": "Partial"
+      }
+    ]
+  },
+  {
+    "id_receive": "RCV-000015",
+    "id_po": "PO-000015",
+    "date": "17/12/2024",
+    "id_supplier": 2,
+    "supplier_name": "PT Mayora Indah",
+    "receive_by": "Charlie Stock",
+    "items": [
+      {
+        "id_item": "ITEM-2412010004",
+        "item_name": "Kaleng Ikan ABC 425g",
+        "category": "Canned Food",
+        "brand": "ABC",
+        "qty_order": 160,
+        "qty_receive": 160,
+        "units": "can",
+        "amount": 160,
+        "price_cut": 0,
+        "discount": 5,
+        "capital_price": 1.8,
+        "subtotal": 273.6,
+        "status": "Complete"
+      },
+      {
+        "id_item": "ITEM-2412010005",
+        "item_name": "Panasonic Baterai AAA",
+        "category": "Electronics",
+        "brand": "Panasonic",
+        "qty_order": 250,
+        "qty_receive": 250,
+        "units": "pack",
+        "amount": 250,
+        "price_cut": 0,
+        "discount": 6,
+        "capital_price": 1.2,
+        "subtotal": 282.0,
+        "status": "Complete"
+      }
+    ]
+  },
+  {
+    "id_receive": "RCV-000016",
+    "id_po": "PO-000016",
+    "date": "16/12/2024",
+    "id_supplier": 3,
+    "supplier_name": "PT Unilever Indonesia",
+    "receive_by": "Diana Handler",
+    "items": [
+      {
+        "id_item": "ITEM-2411301148",
+        "item_name": "Indomie Goreng",
+        "category": "Food",
+        "brand": "Indomie",
+        "qty_order": 500,
+        "qty_receive": 400,
+        "units": "pcs",
+        "amount": 400,
+        "price_cut": 0,
+        "discount": 5,
+        "capital_price": 0.25,
+        "subtotal": 95.0,
+        "status": "Partial"
+      },
+      {
+        "id_item": "ITEM-2411301149",
+        "item_name": "Aqua 600ml",
+        "category": "Beverage",
+        "brand": "Aqua",
+        "qty_order": 600,
+        "qty_receive": 600,
+        "units": "bottle",
+        "amount": 600,
+        "price_cut": 0,
+        "discount": 7,
+        "capital_price": 0.2,
+        "subtotal": 111.6,
+        "status": "Complete"
+      }
+    ]
+  },
+  {
+    "id_receive": "RCV-000017",
+    "id_po": "PO-000017",
+    "date": "15/12/2024",
+    "id_supplier": 4,
+    "supplier_name": "PT Wings Food",
+    "receive_by": "Frank Stock",
+    "items": [
+      {
+        "id_item": "ITEM-2411301151",
+        "item_name": "Tango Wafer Coklat",
+        "category": "Snack",
+        "brand": "Tango",
+        "qty_order": 300,
+        "qty_receive": 300,
+        "units": "pcs",
+        "amount": 300,
+        "price_cut": 0,
+        "discount": 6,
+        "capital_price": 0.35,
+        "subtotal": 98.7,
+        "status": "Complete"
+      },
+      {
+        "id_item": "ITEM-2411301152",
+        "item_name": "Teh Botol Sosro 250ml",
+        "category": "Beverage",
+        "brand": "Sosro",
+        "qty_order": 400,
+        "qty_receive": 400,
+        "units": "bottle",
+        "amount": 400,
+        "price_cut": 0,
+        "discount": 5,
+        "capital_price": 0.4,
+        "subtotal": 152.0,
+        "status": "Complete"
+      }
+    ]
+  },
+  {
+    "id_receive": "RCV-000018",
+    "id_po": "PO-000018",
+    "date": "14/12/2024",
+    "id_supplier": 5,
+    "supplier_name": "PT Nestle Indonesia",
+    "receive_by": "George Warehouse",
+    "items": [
+      {
+        "id_item": "ITEM-2411301154",
+        "item_name": "MamyPoko Pants M34",
+        "category": "Baby Care",
+        "brand": "MamyPoko",
+        "qty_order": 100,
+        "qty_receive": 80,
+        "units": "pack",
+        "amount": 80,
+        "price_cut": 0,
+        "discount": 4,
+        "capital_price": 15.0,
+        "subtotal": 1152.0,
+        "status": "Partial"
+      }
+    ]
+  },
+  {
+    "id_receive": "RCV-000019",
+    "id_po": "PO-000019",
+    "date": "13/12/2024",
+    "id_supplier": 4,
+    "supplier_name": "PT Wings Food",
+    "receive_by": "Helen Handler",
+    "items": [
+      {
+        "id_item": "ITEM-2411301156",
+        "item_name": "Bango Kecap Manis 220ml",
+        "category": "Condiments",
+        "brand": "Bango",
+        "qty_order": 200,
+        "qty_receive": 200,
+        "units": "bottle",
+        "amount": 200,
+        "price_cut": 0,
+        "discount": 5,
+        "capital_price": 1.2,
+        "subtotal": 228.0,
+        "status": "Complete"
+      },
+      {
+        "id_item": "ITEM-2411301157",
+        "item_name": "Samsung Charger Original",
+        "category": "Electronics",
+        "brand": "Samsung",
+        "qty_order": 40,
+        "qty_receive": 40,
+        "units": "pcs",
+        "amount": 40,
+        "price_cut": 0,
+        "discount": 3,
+        "capital_price": 7.5,
+        "subtotal": 291.0,
+        "status": "Complete"
+      }
+    ]
+  },
+  {
+    "id_receive": "RCV-000020",
+    "id_po": "PO-000020",
+    "date": "12/12/2024",
+    "id_supplier": 5,
+    "supplier_name": "PT Nestle Indonesia",
+    "receive_by": "Ian Stock",
+    "items": [
+      {
+        "id_item": "ITEM-2411301159",
+        "item_name": "Roti Tawar Sari Roti",
+        "category": "Bread",
+        "brand": "Sari Roti",
+        "qty_order": 180,
+        "qty_receive": 150,
+        "units": "pack",
+        "amount": 150,
+        "price_cut": 0,
+        "discount": 4,
+        "capital_price": 1.2,
+        "subtotal": 172.8,
+        "status": "Partial"
+      },
+      {
+        "id_item": "ITEM-2411301160",
+        "item_name": "Oreo Sandwich Coklat",
+        "category": "Snack",
+        "brand": "Oreo",
+        "qty_order": 400,
+        "qty_receive": 400,
+        "units": "pack",
+        "amount": 400,
+        "price_cut": 0,
+        "discount": 6,
+        "capital_price": 0.6,
+        "subtotal": 225.6,
+        "status": "Complete"
+      }
+    ]
+  }
+]
