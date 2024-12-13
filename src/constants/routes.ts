@@ -22,6 +22,8 @@ export const ROUTES = {
     EDIT_PURCHASE_ORDER: '/purchase-order/edit/:id',
     SUPPLIER: '/supplier',
     RECEIVE: '/receive',
+    CREATE_RECEIVE: '/receive/create',
+    EDIT_RECEIVE: '/receive/edit/:id',
     ISSUED: '/issued',
   },
   SETTINGS: {
