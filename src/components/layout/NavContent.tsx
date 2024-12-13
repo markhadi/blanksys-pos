@@ -18,6 +18,10 @@ export const NavContent = ({ location, onItemClick }: NavContentProps) => {
       return true;
     }
 
+    if (itemPath === '/receive' && currentPath.startsWith('/receive')) {
+      return true;
+    }
+
     if (itemPath === currentPath) return true;
 
     if (itemPath !== '/' && currentPath.startsWith(itemPath)) {
