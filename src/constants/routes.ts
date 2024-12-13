@@ -25,6 +25,8 @@ export const ROUTES = {
     CREATE_RECEIVE: '/receive/create',
     EDIT_RECEIVE: '/receive/edit/:id',
     ISSUED: '/issued',
+    CREATE_ISSUED: '/issued/create',
+    EDIT_ISSUED: '/issued/edit/:id',
   },
   SETTINGS: {
     USER_MANAGER: '/user-manager',

@@ -16,6 +16,7 @@ const routeTitles: Record<string, string> = {
   [ROUTES.INVENTORY.RECEIVE]: 'Receive',
   [ROUTES.INVENTORY.CREATE_RECEIVE]: 'Receive',
   [ROUTES.INVENTORY.ISSUED]: 'Issued',
+  [ROUTES.INVENTORY.CREATE_ISSUED]: 'Issued',
   [ROUTES.SETTINGS.USER_MANAGER]: 'User Manager',
 };
 

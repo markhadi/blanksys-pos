@@ -25,7 +25,12 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from '@/hooks/use-toast';
 import { usePurchaseOrders } from '@/hooks/purchase-order/usePurchaseOrder';
 import { useReceiveMutations } from '@/hooks/receive/useMutations';
-import { Receive, ReceiveItem, TableReceiveItemProps } from '@/types/receive';
+import {
+  Receive,
+  ReceiveItem,
+  ReceiveStatus,
+  TableReceiveItemProps,
+} from '@/types/receive';
 import { useUnits } from '@/hooks/unit/useUnit';
 import {
   Dialog,
@@ -256,6 +261,7 @@ const addItemSchema = z.object({
   unit: z.string().min(1, 'Unit is required'),
   price_cut: z.string().optional(),
   discount: z.string().optional(),
+  status: z.string().min(1, 'Status is required'),
 });
 
 type AddItemFormValues = z.infer<typeof addItemSchema>;
@@ -301,6 +307,7 @@ const ItemDialog = ({
       discount: defaultValues?.discount?.toString() || '0',
       category: defaultValues?.category || '',
       brand: defaultValues?.brand || '',
+      status: defaultValues?.status || '',
     },
   });
 
@@ -314,6 +321,7 @@ const ItemDialog = ({
         discount: defaultValues.discount?.toString() || '0',
         category: defaultValues.category || '',
         brand: defaultValues.brand || '',
+        status: defaultValues.status || '',
       });
       setSelectedCategory(defaultValues.category || '');
       setSelectedBrand(defaultValues.brand || '');
@@ -364,10 +372,7 @@ const ItemDialog = ({
           (selectedItemData.price - Number(values.price_cut || 0)) *
           Number(values.qty_receive) *
           (1 - Number(values.discount || 0) / 100),
-        status:
-          Number(values.qty_receive) >= selectedItemData.qty_order
-            ? 'Complete'
-            : 'Partial',
+        status: values.status as ReceiveStatus,
       };
 
       console.log('New Item:', newItem);
@@ -379,6 +384,13 @@ const ItemDialog = ({
       console.error('Error constructing new item:', error);
     }
   };
+
+  const receiveStatuses = [
+    { value: 'Complete', label: 'Complete', color: 'text-green-600' },
+    { value: 'Partial', label: 'Partial', color: 'text-yellow-600' },
+    { value: 'Outstanding', label: 'Outstanding', color: 'text-blue-600' },
+    { value: 'Cancel', label: 'Cancel', color: 'text-red-600' },
+  ];
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
@@ -466,20 +478,39 @@ const ItemDialog = ({
             <FormField
               control={form.control}
               name="qty_receive"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Quantity Received</FormLabel>
-                  <FormControl>
-                    <Input
-                      type="number"
-                      {...field}
-                      value={field.value || ''}
-                      onChange={(e) => field.onChange(e.target.value)}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+              render={({ field }) => {
+                const selectedItem = poItems.find(
+                  (item) => item.id_item === form.watch('id_item')
+                );
+                const maxQty = selectedItem?.qty_order || 0;
+
+                return (
+                  <FormItem>
+                    <FormLabel>Quantity Received</FormLabel>
+                    <div className="space-y-1">
+                      <FormControl>
+                        <Input
+                          type="number"
+                          min="0"
+                          {...field}
+                          max={maxQty}
+                          value={field.value || ''}
+                          onChange={(e) => {
+                            const value = parseInt(e.target.value);
+                            if (value >= 0 && (!value || value <= maxQty)) {
+                              field.onChange(e.target.value);
+                            }
+                          }}
+                        />
+                      </FormControl>
+                      <p className="text-sm text-muted-foreground">
+                        Max quantity: {maxQty}
+                      </p>
+                    </div>
+                    <FormMessage />
+                  </FormItem>
+                );
+              }}
             />
 
             <FormField
@@ -514,41 +545,124 @@ const ItemDialog = ({
               <FormField
                 control={form.control}
                 name="price_cut"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Price Cut</FormLabel>
-                    <FormControl>
-                      <Input
-                        type="number"
-                        {...field}
-                        value={field.value || ''}
-                        onChange={(e) => field.onChange(e.target.value)}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
+                render={({ field }) => {
+                  const selectedItem = poItems.find(
+                    (item) => item.id_item === form.watch('id_item')
+                  );
+                  const price = selectedItem?.price || 0;
+
+                  return (
+                    <FormItem>
+                      <FormLabel>Price Cut</FormLabel>
+                      <FormControl>
+                        <Input
+                          type="number"
+                          min="0"
+                          step="0.01"
+                          {...field}
+                          value={field.value || ''}
+                          onChange={(e) => {
+                            const priceCut = parseFloat(e.target.value);
+                            if (priceCut >= 0) {
+                              field.onChange(e.target.value);
+                              // Hitung dan update discount
+                              const discountPercentage =
+                                (priceCut / price) * 100;
+                              form.setValue(
+                                'discount',
+                                discountPercentage.toFixed(0)
+                              );
+                            }
+                          }}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  );
+                }}
               />
 
               <FormField
                 control={form.control}
                 name="discount"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Discount (%)</FormLabel>
-                    <FormControl>
-                      <Input
-                        type="number"
-                        {...field}
-                        value={field.value || ''}
-                        onChange={(e) => field.onChange(e.target.value)}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
+                render={({ field }) => {
+                  const selectedItem = poItems.find(
+                    (item) => item.id_item === form.watch('id_item')
+                  );
+                  const price = selectedItem?.price || 0;
+
+                  return (
+                    <FormItem>
+                      <FormLabel>Discount (%)</FormLabel>
+                      <FormControl>
+                        <Input
+                          type="number"
+                          min="0"
+                          max="100"
+                          {...field}
+                          value={field.value || ''}
+                          onChange={(e) => {
+                            const discount = parseInt(e.target.value);
+                            if (discount >= 0 && discount <= 100) {
+                              field.onChange(e.target.value);
+                              // Hitung dan update price cut
+                              const priceCut = (discount / 100) * price;
+                              form.setValue('price_cut', priceCut.toFixed(2));
+                            }
+                          }}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  );
+                }}
               />
             </div>
+
+            <FormField
+              control={form.control}
+              name="status"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Receive Status</FormLabel>
+                  <Select onValueChange={field.onChange} value={field.value}>
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select status">
+                          {field.value && (
+                            <span
+                              className={
+                                receiveStatuses.find(
+                                  (s) => s.value === field.value
+                                )?.color
+                              }
+                            >
+                              {
+                                receiveStatuses.find(
+                                  (s) => s.value === field.value
+                                )?.label
+                              }
+                            </span>
+                          )}
+                        </SelectValue>
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {receiveStatuses.map((status) => (
+                        <SelectItem
+                          key={status.value}
+                          value={status.value}
+                          className={status.color}
+                        >
+                          {status.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
             <div className="flex justify-end gap-2 pt-4">
               <Button type="button" variant="outline" onClick={onClose}>
