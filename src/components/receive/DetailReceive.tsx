@@ -125,7 +125,9 @@ export const DetailReceive = ({
                       <td className="py-2">{item.item_name}</td>
                       <td className="py-2">{item.category}</td>
                       <td className="py-2">{item.brand}</td>
-                      <td className="py-2">{item.qty_receive} pcs</td>
+                      <td className="py-2">
+                        {item.qty_receive} {item.units}
+                      </td>
                       <td className="py-2">
                         $
                         {item.subtotal.toLocaleString('en-US', {

@@ -238,7 +238,7 @@ const ReceiveHeader = ({
 
       <div className="flex gap-2 items-center w-full xl:w-auto">
         <label className="font-bold uppercase text-black text-[18px] min-w-28 lg:min-w-max">
-          Subtotal
+          Ammount
         </label>
         <Input
           value={subtotal.toLocaleString('en-US', {
@@ -530,7 +530,7 @@ const ItemDialog = ({
                     </FormControl>
                     <SelectContent>
                       {units.map((unit) => (
-                        <SelectItem key={unit.id} value={unit.id.toString()}>
+                        <SelectItem key={unit.id} value={unit.unitName}>
                           {unit.unitName}
                         </SelectItem>
                       ))}
@@ -758,13 +758,73 @@ const ItemNameTableHeader = ({ column }: TableHeaderProps) => {
   );
 };
 
+const CategoryTableHeader = ({ column }: TableHeaderProps) => {
+  return (
+    <button
+      className="min-w-60 flex-shrink-0 flex items-center gap-2 justify-between w-full"
+      onClick={() => column.toggleSorting()}
+    >
+      <span>CATEGORY</span>
+      <Icon icon="solar:sort-vertical-linear" className="w-4 h-4" />
+    </button>
+  );
+};
+
+const BrandTableHeader = ({ column }: TableHeaderProps) => {
+  return (
+    <button
+      className="min-w-60 flex-shrink-0 flex items-center gap-2 justify-between w-full"
+      onClick={() => column.toggleSorting()}
+    >
+      <span>BRAND</span>
+      <Icon icon="solar:sort-vertical-linear" className="w-4 h-4" />
+    </button>
+  );
+};
+
+const PriceCutTableHeader = ({ column }: TableHeaderProps) => {
+  return (
+    <button
+      className="min-w-32 flex-shrink-0 flex items-center gap-2 justify-between w-full"
+      onClick={() => column.toggleSorting()}
+    >
+      <span>PRICE CUT</span>
+      <Icon icon="solar:sort-vertical-linear" className="w-4 h-4" />
+    </button>
+  );
+};
+
+const DiscountTableHeader = ({ column }: TableHeaderProps) => {
+  return (
+    <button
+      className="min-w-32 flex-shrink-0 flex items-center gap-2 justify-between w-full"
+      onClick={() => column.toggleSorting()}
+    >
+      <span>DISCOUNT</span>
+      <Icon icon="solar:sort-vertical-linear" className="w-4 h-4" />
+    </button>
+  );
+};
+
 const QtyTableHeader = ({ column }: TableHeaderProps) => {
   return (
     <button
       className="min-w-32 flex-shrink-0 flex items-center gap-2 justify-between w-full"
       onClick={() => column.toggleSorting()}
     >
-      <span>QTY</span>
+      <span>QUANTITY</span>
+      <Icon icon="solar:sort-vertical-linear" className="w-4 h-4" />
+    </button>
+  );
+};
+
+const UnitTableHeader = ({ column }: TableHeaderProps) => {
+  return (
+    <button
+      className="min-w-32 flex-shrink-0 flex items-center gap-2 justify-between w-full"
+      onClick={() => column.toggleSorting()}
+    >
+      <span>UNIT</span>
       <Icon icon="solar:sort-vertical-linear" className="w-4 h-4" />
     </button>
   );
@@ -776,7 +836,7 @@ const PriceTableHeader = ({ column }: TableHeaderProps) => {
       className="min-w-48 flex-shrink-0 flex items-center gap-2 justify-between w-full"
       onClick={() => column.toggleSorting()}
     >
-      <span>PRICE</span>
+      <span>CAPITAL PRICE</span>
       <Icon icon="solar:sort-vertical-linear" className="w-4 h-4" />
     </button>
   );
@@ -788,16 +848,62 @@ const TotalTableHeader = ({ column }: TableHeaderProps) => {
       className="min-w-48 flex-shrink-0 flex items-center gap-2 justify-between w-full"
       onClick={() => column.toggleSorting()}
     >
-      <span>TOTAL</span>
+      <span>SUBTOTAL</span>
       <Icon icon="solar:sort-vertical-linear" className="w-4 h-4" />
     </button>
   );
 };
 
+const StatusTableHeader = ({ column }: TableHeaderProps) => {
+  return (
+    <button
+      className="min-w-32 flex-shrink-0 flex items-center gap-2 justify-between w-full"
+      onClick={() => column.toggleSorting()}
+    >
+      <span>STATUS</span>
+      <Icon icon="solar:sort-vertical-linear" className="w-4 h-4" />
+    </button>
+  );
+};
+
+const receiveStatuses = [
+  { value: 'Complete', label: 'Complete', color: 'text-green-600' },
+  { value: 'Partial', label: 'Partial', color: 'text-yellow-600' },
+  { value: 'Outstanding', label: 'Outstanding', color: 'text-blue-600' },
+  { value: 'Cancel', label: 'Cancel', color: 'text-red-600' },
+];
+
 const TableColumns = (
   onEdit: (item: ReceiveItem) => void,
   onDelete: (item: ReceiveItem) => void
 ): ColumnDef<ReceiveItem>[] => [
+  {
+    id: 'action',
+    accessorKey: 'action',
+    header: () => <span className="w-[77px]">ACTION</span>,
+    cell: ({ row }) => (
+      <div className="w-[77px] flex justify-center">
+        <RowAction
+          onEdit={() => onEdit(row.original)}
+          onDelete={() => onDelete(row.original)}
+        />
+      </div>
+    ),
+  },
+  {
+    id: 'status',
+    accessorKey: 'status',
+    header: ({ column }) => <StatusTableHeader column={column} />,
+    cell: ({ getValue }) => {
+      const status = getValue() as string;
+      const statusConfig = receiveStatuses.find((s) => s.value === status);
+      return (
+        <span className={`min-w-32 flex-shrink-0 ${statusConfig?.color}`}>
+          {status}
+        </span>
+      );
+    },
+  },
   {
     id: 'id_item',
     accessorKey: 'id_item',
@@ -817,11 +923,45 @@ const TableColumns = (
     ),
   },
   {
-    id: 'qty_receive',
-    accessorKey: 'qty_receive',
-    header: ({ column }) => <QtyTableHeader column={column} />,
+    id: 'category',
+    accessorKey: 'category',
+    header: ({ column }) => <CategoryTableHeader column={column} />,
     cell: ({ getValue }) => (
-      <span className="min-w-32 flex-shrink-0">{getValue() as string}</span>
+      <span className="min-w-60 flex-shrink-0">{getValue() as string}</span>
+    ),
+  },
+  {
+    id: 'brand',
+    accessorKey: 'brand',
+    header: ({ column }) => <BrandTableHeader column={column} />,
+    cell: ({ getValue }) => (
+      <span className="min-w-60 flex-shrink-0">{getValue() as string}</span>
+    ),
+  },
+  {
+    id: 'price_cut',
+    accessorKey: 'price_cut',
+    header: ({ column }) => <PriceCutTableHeader column={column} />,
+    cell: ({ getValue }) => (
+      <span className="min-w-32 flex-shrink-0">
+        {(getValue() as number).toLocaleString('en-US', {
+          style: 'currency',
+          currency: 'USD',
+        })}
+      </span>
+    ),
+  },
+  {
+    id: 'discount',
+    accessorKey: 'discount',
+    header: ({ column }) => <DiscountTableHeader column={column} />,
+    cell: ({ getValue }) => (
+      <span className="min-w-32 flex-shrink-0">
+        {(getValue() as number).toLocaleString('en-US', {
+          style: 'currency',
+          currency: 'USD',
+        })}
+      </span>
     ),
   },
   {
@@ -838,6 +978,28 @@ const TableColumns = (
     ),
   },
   {
+    id: 'qty_receive',
+    accessorKey: 'qty_receive',
+    header: ({ column }) => <QtyTableHeader column={column} />,
+    cell: ({ row }) => {
+      const qtyReceive = row.original.qty_receive;
+      const qtyOrder = row.original.qty_order;
+      return (
+        <span className="min-w-32 flex-shrink-0 text-right">
+          {qtyReceive} <span className="text-[#94A3B8]">of {qtyOrder}</span>
+        </span>
+      );
+    },
+  },
+  {
+    id: 'units',
+    accessorKey: 'units',
+    header: ({ column }) => <UnitTableHeader column={column} />,
+    cell: ({ getValue }) => (
+      <span className="min-w-32 flex-shrink-0">{getValue() as string}</span>
+    ),
+  },
+  {
     id: 'subtotal',
     accessorKey: 'subtotal',
     header: ({ column }) => <TotalTableHeader column={column} />,
@@ -848,19 +1010,6 @@ const TableColumns = (
           currency: 'USD',
         })}
       </span>
-    ),
-  },
-  {
-    id: 'action',
-    accessorKey: 'action',
-    header: () => <span className="w-[77px]">ACTION</span>,
-    cell: ({ row }) => (
-      <div className="w-[77px] flex justify-center">
-        <RowAction
-          onEdit={() => onEdit(row.original)}
-          onDelete={() => onDelete(row.original)}
-        />
-      </div>
     ),
   },
 ];
