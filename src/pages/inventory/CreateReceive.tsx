@@ -751,12 +751,14 @@ const AddItem = ({
   selectedItem,
   onOpenChange,
   poItems,
+  selectedPO,
 }: {
   onAddItem: (item: ReceiveItem) => void;
   onEditItem: (item: ReceiveItem) => void;
   selectedItem?: ReceiveItem;
   onOpenChange?: (open: boolean) => void;
   poItems?: any[];
+  selectedPO?: string;
 }) => {
   const [open, setOpen] = useState(false);
   const mode = selectedItem ? 'edit' : 'add';
@@ -764,6 +766,18 @@ const AddItem = ({
   const handleOpenChange = (newOpen: boolean) => {
     setOpen(newOpen);
     onOpenChange?.(newOpen);
+  };
+
+  const handleClick = () => {
+    if (!selectedPO) {
+      toast({
+        variant: 'destructive',
+        title: 'Error',
+        description: 'Please select Purchase Order ID first',
+      });
+      return;
+    }
+    setOpen(true);
   };
 
   const handleSubmit = (item: ReceiveItem) => {
@@ -779,7 +793,7 @@ const AddItem = ({
     <>
       <button
         role="button"
-        onClick={() => setOpen(true)}
+        onClick={handleClick}
         className="flex items-center gap-2 text-[#64748B] hover:text-[#0F172A] transition-colors duration-300 bg-white p-3 w-max"
       >
         <Icon height={24} width={24} icon="solar:add-square-bold" />
@@ -1424,6 +1438,7 @@ export const CreateReceive = () => {
               ? purchaseOrder.items
               : []
           }
+          selectedPO={selectedPO}
         />
         <TableReceiveItem
           data={items}
