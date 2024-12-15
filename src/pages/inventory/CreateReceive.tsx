@@ -304,6 +304,8 @@ const addItemSchema = z.object({
   price_cut: z.string().optional(),
   discount: z.string().optional(),
   status: z.string().min(1, 'Status is required'),
+  amount: z.string().optional(),
+  subtotal: z.string().optional(),
 });
 
 type AddItemFormValues = z.infer<typeof addItemSchema>;
@@ -350,6 +352,8 @@ const ItemDialog = ({
       category: defaultValues?.category || '',
       brand: defaultValues?.brand || '',
       status: defaultValues?.status || '',
+      amount: defaultValues?.amount?.toString() || '0',
+      subtotal: defaultValues?.subtotal?.toString() || '0',
     },
   });
 
@@ -364,6 +368,8 @@ const ItemDialog = ({
         category: defaultValues.category || '',
         brand: defaultValues.brand || '',
         status: defaultValues.status || '',
+        amount: defaultValues.amount?.toString() || '0',
+        subtotal: defaultValues.subtotal?.toString() || '0',
       });
       setSelectedCategory(defaultValues.category || '');
       setSelectedBrand(defaultValues.brand || '');
@@ -406,14 +412,11 @@ const ItemDialog = ({
         qty_order: selectedItemData.qty_order,
         qty_receive: Number(values.qty_receive),
         units: values.unit,
-        amount: selectedItemData.price,
+        amount: Number(values.amount || 0),
         price_cut: Number(values.price_cut || 0),
-        discount: Number(values.discount || 0),
+        discount: Number(values.discount || 0) / 100,
         capital_price: selectedItemData.price,
-        subtotal:
-          (selectedItemData.price - Number(values.price_cut || 0)) *
-          Number(values.qty_receive) *
-          (1 - Number(values.discount || 0) / 100),
+        subtotal: Number(values.subtotal || 0),
         status: values.status as ReceiveStatus,
       };
 
@@ -436,7 +439,7 @@ const ItemDialog = ({
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent>
+      <DialogContent className="w-full max-w-[878px]">
         <DialogHeader>
           <DialogTitle>{mode === 'add' ? 'Add Item' : 'Edit Item'}</DialogTitle>
         </DialogHeader>
@@ -507,107 +510,39 @@ const ItemDialog = ({
               />
             </div>
 
-            <FormField
-              control={form.control}
-              name="qty_receive"
-              render={({ field }) => {
-                const selectedItem = poItems.find(
-                  (item) => item.id_item === form.watch('id_item')
-                );
-                const maxQty = selectedItem?.qty_order || 0;
-
-                return (
-                  <FormItem>
-                    <FormLabel>Quantity Received</FormLabel>
-                    <div className="space-y-1">
-                      <FormControl>
-                        <Input
-                          type="number"
-                          min="0"
-                          {...field}
-                          max={maxQty}
-                          value={field.value || ''}
-                          onChange={(e) => {
-                            const value = parseInt(e.target.value);
-                            if (value >= 0 && (!value || value <= maxQty)) {
-                              field.onChange(e.target.value);
-                            }
-                          }}
-                        />
-                      </FormControl>
-                      <p className="text-sm text-muted-foreground">
-                        Max quantity: {maxQty}
-                      </p>
-                    </div>
-                    <FormMessage />
-                  </FormItem>
-                );
-              }}
-            />
-
-            <FormField
-              control={form.control}
-              name="unit"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Unit</FormLabel>
-                  <Select
-                    onValueChange={field.onChange}
-                    value={field.value || ''}
-                  >
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select unit" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      {units.map((unit) => (
-                        <SelectItem key={unit.id} value={unit.unitName}>
-                          {unit.unitName}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-10">
               <FormField
                 control={form.control}
-                name="price_cut"
+                name="qty_receive"
                 render={({ field }) => {
                   const selectedItem = poItems.find(
                     (item) => item.id_item === form.watch('id_item')
                   );
-                  const price = selectedItem?.price || 0;
+                  const maxQty = selectedItem?.qty_order || 0;
 
                   return (
                     <FormItem>
-                      <FormLabel>Price Cut</FormLabel>
-                      <FormControl>
-                        <Input
-                          type="number"
-                          min="0"
-                          step="0.01"
-                          {...field}
-                          value={field.value || ''}
-                          onChange={(e) => {
-                            const priceCut = parseFloat(e.target.value);
-                            if (priceCut >= 0) {
-                              field.onChange(e.target.value);
-                              // Hitung dan update discount
-                              const discountPercentage =
-                                (priceCut / price) * 100;
-                              form.setValue(
-                                'discount',
-                                discountPercentage.toFixed(0)
-                              );
-                            }
-                          }}
-                        />
-                      </FormControl>
+                      <FormLabel>Quantity Received</FormLabel>
+                      <div className="space-y-1">
+                        <FormControl>
+                          <Input
+                            type="number"
+                            min="0"
+                            {...field}
+                            max={maxQty}
+                            value={field.value || ''}
+                            onChange={(e) => {
+                              const value = parseInt(e.target.value);
+                              if (value >= 0 && (!value || value <= maxQty)) {
+                                field.onChange(e.target.value);
+                              }
+                            }}
+                          />
+                        </FormControl>
+                        <p className="text-sm text-muted-foreground">
+                          Max quantity: {maxQty}
+                        </p>
+                      </div>
                       <FormMessage />
                     </FormItem>
                   );
@@ -616,87 +551,188 @@ const ItemDialog = ({
 
               <FormField
                 control={form.control}
+                name="unit"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Stock of Units</FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      value={field.value || ''}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select unit" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {units.map((unit) => (
+                          <SelectItem key={unit.id} value={unit.unitName}>
+                            {unit.unitName}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+
+            <FormField
+              control={form.control}
+              name="amount"
+              render={({ field }) => {
+                const selectedItem = poItems.find(
+                  (item) => item.id_item === form.watch('id_item')
+                );
+                const qty = parseFloat(form.watch('qty_receive') || '0');
+                const capitalPrice = selectedItem?.price || 0;
+                const amount = qty * capitalPrice;
+
+                // Update amount saat qty berubah
+                useEffect(() => {
+                  field.onChange(amount.toString());
+                }, [qty, capitalPrice]);
+
+                return (
+                  <FormItem>
+                    <FormLabel>Amount</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="number"
+                        {...field}
+                        value={amount.toFixed(2)}
+                        disabled
+                        className="bg-[#F1F5F9]"
+                      />
+                    </FormControl>
+                  </FormItem>
+                );
+              }}
+            />
+
+            <div className="grid grid-cols-2 gap-10">
+              <FormField
+                control={form.control}
+                name="price_cut"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Price Cut</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="number"
+                        min="0"
+                        step="0.01"
+                        {...field}
+                        value={field.value || ''}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
                 name="discount"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Discount (%)</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="number"
+                        min="0"
+                        max="100"
+                        {...field}
+                        value={field.value || ''}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+
+            <div className="grid grid-cols-2 gap-10">
+              <FormField
+                control={form.control}
+                name="status"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Receive Status</FormLabel>
+                    <Select onValueChange={field.onChange} value={field.value}>
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select status">
+                            {field.value && (
+                              <span
+                                className={
+                                  receiveStatuses.find(
+                                    (s) => s.value === field.value
+                                  )?.color
+                                }
+                              >
+                                {
+                                  receiveStatuses.find(
+                                    (s) => s.value === field.value
+                                  )?.label
+                                }
+                              </span>
+                            )}
+                          </SelectValue>
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {receiveStatuses.map((status) => (
+                          <SelectItem
+                            key={status.value}
+                            value={status.value}
+                            className={status.color}
+                          >
+                            {status.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="subtotal"
                 render={({ field }) => {
-                  const selectedItem = poItems.find(
-                    (item) => item.id_item === form.watch('id_item')
-                  );
-                  const price = selectedItem?.price || 0;
+                  const amount = parseFloat(form.watch('amount') || '0');
+                  const priceCut = parseFloat(form.watch('price_cut') || '0');
+                  const discount = parseFloat(form.watch('discount') || '0');
+                  const subtotal =
+                    amount - priceCut - (amount * discount) / 100;
+
+                  // Update subtotal saat amount, price cut, atau discount berubah
+                  useEffect(() => {
+                    field.onChange(subtotal.toString());
+                  }, [amount, priceCut, discount]);
 
                   return (
                     <FormItem>
-                      <FormLabel>Discount (%)</FormLabel>
+                      <FormLabel>Subtotal</FormLabel>
                       <FormControl>
                         <Input
                           type="number"
-                          min="0"
-                          max="100"
                           {...field}
-                          value={field.value || ''}
-                          onChange={(e) => {
-                            const discount = parseInt(e.target.value);
-                            if (discount >= 0 && discount <= 100) {
-                              field.onChange(e.target.value);
-                              // Hitung dan update price cut
-                              const priceCut = (discount / 100) * price;
-                              form.setValue('price_cut', priceCut.toFixed(2));
-                            }
-                          }}
+                          value={subtotal.toFixed(2)}
+                          disabled
+                          className="bg-[#F1F5F9]"
                         />
                       </FormControl>
-                      <FormMessage />
                     </FormItem>
                   );
                 }}
               />
             </div>
 
-            <FormField
-              control={form.control}
-              name="status"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Receive Status</FormLabel>
-                  <Select onValueChange={field.onChange} value={field.value}>
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select status">
-                          {field.value && (
-                            <span
-                              className={
-                                receiveStatuses.find(
-                                  (s) => s.value === field.value
-                                )?.color
-                              }
-                            >
-                              {
-                                receiveStatuses.find(
-                                  (s) => s.value === field.value
-                                )?.label
-                              }
-                            </span>
-                          )}
-                        </SelectValue>
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      {receiveStatuses.map((status) => (
-                        <SelectItem
-                          key={status.value}
-                          value={status.value}
-                          className={status.color}
-                        >
-                          {status.label}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <div className="flex justify-end gap-2 pt-4">
+            <div className="grid grid-cols-2 gap-10 pt-4">
               <Button type="button" variant="outline" onClick={onClose}>
                 Cancel
               </Button>
@@ -809,6 +845,18 @@ const BrandTableHeader = ({ column }: TableHeaderProps) => {
       onClick={() => column.toggleSorting()}
     >
       <span>BRAND</span>
+      <Icon icon="solar:sort-vertical-linear" className="w-4 h-4" />
+    </button>
+  );
+};
+
+const AmountTableHeader = ({ column }: TableHeaderProps) => {
+  return (
+    <button
+      className="min-w-32 flex-shrink-0 flex items-center gap-2 justify-between w-full"
+      onClick={() => column.toggleSorting()}
+    >
+      <span>AMOUNT</span>
       <Icon icon="solar:sort-vertical-linear" className="w-4 h-4" />
     </button>
   );
@@ -968,6 +1016,19 @@ const TableColumns = (
     header: ({ column }) => <BrandTableHeader column={column} />,
     cell: ({ getValue }) => (
       <span className="min-w-60 flex-shrink-0">{getValue() as string}</span>
+    ),
+  },
+  {
+    id: 'amount',
+    accessorKey: 'amount',
+    header: ({ column }) => <AmountTableHeader column={column} />,
+    cell: ({ getValue }) => (
+      <span className="min-w-32 flex-shrink-0">
+        {(getValue() as number).toLocaleString('en-US', {
+          style: 'currency',
+          currency: 'USD',
+        })}
+      </span>
     ),
   },
   {
