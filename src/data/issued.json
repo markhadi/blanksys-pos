@@ -1,0 +1,506 @@
+[
+  {
+    "id": "ISS-2412010001",
+    "date": "2023-12-01T08:30:00Z",
+    "issuedBy": "John Doe",
+    "items": [
+      {
+        "id": "ITEM-2411301148",
+        "itemName": "Indomie Goreng",
+        "category": "Makanan Instan",
+        "brand": "Indomie",
+        "qty": 5,
+        "unit": "Pcs",
+        "capital_price": 0.25,
+        "selling_price": 0.35,
+        "total": 1.25,
+        "reason": "Expired",
+        "estimationLoss": 1.25
+      }
+    ]
+  },
+  {
+    "id": "ISS-2412010002",
+    "date": "2023-12-01T09:15:00Z",
+    "issuedBy": "Jane Smith",
+    "items": [
+      {
+        "id": "ITEM-2411301149",
+        "itemName": "Aqua 600ml",
+        "category": "Minuman",
+        "brand": "Aqua",
+        "qty": 12,
+        "unit": "Pcs",
+        "capital_price": 0.2,
+        "selling_price": 0.3,
+        "total": 2.4,
+        "reason": "Damaged Package",
+        "estimationLoss": 2.4
+      },
+      {
+        "id": "ITEM-2411301150",
+        "itemName": "Sprite 1L",
+        "category": "Minuman",
+        "brand": "Sprite",
+        "qty": 6,
+        "unit": "Pcs",
+        "capital_price": 0.9,
+        "selling_price": 1.2,
+        "total": 5.4,
+        "reason": "Bottle Leakage",
+        "estimationLoss": 5.4
+      }
+    ]
+  },
+  {
+    "id": "ISS-2412010003",
+    "date": "2023-12-01T10:45:00Z",
+    "issuedBy": "Robert Johnson",
+    "items": [
+      {
+        "id": "ITEM-2411301151",
+        "itemName": "Tango Wafer Coklat",
+        "category": "Makanan Ringan",
+        "brand": "Tango",
+        "qty": 8,
+        "unit": "Pcs",
+        "capital_price": 0.35,
+        "selling_price": 0.5,
+        "total": 2.8,
+        "reason": "Crushed Package",
+        "estimationLoss": 2.8
+      }
+    ]
+  },
+  {
+    "id": "ISS-2412010004",
+    "date": "2023-12-01T11:30:00Z",
+    "issuedBy": "Maria Garcia",
+    "items": [
+      {
+        "id": "ITEM-2411301154",
+        "itemName": "MamyPoko Pants M34",
+        "category": "Kebutuhan Bayi",
+        "brand": "MamyPoko",
+        "qty": 2,
+        "unit": "Pcs",
+        "capital_price": 15.0,
+        "selling_price": 18.0,
+        "total": 30.0,
+        "reason": "Torn Package",
+        "estimationLoss": 30.0
+      }
+    ]
+  },
+  {
+    "id": "ISS-2412010005",
+    "date": "2023-12-01T13:20:00Z",
+    "issuedBy": "William Chen",
+    "items": [
+      {
+        "id": "ITEM-2411301155",
+        "itemName": "Frisian Flag Susu Kental Manis",
+        "category": "Produk Susu",
+        "brand": "Frisian Flag",
+        "qty": 10,
+        "unit": "Pcs",
+        "capital_price": 0.8,
+        "selling_price": 1.0,
+        "total": 8.0,
+        "reason": "Dented Can",
+        "estimationLoss": 8.0
+      },
+      {
+        "id": "ITEM-2411301156",
+        "itemName": "Bango Kecap Manis 220ml",
+        "category": "Bahan Pokok",
+        "brand": "Bango",
+        "qty": 4,
+        "unit": "Pcs",
+        "capital_price": 1.2,
+        "selling_price": 1.5,
+        "total": 4.8,
+        "reason": "Broken Seal",
+        "estimationLoss": 4.8
+      }
+    ]
+  },
+  {
+    "id": "ISS-2412010006",
+    "date": "2023-12-01T14:45:00Z",
+    "issuedBy": "Sarah Wilson",
+    "items": [
+      {
+        "id": "ITEM-2411301157",
+        "itemName": "Samsung Charger Original",
+        "category": "Elektronik Kecil",
+        "brand": "Samsung",
+        "qty": 3,
+        "unit": "Pcs",
+        "capital_price": 7.5,
+        "selling_price": 9.0,
+        "total": 22.5,
+        "reason": "Defective Product",
+        "estimationLoss": 22.5
+      }
+    ]
+  },
+  {
+    "id": "ISS-2412010007",
+    "date": "2023-12-01T15:30:00Z",
+    "issuedBy": "David Lee",
+    "items": [
+      {
+        "id": "ITEM-2411301158",
+        "itemName": "Sunlight Jeruk Nipis 800ml",
+        "category": "Perlengkapan Rumah Tangga",
+        "brand": "Sunlight",
+        "qty": 6,
+        "unit": "Pcs",
+        "capital_price": 1.6,
+        "selling_price": 2.0,
+        "total": 9.6,
+        "reason": "Leaking Container",
+        "estimationLoss": 9.6
+      }
+    ]
+  },
+  {
+    "id": "ISS-2412010008",
+    "date": "2023-12-02T08:15:00Z",
+    "issuedBy": "Emma Thompson",
+    "items": [
+      {
+        "id": "ITEM-2411301159",
+        "itemName": "Roti Tawar Sari Roti",
+        "category": "Roti & Kue",
+        "brand": "So Klin",
+        "qty": 15,
+        "unit": "Pcs",
+        "capital_price": 1.2,
+        "selling_price": 1.5,
+        "total": 18.0,
+        "reason": "Moldy",
+        "estimationLoss": 18.0
+      }
+    ]
+  },
+  {
+    "id": "ISS-2412010009",
+    "date": "2023-12-02T09:30:00Z",
+    "issuedBy": "Michael Brown",
+    "items": [
+      {
+        "id": "ITEM-2411301160",
+        "itemName": "Oreo Sandwich Coklat",
+        "category": "Camilan",
+        "brand": "Oreo",
+        "qty": 20,
+        "unit": "Pcs",
+        "capital_price": 0.6,
+        "selling_price": 0.8,
+        "total": 12.0,
+        "reason": "Crushed Product",
+        "estimationLoss": 12.0
+      }
+    ]
+  },
+  {
+    "id": "ISS-2412010010",
+    "date": "2023-12-02T10:45:00Z",
+    "issuedBy": "Lisa Anderson",
+    "items": [
+      {
+        "id": "ITEM-2412010000",
+        "itemName": "So Klin Liquid 1.8L",
+        "category": "Perlengkapan Rumah Tangga",
+        "brand": "So Klin",
+        "qty": 3,
+        "unit": "Pcs",
+        "capital_price": 2.8,
+        "selling_price": 3.5,
+        "total": 8.4,
+        "reason": "Damaged Package",
+        "estimationLoss": 8.4
+      },
+      {
+        "id": "ITEM-2412010001",
+        "itemName": "Nugget Ayam So Good 500g",
+        "category": "Frozen Food",
+        "brand": "Nugget So Good",
+        "qty": 5,
+        "unit": "Pcs",
+        "capital_price": 3.5,
+        "selling_price": 4.2,
+        "total": 17.5,
+        "reason": "Thawed Product",
+        "estimationLoss": 17.5
+      }
+    ]
+  },
+  {
+    "id": "ISS-2412010011",
+    "date": "2023-12-02T11:30:00Z",
+    "issuedBy": "Thomas Wilson",
+    "items": [
+      {
+        "id": "ITEM-2412010002",
+        "itemName": "Garuda Kacang Kulit 500g",
+        "category": "Makanan Ringan",
+        "brand": "Garuda",
+        "qty": 8,
+        "unit": "Pcs",
+        "capital_price": 1.5,
+        "selling_price": 2.0,
+        "total": 12.0,
+        "reason": "Past Expiry Date",
+        "estimationLoss": 12.0
+      }
+    ]
+  },
+  {
+    "id": "ISS-2412010012",
+    "date": "2023-12-02T13:15:00Z",
+    "issuedBy": "Amanda Lee",
+    "items": [
+      {
+        "id": "ITEM-2412010003",
+        "itemName": "Milo Sachet 35g",
+        "category": "Minuman",
+        "brand": "Milo",
+        "qty": 25,
+        "unit": "Pcs",
+        "capital_price": 0.1,
+        "selling_price": 0.15,
+        "total": 2.5,
+        "reason": "Packaging Damage",
+        "estimationLoss": 2.5
+      },
+      {
+        "id": "ITEM-2412010004",
+        "itemName": "Kaleng Ikan ABC 425g",
+        "category": "Bahan Pokok",
+        "brand": "Kecap ABC",
+        "qty": 6,
+        "unit": "Pcs",
+        "capital_price": 1.8,
+        "selling_price": 2.3,
+        "total": 10.8,
+        "reason": "Dented Cans",
+        "estimationLoss": 10.8
+      }
+    ]
+  },
+  {
+    "id": "ISS-2412010013",
+    "date": "2023-12-02T14:45:00Z",
+    "issuedBy": "Kevin Zhang",
+    "items": [
+      {
+        "id": "ITEM-2412010005",
+        "itemName": "Panasonic Baterai AAA",
+        "category": "Elektronik Kecil",
+        "brand": "Panasonic",
+        "qty": 10,
+        "unit": "Pcs",
+        "capital_price": 1.2,
+        "selling_price": 1.5,
+        "total": 12.0,
+        "reason": "Product Defect",
+        "estimationLoss": 12.0
+      }
+    ]
+  },
+  {
+    "id": "ISS-2412010014",
+    "date": "2023-12-03T08:30:00Z",
+    "issuedBy": "Rachel Green",
+    "items": [
+      {
+        "id": "ITEM-2412010006",
+        "itemName": "Sari Buah Marjan",
+        "category": "Minuman",
+        "brand": "Milo",
+        "qty": 4,
+        "unit": "Pcs",
+        "capital_price": 2.3,
+        "selling_price": 2.8,
+        "total": 9.2,
+        "reason": "Bottle Damage",
+        "estimationLoss": 9.2
+      },
+      {
+        "id": "ITEM-2411301152",
+        "itemName": "Teh Botol Sosro 250ml",
+        "category": "Minuman",
+        "brand": "Teh Botol Sosro",
+        "qty": 12,
+        "unit": "Pcs",
+        "capital_price": 0.4,
+        "selling_price": 0.5,
+        "total": 4.8,
+        "reason": "Expired Product",
+        "estimationLoss": 4.8
+      }
+    ]
+  },
+  {
+    "id": "ISS-2412010015",
+    "date": "2023-12-03T09:45:00Z",
+    "issuedBy": "Daniel Kim",
+    "items": [
+      {
+        "id": "ITEM-2411301153",
+        "itemName": "Lifebuoy Sabun Cair 250ml",
+        "category": "Perawatan Pribadi",
+        "brand": "Lifebuoy",
+        "qty": 5,
+        "unit": "Pcs",
+        "capital_price": 1.5,
+        "selling_price": 2.0,
+        "total": 7.5,
+        "reason": "Leaking Container",
+        "estimationLoss": 7.5
+      }
+    ]
+  },
+  {
+    "id": "ISS-2412010016",
+    "date": "2023-12-03T10:30:00Z",
+    "issuedBy": "Sophie Turner",
+    "items": [
+      {
+        "id": "ITEM-2411301155",
+        "itemName": "Frisian Flag Susu Kental Manis",
+        "category": "Produk Susu",
+        "brand": "Frisian Flag",
+        "qty": 15,
+        "unit": "Pcs",
+        "capital_price": 0.8,
+        "selling_price": 1.0,
+        "total": 12.0,
+        "reason": "Can Damage",
+        "estimationLoss": 12.0
+      },
+      {
+        "id": "ITEM-2411301156",
+        "itemName": "Bango Kecap Manis 220ml",
+        "category": "Bahan Pokok",
+        "brand": "Bango",
+        "qty": 8,
+        "unit": "Pcs",
+        "capital_price": 1.2,
+        "selling_price": 1.5,
+        "total": 9.6,
+        "reason": "Broken Seal",
+        "estimationLoss": 9.6
+      }
+    ]
+  },
+  {
+    "id": "ISS-2412010017",
+    "date": "2023-12-03T11:15:00Z",
+    "issuedBy": "Chris Evans",
+    "items": [
+      {
+        "id": "ITEM-2411301157",
+        "itemName": "Samsung Charger Original",
+        "category": "Elektronik Kecil",
+        "brand": "Samsung",
+        "qty": 2,
+        "unit": "Pcs",
+        "capital_price": 7.5,
+        "selling_price": 9.0,
+        "total": 15.0,
+        "reason": "Malfunction",
+        "estimationLoss": 15.0
+      }
+    ]
+  },
+  {
+    "id": "ISS-2412010018",
+    "date": "2023-12-03T13:45:00Z",
+    "issuedBy": "Jessica Alba",
+    "items": [
+      {
+        "id": "ITEM-2411301158",
+        "itemName": "Sunlight Jeruk Nipis 800ml",
+        "category": "Perlengkapan Rumah Tangga",
+        "brand": "Sunlight",
+        "qty": 7,
+        "unit": "Pcs",
+        "capital_price": 1.6,
+        "selling_price": 2.0,
+        "total": 11.2,
+        "reason": "Packaging Damage",
+        "estimationLoss": 11.2
+      },
+      {
+        "id": "ITEM-2411301159",
+        "itemName": "Roti Tawar Sari Roti",
+        "category": "Roti & Kue",
+        "brand": "So Klin",
+        "qty": 10,
+        "unit": "Pcs",
+        "capital_price": 1.2,
+        "selling_price": 1.5,
+        "total": 12.0,
+        "reason": "Mold Growth",
+        "estimationLoss": 12.0
+      }
+    ]
+  },
+  {
+    "id": "ISS-2412010019",
+    "date": "2023-12-03T14:30:00Z",
+    "issuedBy": "Tony Stark",
+    "items": [
+      {
+        "id": "ITEM-2411301160",
+        "itemName": "Oreo Sandwich Coklat",
+        "category": "Camilan",
+        "brand": "Oreo",
+        "qty": 30,
+        "unit": "Pcs",
+        "capital_price": 0.6,
+        "selling_price": 0.8,
+        "total": 18.0,
+        "reason": "Crushed Products",
+        "estimationLoss": 18.0
+      }
+    ]
+  },
+  {
+    "id": "ISS-2412010020",
+    "date": "2023-12-03T15:00:00Z",
+    "issuedBy": "Peter Parker",
+    "items": [
+      {
+        "id": "ITEM-2412010000",
+        "itemName": "So Klin Liquid 1.8L",
+        "category": "Perlengkapan Rumah Tangga",
+        "brand": "So Klin",
+        "qty": 5,
+        "unit": "Pcs",
+        "capital_price": 2.8,
+        "selling_price": 3.5,
+        "total": 14.0,
+        "reason": "Leaking Container",
+        "estimationLoss": 14.0
+      },
+      {
+        "id": "ITEM-2412010001",
+        "itemName": "Nugget Ayam So Good 500g",
+        "category": "Frozen Food",
+        "brand": "Nugget So Good",
+        "qty": 3,
+        "unit": "Pcs",
+        "capital_price": 3.5,
+        "selling_price": 4.2,
+        "total": 10.5,
+        "reason": "Temperature Damage",
+        "estimationLoss": 10.5
+      }
+    ]
+  }
+]
