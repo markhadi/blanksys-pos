@@ -10,7 +10,6 @@ export interface IssuedItem {
   qty: number;
   unit: string;
   capital_price: number;
-  selling_price: number;
   total: number;
   reason: string;
   estimationLoss: number;
@@ -40,6 +39,10 @@ export const toIssuedTableRow = (issued: Issued): IssuedTableRow => ({
 export interface IssuedSearchParams {
   search?: string;
   issuedBy?: string[];
+  date?: {
+    start?: string;
+    end?: string;
+  };
   sorting?: {
     field: keyof IssuedTableRow;
     order: 'asc' | 'desc';

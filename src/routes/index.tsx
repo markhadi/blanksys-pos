@@ -27,6 +27,7 @@ import { Supplier } from '@/pages/inventory/Supplier';
 import { Receive } from '@/pages/inventory/Receive';
 import { Issued } from '@/pages/inventory/Issued';
 import { CreateReceive } from '@/pages/inventory/CreateReceive';
+import { CreateIssued } from '@/pages/inventory/CreateIssued';
 
 // Settings
 import { UserManager } from '@/pages/settings/UserManager';
@@ -171,6 +172,22 @@ export const router = createBrowserRouter([
         element: (
           <ProtectedRoute roles={['Administrator']}>
             <CreateReceive />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: ROUTES.INVENTORY.CREATE_ISSUED,
+        element: (
+          <ProtectedRoute roles={['Administrator']}>
+            <CreateIssued />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: ROUTES.INVENTORY.EDIT_ISSUED,
+        element: (
+          <ProtectedRoute roles={['Administrator']}>
+            <CreateIssued />
           </ProtectedRoute>
         ),
       },

@@ -22,6 +22,10 @@ export const NavContent = ({ location, onItemClick }: NavContentProps) => {
       return true;
     }
 
+    if (itemPath === '/issued' && currentPath.startsWith('/issued')) {
+      return true;
+    }
+
     if (itemPath === currentPath) return true;
 
     if (itemPath !== '/' && currentPath.startsWith(itemPath)) {

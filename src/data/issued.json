@@ -12,7 +12,6 @@
         "qty": 5,
         "unit": "Pcs",
         "capital_price": 0.25,
-        "selling_price": 0.35,
         "total": 1.25,
         "reason": "Expired",
         "estimationLoss": 1.25
@@ -32,7 +31,6 @@
         "qty": 12,
         "unit": "Pcs",
         "capital_price": 0.2,
-        "selling_price": 0.3,
         "total": 2.4,
         "reason": "Damaged Package",
         "estimationLoss": 2.4
@@ -45,7 +43,6 @@
         "qty": 6,
         "unit": "Pcs",
         "capital_price": 0.9,
-        "selling_price": 1.2,
         "total": 5.4,
         "reason": "Bottle Leakage",
         "estimationLoss": 5.4
@@ -65,7 +62,6 @@
         "qty": 8,
         "unit": "Pcs",
         "capital_price": 0.35,
-        "selling_price": 0.5,
         "total": 2.8,
         "reason": "Crushed Package",
         "estimationLoss": 2.8
@@ -85,7 +81,6 @@
         "qty": 2,
         "unit": "Pcs",
         "capital_price": 15.0,
-        "selling_price": 18.0,
         "total": 30.0,
         "reason": "Torn Package",
         "estimationLoss": 30.0
@@ -105,7 +100,6 @@
         "qty": 10,
         "unit": "Pcs",
         "capital_price": 0.8,
-        "selling_price": 1.0,
         "total": 8.0,
         "reason": "Dented Can",
         "estimationLoss": 8.0
@@ -118,7 +112,6 @@
         "qty": 4,
         "unit": "Pcs",
         "capital_price": 1.2,
-        "selling_price": 1.5,
         "total": 4.8,
         "reason": "Broken Seal",
         "estimationLoss": 4.8
@@ -138,7 +131,6 @@
         "qty": 3,
         "unit": "Pcs",
         "capital_price": 7.5,
-        "selling_price": 9.0,
         "total": 22.5,
         "reason": "Defective Product",
         "estimationLoss": 22.5
@@ -158,7 +150,6 @@
         "qty": 6,
         "unit": "Pcs",
         "capital_price": 1.6,
-        "selling_price": 2.0,
         "total": 9.6,
         "reason": "Leaking Container",
         "estimationLoss": 9.6
@@ -178,7 +169,6 @@
         "qty": 15,
         "unit": "Pcs",
         "capital_price": 1.2,
-        "selling_price": 1.5,
         "total": 18.0,
         "reason": "Moldy",
         "estimationLoss": 18.0
@@ -198,7 +188,6 @@
         "qty": 20,
         "unit": "Pcs",
         "capital_price": 0.6,
-        "selling_price": 0.8,
         "total": 12.0,
         "reason": "Crushed Product",
         "estimationLoss": 12.0
@@ -218,7 +207,6 @@
         "qty": 3,
         "unit": "Pcs",
         "capital_price": 2.8,
-        "selling_price": 3.5,
         "total": 8.4,
         "reason": "Damaged Package",
         "estimationLoss": 8.4
@@ -231,7 +219,6 @@
         "qty": 5,
         "unit": "Pcs",
         "capital_price": 3.5,
-        "selling_price": 4.2,
         "total": 17.5,
         "reason": "Thawed Product",
         "estimationLoss": 17.5
@@ -251,7 +238,6 @@
         "qty": 8,
         "unit": "Pcs",
         "capital_price": 1.5,
-        "selling_price": 2.0,
         "total": 12.0,
         "reason": "Past Expiry Date",
         "estimationLoss": 12.0
@@ -271,7 +257,6 @@
         "qty": 25,
         "unit": "Pcs",
         "capital_price": 0.1,
-        "selling_price": 0.15,
         "total": 2.5,
         "reason": "Packaging Damage",
         "estimationLoss": 2.5
@@ -284,7 +269,6 @@
         "qty": 6,
         "unit": "Pcs",
         "capital_price": 1.8,
-        "selling_price": 2.3,
         "total": 10.8,
         "reason": "Dented Cans",
         "estimationLoss": 10.8
@@ -304,7 +288,6 @@
         "qty": 10,
         "unit": "Pcs",
         "capital_price": 1.2,
-        "selling_price": 1.5,
         "total": 12.0,
         "reason": "Product Defect",
         "estimationLoss": 12.0
@@ -324,7 +307,6 @@
         "qty": 4,
         "unit": "Pcs",
         "capital_price": 2.3,
-        "selling_price": 2.8,
         "total": 9.2,
         "reason": "Bottle Damage",
         "estimationLoss": 9.2
@@ -337,7 +319,6 @@
         "qty": 12,
         "unit": "Pcs",
         "capital_price": 0.4,
-        "selling_price": 0.5,
         "total": 4.8,
         "reason": "Expired Product",
         "estimationLoss": 4.8
@@ -357,7 +338,6 @@
         "qty": 5,
         "unit": "Pcs",
         "capital_price": 1.5,
-        "selling_price": 2.0,
         "total": 7.5,
         "reason": "Leaking Container",
         "estimationLoss": 7.5
@@ -377,7 +357,6 @@
         "qty": 15,
         "unit": "Pcs",
         "capital_price": 0.8,
-        "selling_price": 1.0,
         "total": 12.0,
         "reason": "Can Damage",
         "estimationLoss": 12.0
@@ -390,7 +369,6 @@
         "qty": 8,
         "unit": "Pcs",
         "capital_price": 1.2,
-        "selling_price": 1.5,
         "total": 9.6,
         "reason": "Broken Seal",
         "estimationLoss": 9.6
@@ -410,7 +388,6 @@
         "qty": 2,
         "unit": "Pcs",
         "capital_price": 7.5,
-        "selling_price": 9.0,
         "total": 15.0,
         "reason": "Malfunction",
         "estimationLoss": 15.0
@@ -430,7 +407,6 @@
         "qty": 7,
         "unit": "Pcs",
         "capital_price": 1.6,
-        "selling_price": 2.0,
         "total": 11.2,
         "reason": "Packaging Damage",
         "estimationLoss": 11.2
@@ -443,7 +419,6 @@
         "qty": 10,
         "unit": "Pcs",
         "capital_price": 1.2,
-        "selling_price": 1.5,
         "total": 12.0,
         "reason": "Mold Growth",
         "estimationLoss": 12.0
@@ -463,7 +438,6 @@
         "qty": 30,
         "unit": "Pcs",
         "capital_price": 0.6,
-        "selling_price": 0.8,
         "total": 18.0,
         "reason": "Crushed Products",
         "estimationLoss": 18.0
@@ -483,7 +457,6 @@
         "qty": 5,
         "unit": "Pcs",
         "capital_price": 2.8,
-        "selling_price": 3.5,
         "total": 14.0,
         "reason": "Leaking Container",
         "estimationLoss": 14.0
@@ -496,7 +469,6 @@
         "qty": 3,
         "unit": "Pcs",
         "capital_price": 3.5,
-        "selling_price": 4.2,
         "total": 10.5,
         "reason": "Temperature Damage",
         "estimationLoss": 10.5
