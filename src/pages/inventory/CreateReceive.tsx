@@ -144,6 +144,8 @@ const ReceiveHeader = ({
 }: ReceiveHeaderProps) => {
   const [date, setDate] = useState<Date | undefined>(defaultValues?.date);
   const { data: purchaseOrders = [] } = usePurchaseOrders({});
+  const { data: suppliers = [] } = useSupplier({});
+  const [selectedSupplier, setSelectedSupplier] = useState<string>('');
   const receiveNumber =
     mode === 'create' ? generateReceiveNumber() : defaultValues?.id_receive;
 
@@ -151,10 +153,24 @@ const ReceiveHeader = ({
   const incompletePOs = Array.isArray(purchaseOrders)
     ? purchaseOrders.filter(
         (po: any) =>
-          po.status !== 'Complete' || // Tampilkan jika status bukan Complete
-          (mode === 'edit' && po.id_po === defaultValues?.id_po) // Atau jika mode edit dan ini PO yang sedang diedit
+          po.status !== 'Complete' ||
+          (mode === 'edit' && po.id_po === defaultValues?.id_po)
       )
     : [];
+
+  useEffect(() => {
+    if (defaultValues?.id_po || mode === 'edit') {
+      if (Array.isArray(purchaseOrders)) {
+        const selectedPO = purchaseOrders.find(
+          (po) => po.id_po === defaultValues?.id_po
+        );
+        const supplierName =
+          suppliers.find((s) => s.id === selectedPO?.id_supplier)
+            ?.supplierName || '';
+        setSelectedSupplier(supplierName);
+      }
+    }
+  }, [defaultValues?.id_po, purchaseOrders, suppliers, mode]);
 
   useEffect(() => {
     if (defaultValues?.date) {
@@ -170,7 +186,7 @@ const ReceiveHeader = ({
   return (
     <div className="bg-white p-3 flex flex-col xl:flex-row items-start xl:items-center justify-between gap-7">
       <div className="flex flex-col lg:flex-row items-start lg:items-center gap-7 w-full">
-        <div className="flex gap-2 items-center w-full xl:w-auto">
+        <div className="gap-2 items-center w-full xl:w-auto hidden">
           <label className="font-medium text-black min-w-28 lg:min-w-max">
             ID
           </label>
@@ -186,7 +202,22 @@ const ReceiveHeader = ({
             PO ID
           </label>
           <Select
-            onValueChange={(value) => onPOChange(value)}
+            onValueChange={(value) => {
+              onPOChange(value);
+              console.log('Selected Value:', value);
+              console.log('Purchase Orders:', purchaseOrders);
+
+              if (Array.isArray(purchaseOrders)) {
+                const selectedPO = purchaseOrders.find(
+                  (po) => po.id_po === value
+                );
+                console.log('Selected PO:', selectedPO);
+                const supplierName =
+                  suppliers.find((s) => s.id === selectedPO?.id_supplier)
+                    ?.supplierName || '';
+                setSelectedSupplier(supplierName);
+              }
+            }}
             value={defaultValues?.id_po}
             disabled={mode === 'edit'}
           >
@@ -198,13 +229,24 @@ const ReceiveHeader = ({
                 <SelectItem
                   key={po.id_po}
                   value={po.id_po}
-                  className="text-[16px] w-max"
+                  className="text-[16px] w-full"
                 >
                   {po.id_po}
                 </SelectItem>
               ))}
             </SelectContent>
           </Select>
+        </div>
+
+        <div className="flex gap-2 items-center w-full xl:w-auto">
+          <label className="font-medium text-black min-w-28 lg:min-w-max">
+            Supplier
+          </label>
+          <Input
+            value={selectedSupplier}
+            disabled
+            className="bg-[#F1F5F9] w-full xl:max-w-max !text-[16px] text-[#1E293B] px-4 py-3"
+          />
         </div>
 
         <div className="flex gap-2 items-center w-full xl:w-auto">
@@ -216,7 +258,7 @@ const ReceiveHeader = ({
               <Button
                 variant="outline"
                 className={cn(
-                  'w-full justify-between gap-2 xl:justify-start text-left font-normal text-[16px] px-4 py-3 xl:w-auto',
+                  'w-full h-12 justify-between gap-2 xl:justify-start text-left font-normal text-[16px] px-4 py-3 xl:w-auto',
                   !date && 'text-muted-foreground'
                 )}
               >
@@ -443,12 +485,7 @@ const ItemDialog = ({
                       Category
                     </FormLabel>
                     <FormControl>
-                      <Input
-                        {...field}
-                        value={selectedCategory}
-                        disabled
-                        className="h-14 px-4 py-3"
-                      />
+                      <Input {...field} value={selectedCategory} disabled />
                     </FormControl>
                   </FormItem>
                 )}
@@ -463,12 +500,7 @@ const ItemDialog = ({
                       Brand
                     </FormLabel>
                     <FormControl>
-                      <Input
-                        {...field}
-                        value={selectedBrand}
-                        disabled
-                        className="h-14 px-4 py-3"
-                      />
+                      <Input {...field} value={selectedBrand} disabled />
                     </FormControl>
                   </FormItem>
                 )}
@@ -1016,7 +1048,7 @@ const TableColumns = (
 
 const TableCard = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="bg-white p-3 rounded-[12px] shadow-md grid grid-cols-1 h-[calc(100dvh-232px)] md:h-[calc(100dvh-274px)]">
+    <div className="bg-white p-3 rounded-[12px] shadow-md grid grid-cols-1 h-[calc(100dvh-232px)] md:h-[calc(100dvh-282px)]">
       {children}
     </div>
   );

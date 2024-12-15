@@ -204,7 +204,7 @@ const PurchaseOrderHeader = ({
               <Button
                 variant="outline"
                 className={cn(
-                  'w-full justify-between gap-2 xl:justify-start text-left font-normal text-[16px] px-4 py-3 xl:w-auto',
+                  'w-full h-12 justify-between gap-2 xl:justify-start text-left font-normal text-[16px] px-4 py-3 xl:w-auto',
                   !date && 'text-muted-foreground'
                 )}
               >
@@ -625,7 +625,7 @@ const TableColumns = (
 
 const TableCard = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="bg-white p-3 rounded-[12px] shadow-md grid grid-cols-1 h-[calc(100dvh-232px)] md:h-[calc(100dvh-274px)]">
+    <div className="bg-white p-3 rounded-[12px] shadow-md grid grid-cols-1 h-[calc(100dvh-232px)] md:h-[calc(100dvh-282px)]">
       {children}
     </div>
   );
